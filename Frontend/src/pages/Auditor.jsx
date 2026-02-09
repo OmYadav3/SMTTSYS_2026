@@ -1,11 +1,16 @@
-import React from 'react'
+import React from "react";
 
 const Auditor = () => {
   return (
     <div>
-      Auditor
-    </div>
-  )
-}
+      <div className="group w-16 hover:w-48 bg-gray-800 p-3">
+  <span className="opacity-0 group-hover:opacity-100">
+    Dashboard
+  </span>
+</div>
 
-export default Auditor
+    </div>
+  );
+};
+
+export default Auditor;
