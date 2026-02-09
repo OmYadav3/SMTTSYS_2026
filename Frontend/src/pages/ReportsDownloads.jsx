@@ -5,9 +5,9 @@ const ReportsDownloads = () => {
     <div className='border'>
 
      <div className='flex items-center gap-4 '>
-        <div className='hover:text-blue-500'>Transaction Reports</div>
-        <div className='hover:text-blue-500'>Summary Reports</div>
-        <div className='hover:text-blue-500'>Downloads</div>
+        <button className='hover:text-blue-500 '>Transaction Reports</button>
+        <button className='hover:text-blue-500 '>Summary Reports</button>
+        <button className='hover:text-blue-500 '>Downloads</button>
      </div>
 
     <div>

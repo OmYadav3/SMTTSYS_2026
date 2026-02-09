@@ -1,28 +1,51 @@
+
+import { NavLink } from "react-router-dom";
 import { sideMenuIcons } from "../icons/sideMenuIcons";
-import { Link } from "react-router-dom";
+
 
 export default function Sidebar() {
+
   return (
-    <div className="Sidebar text-white border flex flex-col items-center justify-between ">
-      <div className="border ">
-        Logo
+    <div className="flex flex-col items-center justify-between h-screen bg-gray-800 text-gray-300">
+      <div className="w-full flex flex-col">
+     {/*Logo */}
+      <div className="py-4 mt-3 w-full">
+        <img src="" alt="logo" srcset="" />
+      </div>
+
+        {/* Menu Items */}
+      <div className=" mt-4 group bg-gray-800 text-gray-300 w-24 hover:w-64 transition-all duration-300 shadow-xl ">
+        <div className="flex flex-col gap-2 p-[20px] justify-center w-full">
+          {sideMenuIcons.map((item) => {
+            const Icon = item.icon;
+            return (
+              <NavLink
+                key={item.path}
+                to={item.path}
+                end={item.path}
+                className={({ isActive }) => ` w-full flex items-center gap-4 p-3 rounded-xl transation-all duration-200
+                ${
+                  isActive
+                    ? "bg-gray-700 text-white"
+                    : "text-gray-400 hover:bg-gray-700 hover:text-white"
+                }`}
+              >
+                <Icon size={30} className="min-w-[30px]" />
+
+                <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
+                  {item.name}
+                </span>
+              </NavLink>
+            );
+          })}
         </div>
-      <ul className="border text-white" >
-      {sideMenuIcons.map((items) => {
-        const Icon = items.icon;
-        return (
-          <Link 
-          key={items.name}
-          to={items.path} 
-          className="flex items-center gap-3 hover:bg-gray-400 w-full text-white ">
-            <div className=" text-white" ><Icon size={35} /></div>
-            <div className=" " >{items.name}</div>
-          </Link>
-        );
-      })}
-      </ul>
-      <div>
-        2026
+      </div>
+      </div>
+   
+
+      {/* Content */}
+      <div className="">
+        <h1 className="font-bold">2026</h1>
       </div>
     </div>
   );
