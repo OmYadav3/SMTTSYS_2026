@@ -3,7 +3,6 @@
 
 @layer base {
   html {
-    font-family: "Urbanist";
     scroll-behavior: smooth;
     @apply bg-black text-gray-300;
   }

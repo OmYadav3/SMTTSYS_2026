@@ -1,7 +1,8 @@
 import React from "react";
 import { FileText, Plus, Trash2, Pencil, Search, FileX } from "lucide-react";
+import { Link } from "react-router-dom";
 
-const Button = ({ color, size, icon, children, onClick }) => {
+const Button = ({ color, size, icon, children, onClick, to }) => {
   const colorsVarient = {
     primary: "bg-blue-500/20 hover:bg-blue-500 text-blue-500 hover:text-white",
     danger: "bg-red-500/30 hover:bg-red-500/90 text-red-500 hover:text-white",
@@ -10,9 +11,9 @@ const Button = ({ color, size, icon, children, onClick }) => {
   };
 
   const sizeVarient = {
-    sm: "text-sm px-14 py-1",
-    md: "text-lg px-16 py-2",
-    lg: "text-xl px-18 py-3",
+    sm: "sm:text-sm sm:px-14 sm:py-1  p-2",
+    md: "sm:text-lg sm:px-16sm:py-2  p-2",
+    lg: "sm:text-xl sm:px-18 sm:py-3  p-2",
   };
 
   const IconVarient = {
@@ -26,20 +27,26 @@ const Button = ({ color, size, icon, children, onClick }) => {
 
   const Icon = IconVarient[icon];
 
+  const classes = `
+    ${colorsVarient[color]}
+    ${sizeVarient[size]}
+    flex items-center justify-center
+    mt-4 font-semibold rounded-md
+    transition duration-300
+    active:scale-95
+  `;
+
+  if (to) {
+    return (
+      <Link to={to} className={classes}>
+        {Icon && <Icon size={20} className="mr-2" />}
+        {children}
+      </Link>
+    );
+  }
+
   return (
-    <button
-      onClick={onClick}
-      className={`
-        ${colorsVarient[color]}
-        ${sizeVarient[size]}
-        flex items-center justify-center
-        mt-4
-        font-semibold rounded-md 
-        transition duration-300
-        active:scale-95  
-        focus:outline-none 
-        `}
-    >
+    <button onClick={onClick} className={classes}>
       {Icon && <Icon size={20} className="mr-2" />}
       {children}
     </button>

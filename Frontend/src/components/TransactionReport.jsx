@@ -133,6 +133,7 @@ const TransactionReport = () => {
           children={"Search Transactions"}
           onClick={handleClick}
           icon={"search"}
+          to="/"
         />
         <Button
           color={"danger"}
@@ -140,6 +141,7 @@ const TransactionReport = () => {
           children={"Generate PDF Report"}
           onClick={handleClick}
           icon={"File"}
+          to="/"
         />
         <Button
           color={"success"}
@@ -147,6 +149,7 @@ const TransactionReport = () => {
           children={"Generate Excel Report"}
           onClick={handleClick}
           icon={"excel"}
+          to="/"
         />
       </div>
     </div>
