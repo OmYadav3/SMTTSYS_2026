@@ -1,5 +1,16 @@
 import React from "react";
-import { FileText, Plus, Trash2, Pencil, Search, FileX } from "lucide-react";
+import {
+  FileText,
+  Plus,
+  Trash2,
+  Pencil,
+  Search,
+  FileX,
+  ArrowDownToLine,
+  OctagonAlert,
+  ChevronDown,
+  ChevronUp,
+} from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Button = ({ color, size, icon, children, onClick, to }) => {
@@ -23,6 +34,10 @@ const Button = ({ color, size, icon, children, onClick, to }) => {
     File: FileText,
     search: Search,
     excel: FileX,
+    download: ArrowDownToLine,
+    count: OctagonAlert,
+    dropdown: ChevronDown,
+    dropup: ChevronUp,
   };
 
   const Icon = IconVarient[icon];
