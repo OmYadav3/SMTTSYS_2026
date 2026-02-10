@@ -13,22 +13,22 @@ const ReportsDownloads = () => {
       {/* Sub Navigation */}
      <div className='flex items-center gap-4 font-bold text-lg p-4 border-b border-gray-500'>
         <NavLink
-        to="/transactions-reports" 
-        end="/transactions-reports" 
+        to="/transactions-filtered-reports" 
+        end="/transactions-filtered-reports" 
         className={({ isActive }) => `hover:underline ${isActive ? "text-gray-400" : "" }`}
         >
         Transaction Reports
         </NavLink>
         <NavLink 
-        to="/summary-reports"
-        end="/summary-reports"
+        to="/summary-filtered-reports"
+        end="/summary-filtered-reports"
         className='hover:text-blue-500'
         >
         Summary Reports
         </NavLink>
         <NavLink 
-        to="/downloads-reports"
-        end="/downloads-reports"
+        to="/downloads-filtered-reports"
+        end="/downloads-filtered-reports"
         className='hover:text-blue-500'
         >
         Downloads Reports</NavLink>
