@@ -4,26 +4,24 @@ import Input from "./ui/Input";
 import { INPUT_FIELD, BUTTON } from "../utils/constant";
 
 const TransactionReport = () => {
-
-
   const handleClick = () => {
     // Logic to generate the report based on selected filters
     alert("Report generated!");
   };
 
   return (
-    <div className="mt-4 border p-4 rounded bg-gray-800 text-gray-200">
+    <div className="mt-4  p-4 rounded bg-gray-800 text-gray-200">
       <div>
         {/* Reproting type */}
-        <div className="flex items-center gap-4 p-4  text-lg border-b border-gray-500">
-          <div className="flex items-center gap-2 justify-center px-2 py-2">
-            <label htmlFor="" className="mr-16">
+        <div className="grid grid-cols-4 items-center gap-4 p-4  text-lg border-b border-gray-500">
+          <div className="flex items-center gap-2 justify-between px-2 py-2 w-full">
+            <label htmlFor="" className="">
               Report Type:{" "}
             </label>
             <select
               name="reports"
               id="report"
-              className="p-2 px-4 bg-gray-800 text-gray-200 text-lg rounded border-2"
+              className="sm:text-sm sm:px-4 p-2 border border-gray-600 bg-gray-800 text-gray-200 text-lg rounded "
             >
               <option value="transaction">
                 Toll Transaction Details Report
@@ -39,22 +37,22 @@ const TransactionReport = () => {
               <option value="transaction">Exemption Details Report</option>
             </select>
           </div>
-          <div className=" flex items-center gap-2 p-2 justify-center px-2 py-2  ">
+          <div className="flex items-center gap-2 p-2 justify-between px-2 py-2 w-full ">
             <label htmlFor="" className="mr-16">
               From Date:{" "}
             </label>
             <input
               type="date"
-              className="border-2 p-2 bg-gray-800 text-gray-200 text-lg rounded"
+              className="sm:text-sm sm:px-4 p-2 border border-gray-600 bg-gray-800 text-gray-200  rounded"
             />
           </div>
-          <div className=" flex items-center gap-2 p-2 justify-center px-2 py-2 ">
+          <div className=" flex items-center gap-2 p-2 justify-between px-2 py-2 w-full">
             <label htmlFor="" className="mr-16">
               To Date:{" "}
             </label>
             <input
               type="date"
-              className=" p-4 bg-gray-800 text-gray-200 text-lg rounded"
+              className="sm:text-sm sm:px-4 p-2 border border-gray-600 bg-gray-800 text-gray-200 text-lg rounded"
             />
           </div>
         </div>
@@ -74,7 +72,7 @@ const TransactionReport = () => {
         </div>
       </div>
 
-        {/* Action Buttons */}
+      {/* Action Buttons */}
       <div className="flex items-center gap-4 justify-center p-4">
         {BUTTON.slice(0, 3).map((button, index) => (
           <Button

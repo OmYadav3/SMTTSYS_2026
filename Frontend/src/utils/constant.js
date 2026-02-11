@@ -131,3 +131,8 @@ export const BUTTON = [
     icon: "delete",
   },
 ];
+export const REPORT_TYPES = [
+  {id: "transaction", name: "Transaction Details Reports", to: "/transaction-reports"},
+  {id: "summary", name: "Summary Reports", to: "/summary-filtered-reports"},
+  {id: "download", name: "Download Reports", to: "/downloads-filtered-reports"},
+];
