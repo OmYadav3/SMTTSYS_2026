@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "./ui/Button";
 import Input from "./ui/Input";
-import { INPUT_FIELD } from "../utils/constant";
+import { INPUT_FIELD, BUTTON } from "../utils/constant";
 
 const TransactionReport = () => {
 
@@ -76,30 +76,17 @@ const TransactionReport = () => {
 
         {/* Action Buttons */}
       <div className="flex items-center gap-4 justify-center p-4">
-        <Button
-          color={"primary"}
-          size={"lg"}
-          children={"Search Transactions"}
-          onClick={handleClick}
-          icon={"search"}
-          to="/"
-        />
-        <Button
-          color={"danger"}
-          size={"lg"}
-          children={"Generate PDF Report"}
-          onClick={handleClick}
-          icon={"File"}
-          to="/"
-        />
-        <Button
-          color={"success"}
-          size={"lg"}
-          children={"Generate Excel Report"}
-          onClick={handleClick}
-          icon={"excel"}
-          to="/"
-        />
+        {BUTTON.slice(0, 3).map((button, index) => (
+          <Button
+            key={index}
+            to={button.to}
+            color={button.color}
+            size={button.size}
+            children={button.children}
+            icon={button.icon}
+            onClick={handleClick}
+          />
+        ))}
       </div>
     </div>
   );
