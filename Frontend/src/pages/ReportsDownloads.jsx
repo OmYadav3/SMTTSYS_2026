@@ -34,8 +34,8 @@ const ReportsDownloads = () => {
         Downloads Reports</NavLink>
      </div>
 
-      {/* Content And Filters*/}
       
+      {/* Content And Filters*/}
     <div>
       <TransactionReport/>
     </div>

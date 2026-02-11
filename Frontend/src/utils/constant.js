@@ -1,0 +1,16 @@
+ export const INPUT_FIELD =[
+    { label: "CCH Txn ID", type: "text", placeholder: "Enter CCH Txn ID", color: "primary", size: "sm"  },
+    { label: "Vehicle Class", type: "text", placeholder: "Enter Vehicle Class", color: "primary", size: "sm" },
+    { label: "Lane ID", type: "text", placeholder: "Enter Lane ID", color: "primary", size: "sm" },
+    { label: "Plate Number", type: "text", placeholder: "Enter Plate Number", color: "primary", size: "sm" },
+    { label: "CCH Txn ID", type: "text", placeholder: "LANE TXN ID", color: "primary", size: "sm" },
+    { label: "Lane Type", type: "text", placeholder: "Enter Lane Type", color: "primary", size: "sm" },
+    { label: "Payment Type", type: "text", placeholder: "Enter Payment Type", color: "primary", size: "sm" },
+    { label: "CCH Sub Type", type: "text", placeholder: "Enter CCH Sub Type", color: "primary", size: "sm" },
+    { label: "P.Mode", type: "text", placeholder: "Enter P.Mode", color: "primary", size: "sm" },
+    { label: "Tag ID", type: "text", placeholder: "Enter Tag ID", color: "primary", size: "sm" },
+    { label: "TC ID", type: "text", placeholder: "Enter TC ID", color: "primary", size: "sm" },
+    { label: "FreeFlow", type: "text", placeholder: "Enter FreeFlow", color: "primary", size: "sm" },
+    { label: "Tag In Hand", type: "text", placeholder: "Enter Tag In Hand", color: "primary", size:"sm" },
+    { label: "Annual Pass", type:"text" , placeholder:"Enter Annual Pass" , color:"primary" , size:"sm"},
+  ]
