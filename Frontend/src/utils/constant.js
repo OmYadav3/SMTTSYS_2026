@@ -136,3 +136,14 @@ export const REPORT_TYPES = [
   {id: "summary", name: "Summary Reports", to: "/summary-filtered-reports"},
   {id: "download", name: "Download Reports", to: "/downloads-filtered-reports"},
 ];
+export const OPTIONS_LIST = [
+  { value: "transaction", label: "Toll Transaction Details Report" },
+  { value: "etc", label: "ETC Bank Transaction Report" },
+  { value: "upi", label: "UPI Transaction Report" },
+  { value: "tc-anpr", label: "TC-ANPR Performance Report" },
+  { value: "transaction-performance", label: "Transaction Performance Report" },
+  { value: "avc-class-accuracy", label: "AVC Class Accuracy Report" },
+  { value: "avc-lanewise-accuracy", label: "AVC Lanewise Accuracy Report" },
+  { value: "exemption-details", label: "Exemption Details Report" },
+];
+
