@@ -1,3 +1,10 @@
+export const USER_API_END_POINT = "http://localhost:8080/api/v1/users";
+export const TRANSACTION_API_END_POINT = "http://localhost:8080/api/v1/transactions";
+export const VEHICLE_API_END_POINT = "http://localhost:8080/api/v1/vehicles";
+
+
+
+
 export const INPUT_FIELD = [
   {
     label: "CCH Txn ID",
@@ -28,7 +35,7 @@ export const INPUT_FIELD = [
     size: "sm",
   },
   {
-    label: "CCH Txn ID",
+    label: "LANE Txn ID",
     type: "text",
     placeholder: "LANE TXN ID",
     color: "primary",
