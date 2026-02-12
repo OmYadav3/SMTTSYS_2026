@@ -8,7 +8,7 @@ const Dropdown = ({
   placeholder = "Select an option",
   size,
 }) => {
-  
+
   const sizeVarient = {
     xs: "sm:text-sm sm:px-4 sm:py-1  p-1",
     sm: "sm:text-sm sm:px-4   p-2",
@@ -22,7 +22,7 @@ const Dropdown = ({
 
   return (
     <>
-      <div className="flex items-center gap-4 p-2 justify-between px-2 py-2 w-full ">
+      <div className="flex items-center gap-4 justify-between ">
         <label htmlFor="" className="font-bold  ">
           {children}
         </label>
