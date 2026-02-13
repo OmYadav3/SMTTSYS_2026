@@ -1,13 +1,12 @@
-import { setAllTransactions } from "../store/services/TransactionsSlice";
+import { setAllTransactions } from "../store/TransactionsSlice.js";
 import { TRANSACTION_API_END_POINT } from "@/utils/constant";
 import axios from "axios";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 
 const useFetchAllTransactions = () => {
     const dispatch = useDispatch();
-    const { setAllTransactions } = useSelector((state) => state.transactions);
 
     useEffect(() => {
 
@@ -27,7 +26,7 @@ const useFetchAllTransactions = () => {
             }
         }
         fetchAllTransactions();
-        }, [dispatch, setAllTransactions]) ;
+        }, [dispatch]) ;
 
 }
 
