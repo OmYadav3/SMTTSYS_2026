@@ -8,7 +8,7 @@ const initialState ={
 const vehiclesSlice = createSlice({
     name: 'vehicles',
     initialState,
-    reducers:{
+    reducers: {
         setAllVehicles: (state, actions) => {
             state.Loading = true
             state.allVehicles = actions.payload;
@@ -16,5 +16,5 @@ const vehiclesSlice = createSlice({
     }
 })
 export const { setAllVehicles } = vehiclesSlice.actions;
-export default vehiclesSlice.reducers;
+export default vehiclesSlice.reducer;
 

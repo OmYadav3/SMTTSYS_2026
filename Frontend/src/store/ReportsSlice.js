@@ -1,4 +1,4 @@
-import { createSlice } from '@reactjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
     allReports : [],
@@ -16,5 +16,5 @@ const reportsSlice = createSlice({
     }
     
 })
-export const { setAllReports } = reportsSlice.reducers;
-export default reportsSlice.reducers;
+export const { setAllReports } = reportsSlice.actions;
+export default reportsSlice.reducer;

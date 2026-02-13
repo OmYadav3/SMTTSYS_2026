@@ -9,12 +9,12 @@ export default function Sidebar() {
       <div className="w-full flex flex-col">
      {/*Logo */}
       <div className="py-4 mt-3 w-full">
-        <img src="" alt="logo" srcset="" />
+        <img src="" alt="logo" srcSet="" />
       </div>
 
         {/* Menu Items */}
       <div className=" mt-4 group bg-gray-800 text-gray-300 w-24 hover:w-64 transition-all duration-300 shadow-xl ">
-        <div className="flex flex-col gap-2 p-[20px] justify-center w-full">
+        <div className="flex flex-col gap-2 p-5 justify-center w-full">
           {sideMenuIcons.map((item) => {
             const Icon = item.icon;
             return (
@@ -29,7 +29,7 @@ export default function Sidebar() {
                     : "text-gray-400 hover:bg-gray-700 hover:text-white"
                 }`}
               >
-                <Icon size={30} className="min-w-[30px]" />
+                <Icon size={30} className="min-w-7.5" />
 
                 <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
                   {item.name}

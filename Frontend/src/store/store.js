@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
-import transactionsReducer from './TransactionsSlice';
-import vehiclesReducer from './VehiclesSlice';
+import transactionsSlice from './TransactionsSlice';
+import vehiclesSlice from './VehiclesSlice';
+import ReportsSlice from './ReportsSlice';
 
 export const store = configureStore({
     reducer: {
-        transactions: transactionsReducer,
-        vehicles: vehiclesReducer,
+        transactions: transactionsSlice,
+        vehicles: vehiclesSlice,
+        reports: ReportsSlice,
     },
 })
