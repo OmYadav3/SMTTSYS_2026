@@ -140,8 +140,8 @@ export const BUTTON = [
   },
 ];
 export const REPORT_TYPES = [
-  {id: "transaction", name: "Transaction Details Reports", to: "/transaction-reports"},
-  {id: "summary", name: "Summary Reports", to: "/summary-filtered-reports"},
+  {id: "transaction", name: "Transaction Details Reports", to: "/reports"},
+  {id: "summary", name: "Summary Reports", to: "/summary-reports"},
   {id: "download", name: "Download Reports", to: "/downloads-filtered-reports"},
 ];
 export const OPTIONS_LIST = [

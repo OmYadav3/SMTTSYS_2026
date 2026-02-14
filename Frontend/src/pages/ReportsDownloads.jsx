@@ -1,7 +1,10 @@
+import { Outlet } from "react-router-dom";
+
 import TransactionReport from "@/components/TransactionReport";
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { REPORT_TYPES } from "../utils/constant";
+import SummaryReport from "@/components/summaryReport";
 
 const ReportsDownloads = () => {
   return (
@@ -12,7 +15,7 @@ const ReportsDownloads = () => {
       </div>
 
       {/* Sub Navigation */}
-      <div className="flex items-center gap-4 font-bold text-lg p-4 ">
+      <div className="flex items-center gap-8 font-bold text-lg p-4 ">
         {REPORT_TYPES.map((report) => (
           <NavLink
             key={report.id}
@@ -20,8 +23,8 @@ const ReportsDownloads = () => {
             end={report.to}
             className={({ isActive }) =>
               isActive
-                ? "text-cyan-500 underline underline-offset-20 "
-                : "text-gray-300 hover:underline hover:underline-offset-20"
+                ? "text-cyan-500 underline underline-offset-20 scale-112 "
+                : "text-gray-300 hover:underline hover:underline-offset-20 hover:scale-112"
             }
           >
             {report.name}
@@ -32,6 +35,7 @@ const ReportsDownloads = () => {
       {/* Content And Filters*/}
       <div>
         <TransactionReport />
+        <SummaryReport />
       </div>
     </div>
   );
