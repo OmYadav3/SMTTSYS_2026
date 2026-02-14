@@ -5,7 +5,7 @@ const Dropdown = ({
   optionList = [],
   value,
   onChange,
-  placeholder = "Select an option",
+  placeholder = "ALL",
   size,
 }) => {
 
@@ -18,11 +18,11 @@ const Dropdown = ({
 
   const classes = ` 
   ${sizeVarient[size]} 
-  sm:text-sm sm:px-4 p-2 border border-gray-600 bg-gray-800 text-gray-200 text-lg rounded mt-2 `;
+    bg-gray-800 text-gray-200 rounded border w-[68%] border-gray-600 `;
 
   return (
     <>
-      <div className="flex items-center gap-4 justify-between ">
+      <div className="flex justify-between items-center gap-2 p-2">
         <label htmlFor="" className="font-bold  ">
           {children}
         </label>

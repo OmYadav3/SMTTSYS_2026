@@ -5,9 +5,7 @@ import TransactionValidation from "./pages/TransactionValidation";
 import Auditor from "./pages/Auditor";
 import VRNValidation from "./pages/VRNValidation";
 import ReportsDownloads from "./pages/ReportsDownloads";
-import transactionsFilteredReports from "./pages/transactions-reports";
-import summaryFilteredReports from "./pages/summary-reports";
-import downloadsFilteredReports from "./pages/downloads-reports";
+import TransactionReports from "@/components/TransactionReport";
 import Layout from "./layout/Layout";
 
 const appRouter = createBrowserRouter([
@@ -36,24 +34,22 @@ const appRouter = createBrowserRouter([
         element: <VRNValidation />,
       },
       {
-        path: "/transaction-reports",
+        path: "reports",
         element: <ReportsDownloads />,
-      },
-      {
-        path: "/transactions-filtered-reports",
-        element: <transactionsFilteredReports/>,
-      },
-      {
-        path: "/summary-filtered-reports",
-        element: <summaryFilteredReports />,
-      },
-      {
-        path: "/downloads-filtered-reports",
-        element: <downloadsFilteredReports />,
-      },
-      {
-        path: "/transaction-reports",
-        element: <ReportsDownloads />,
+        children: [
+          {
+            path: "transactions",
+            element: <TransactionReports />,
+          },
+          {
+            path: "summary",
+            element: <SummaryReports />,
+          },
+          {
+            path: "downloads",
+            element: <DownloadReports />,
+          },
+        ]
       },
     ],
   },

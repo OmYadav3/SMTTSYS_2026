@@ -36,7 +36,7 @@ export const sideMenuIcons = [
     {
         name: "TMS Reports",
         icon: FileCheck,
-        path: '/transaction-reports'
+        path: '/reports'
     },
 
 ]
