@@ -31,7 +31,6 @@ const ReportsDownloads = () => {
 
       {/* Content And Filters*/}
       <div>
-        
         <Outlet />
       </div>
     </div>

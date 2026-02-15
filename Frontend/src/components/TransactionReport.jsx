@@ -1,23 +1,12 @@
 import React from "react";
 import Button from "./ui/Button";
 import Input from "./ui/Input";
-import { INPUT_FIELD, BUTTON, DROPDOWN_FIELD } from "../utils/constant";
+import { INPUT_FIELD, BUTTON, DROPDOWN_FIELD, OPTIONS_LIST } from "../utils/constant";
 import Dropdown from "./ui/Dropdown";
+import DateAndTime from "./ui/DateAndTime";
 
 const TransactionReport = () => {
-  const OPTIONS_LIST = [
-    { value: "transaction", label: "Toll Transaction Details Report" },
-    { value: "etc", label: "ETC Bank Transaction Report" },
-    { value: "upi", label: "UPI Transaction Report" },
-    { value: "tc-anpr", label: "TC-ANPR Performance Report" },
-    {
-      value: "transaction-performance",
-      label: "Transaction Performance Report",
-    },
-    { value: "avc-class-accuracy", label: "AVC Class Accuracy Report" },
-    { value: "avc-lanewise-accuracy", label: "AVC Lanewise Accuracy Report" },
-    { value: "exemption-details", label: "Exemption Details Report" },
-  ];
+
   const handleClick = () => {
     // Logic to generate the report based on selected filters
     alert("Report generated!");
@@ -27,28 +16,17 @@ const TransactionReport = () => {
     <div className="mt-4 p-4 rounded bg-component">
       <div>
         {/* Reproting type */}
-        <div className="grid grid-cols-4 items-center gap-4 p-4  text-lg border-b border-gray-500">
-          <div className="flex items-center gap-2 justify-between px-2 py-2 w-full">
-            <Dropdown children="Report Type:" optionList={OPTIONS_LIST} />
+        <div className="grid grid-cols-4 items-center gap-4 p-4 text-lg border-b border-gray-500">
+          <div className="">
+            <Dropdown 
+            children="Report Type:" 
+            optionList={OPTIONS_LIST}
+            size={'sm'} />
           </div>
-          <div className="flex items-center gap-2 p-2 justify-between px-2 py-2 w-full ">
-            <label htmlFor="" className="mr-16">
-              From Date:
-            </label>
-            <input
-              type="date"
-              className="sm:text-sm sm:px-4 p-2 border border-gray-600 bg-gray-800 text-gray-200  rounded"
-            />
-          </div>
-          <div className=" flex items-center gap-2 p-2 justify-between px-2 py-2 w-full">
-            <label htmlFor="" className="mr-16">
-              To Date:
-            </label>
-            <input
-              type="date"
-              className="sm:text-sm sm:px-4 p-2 border border-gray-600 bg-gray-800 text-gray-200 text-lg rounded"
-            />
-          </div>
+          
+          {/* From Date */}
+          <DateAndTime label={'From Date:'}/>
+          <DateAndTime label={'To Date:'}/>
         </div>
 
         {/* Filtering Table */}

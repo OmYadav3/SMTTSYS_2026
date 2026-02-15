@@ -209,13 +209,13 @@ export const REPORT_TYPES = [
 ];
 
 export const OPTIONS_LIST = [
-  { value: "transaction", label: "Toll Transaction Details Report" },
-  { value: "etc", label: "ETC Bank Transaction Report" },
-  { value: "upi", label: "UPI Transaction Report" },
-  { value: "tc-anpr", label: "TC-ANPR Performance Report" },
-  { value: "transaction-performance", label: "Transaction Performance Report" },
-  { value: "avc-class-accuracy", label: "AVC Class Accuracy Report" },
-  { value: "avc-lanewise-accuracy", label: "AVC Lanewise Accuracy Report" },
-  { value: "exemption-details", label: "Exemption Details Report" },
+  { value: "transaction", label: "Toll Transaction Details Report", size: "sm", color: "primary" },
+  { value: "etc", label: "ETC Bank Transaction Report", size: "sm", color: "primary" },
+  { value: "upi", label: "UPI Transaction Report", size: "sm", color: "primary" },
+  { value: "tc-anpr", label: "TC-ANPR Performance Report", size: "sm", color: "primary" },
+  { value: "transaction-performance", label: "Transaction Performance Report", size: "sm", color: "primary" },
+  { value: "avc-class-accuracy", label: "AVC Class Accuracy Report", size: "sm", color: "primary" },
+  { value: "avc-lanewise-accuracy", label: "AVC Lanewise Accuracy Report", size: "sm", color: "primary" },
+  { value: "exemption-details", label: "Exemption Details Report", size: "sm", color: "primary" },
 ];
 
