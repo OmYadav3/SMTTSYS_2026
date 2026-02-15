@@ -5,7 +5,7 @@ import { REPORT_TYPES } from "../utils/constant";
 
 const ReportsDownloads = () => {
   return (
-    <div className=" bg-gray-900 h-screen p-8">
+    <div className=" bg-color h-screen p-8">
       {/* Header */}
       <div>
         <h1 className="text-2xl font-bold p-4 ">Reports & Downloads</h1>
@@ -20,8 +20,8 @@ const ReportsDownloads = () => {
             end={report.to}
             className={({ isActive }) =>
               isActive
-                ? "text-cyan-500 underline underline-offset-20 scale-112 "
-                : "text-gray-300 hover:underline hover:underline-offset-20 hover:scale-112"
+                ? "text-cyan-500 underline underline-offset-20 scale-112  "
+                : "text-color hover:underline hover:underline-offset-20 hover:scale-112"
             }
           >
             {report.name}

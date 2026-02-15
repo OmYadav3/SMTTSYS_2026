@@ -26,7 +26,7 @@ const Dropdown = ({
   const classes = ` 
   ${colorsVarient[color]}
   ${sizeVarient[size]} 
-    bg-gray-800 text-gray-200 rounded border w-[68%] border-gray-600 `;
+    bg-component rounded border w-[68%] border-gray-600 `;
 
   return (
     <>

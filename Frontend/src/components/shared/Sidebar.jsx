@@ -5,7 +5,7 @@ import { sideMenuIcons } from "../icons/sideMenuIcons";
 export default function Sidebar() {
 
   return (
-    <div className="flex flex-col items-center justify-between h-screen bg-gray-800 text-gray-300">
+    <div className="bg-component flex flex-col items-center justify-between h-screen bg-gray-800 text-gray-300">
       <div className="w-full flex flex-col">
      {/*Logo */}
       <div className="py-4 mt-3 w-full">
@@ -13,7 +13,7 @@ export default function Sidebar() {
       </div>
 
         {/* Menu Items */}
-      <div className=" mt-4 group bg-gray-800 text-gray-300 w-24 hover:w-64 transition-all duration-300 shadow-xl ">
+      <div className="bg-component mt-4 group bg-gray-800 text-gray-300 w-24 hover:w-64 transition-all duration-300 shadow-xl ">
         <div className="flex flex-col gap-2 p-5 justify-center w-full">
           {sideMenuIcons.map((item) => {
             const Icon = item.icon;

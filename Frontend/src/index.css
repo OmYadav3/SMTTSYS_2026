@@ -2,12 +2,30 @@
 @import "tailwindcss";
 
 @layer base {
+  :root {
+    --background-color: #151521;
+    --text-color: #e0e0e0;
+  }
+
   html {
     scroll-behavior: smooth;
-    @apply bg-black text-gray-300;
+  }
+
+  body {
+    background-color: var(--background-color);
+    color: var(--text-color);
   }
 }
 
-* {
-  box-sizing: border-box;
+
+/*** Custom styles for the application
+*/
+.bg-color {
+  background-color: var(--background-color);
+}
+.bg-component {
+  background-color: #1e1e2d;
+}
+.text-color {
+  color: #565674;
 }

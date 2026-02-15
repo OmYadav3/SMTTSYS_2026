@@ -25,7 +25,7 @@ const SummaryReport = () => {
   };
 
   return (
-    <div className="mt-4  p-4 rounded bg-gray-800 text-gray-200">
+    <div className="mt-4  p-4 rounded bg-component">
       <div>
         {/* Reproting type */}
         <div className="grid grid-cols-4 items-center gap-4 p-4  text-lg border-b border-gray-500">
