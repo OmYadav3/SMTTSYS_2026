@@ -5,7 +5,9 @@ import TransactionValidation from "./pages/TransactionValidation";
 import Auditor from "./pages/Auditor";
 import VRNValidation from "./pages/VRNValidation";
 import ReportsDownloads from "./pages/ReportsDownloads";
-import TransactionReports from "@/components/TransactionReport";
+import TransactionReports from "./components/TransactionReport";
+import SummaryReports from "./components/summaryReport";
+import DownloadReports from "./components/DownloadReports";
 import Layout from "./layout/Layout";
 
 const appRouter = createBrowserRouter([

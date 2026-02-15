@@ -1,10 +1,7 @@
 import { Outlet } from "react-router-dom";
-
-import TransactionReport from "@/components/TransactionReport";
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { REPORT_TYPES } from "../utils/constant";
-import SummaryReport from "@/components/summaryReport";
 
 const ReportsDownloads = () => {
   return (
@@ -34,8 +31,8 @@ const ReportsDownloads = () => {
 
       {/* Content And Filters*/}
       <div>
-        <TransactionReport />
-        <SummaryReport />
+        
+        <Outlet />
       </div>
     </div>
   );

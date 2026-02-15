@@ -7,7 +7,14 @@ const Dropdown = ({
   onChange,
   placeholder = "ALL",
   size,
+  color,
 }) => {
+
+    const colorsVarient = {
+    primary: "focus:ring-blue-500 focus:border-blue-500 outline-none ",
+    danger: "focus:ring-red-500 focus:border-red-500 outline-none",
+    success: "focus:ring-green-500 focus:border-green-500 outline-none",
+  };
 
   const sizeVarient = {
     xs: "sm:text-sm sm:px-4 sm:py-1  p-1",
@@ -17,6 +24,7 @@ const Dropdown = ({
   };
 
   const classes = ` 
+  ${colorsVarient[color]}
   ${sizeVarient[size]} 
     bg-gray-800 text-gray-200 rounded border w-[68%] border-gray-600 `;
 

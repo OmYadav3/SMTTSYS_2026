@@ -2,7 +2,7 @@
 import React from "react";
 import Button from "./ui/Button";
 import Input from "./ui/Input";
-import { BUTTON } from "../utils/constant";
+import { BUTTON, DROPDOWN_FIELD, INPUT_FIELD } from "../utils/constant";
 import Dropdown from "./ui/Dropdown";
 
 const SummaryReport = () => {
@@ -54,91 +54,28 @@ const SummaryReport = () => {
 
         {/* Filtering Table */}
         <div className="mt-4 grid grid-cols-4 gap-4 border-b pb-4 border-gray-500">
-          <Input
-            type="text"
-            size="sm"
-            color="gray-600"
-            placeholder="Enter CCH Txn ID"
-            label="CCH Txn ID:"
-          />
-          <Dropdown
-            children="Vehicle Class:"
-            size="sm"
-            optionList={[
-              { value: "V1", label: "V1" },
-              { value: "V2", label: "V2" },
-              { value: "V3", label: "V3" },
-            ]}
-          />
-          <Dropdown
-            children="Lane ID:"
-            size="sm"
-            optionList={[
-              { value: "lane1", label: " lane 1" },
-              { value: "lane2", label: " lane 2" },
-              { value: "lane3", label: " lane 3" },
-            ]}
-          />
-          <Input
-            type="text"
-            size="sm"
-            color="gray-600"
-            placeholder="Vehicle Registration Number"
-            label="Plate Number:"
-          />
-          <Input
-            type="text"
-            size="sm"
-            color="gray-600"
-            placeholder="Enter Lane Txn ID"
-            label="Lane Txn ID:"
-          />
-          <Dropdown
-            children="Lane Type:"
-            size="sm"
-            optionList={[
-              { value: "lane1", label: " EN LHS" },
-              { value: "lane3", label: " EN RHS" },
-              { value: "lane2", label: " EX LHS" },
-              { value: "lane4", label: " EX RHS" },
-            ]}
-          />
-          <Dropdown
-            children="Payment Type:"
-            size="sm"
-            optionList={[
-              { value: "FastTag", label: "FastTag" },
-              { value: "Cash", label: "Cash" },
-              { value: "UPI", label: "UPI" },
-            ]}
-          />
-         
-          <Input
-            type="text"
-            size="sm"
-            color="gray-600"
-            placeholder="Enter Tag ID"
-            label="TAG ID:"
-          />
-          <Dropdown
-            children="TC ID:"
-            size="sm"
-            optionList={[
-              { value: "FastTag", label: "FastTag" },
-              { value: "Cash", label: "Cash" },
-              { value: "UPI", label: "UPI" },
-            ]}
-          />
-         
-          <Dropdown
-            children="Annual Pass:"
-            size="sm"
-            optionList={[
-              { value: "FastTag", label: "FastTag" },
-              { value: "Cash", label: "Cash" },
-              { value: "UPI", label: "UPI" },
-            ]}
-          />
+           {
+            INPUT_FIELD.slice(1, 4).map((input, index) => (
+              <Input
+                key={index}
+                type={input.type}
+                size={input.size}
+                color={input.color}
+                placeholder={input.placeholder}
+                label={input.label}
+              />
+            ))
+          }
+         { /* DROPDOWN  */}
+         {DROPDOWN_FIELD.slice(0, 5).map((dropdown, index) => (
+            <Dropdown
+              key={index}
+              children={dropdown.label}
+              size={dropdown.size}
+              optionList={dropdown.optionList}
+            />
+          ))} 
+          
         </div>
       </div>
 
