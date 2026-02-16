@@ -1,6 +1,6 @@
 import React from "react";
 
-const Input = ({ type, placeholder, value, onChange, label, color, size, error }) => {
+const Input = ({ type, placeholder, value, onChange, label, color, size, error, onClick }) => {
   const colorsVarient = {
     primary: "focus:ring-blue-500 focus:border-blue-500 outline-none",
     danger: "focus:ring-red-500 focus:border-red-500 outline-none",
@@ -32,6 +32,7 @@ const Input = ({ type, placeholder, value, onChange, label, color, size, error }
           placeholder={placeholder}
           value={value}
           onChange={onChange}
+          onClick={onClick}
           className={classes}
         />
       </div>

@@ -19,9 +19,11 @@ const Button = ({ color, size, icon, children, onClick, to }) => {
     danger: "bg-red-500/30 hover:bg-red-500/90 text-red-500 hover:text-white",
     success:
       "bg-green-500/30 hover:bg-green-300/80 text-lime-500 hover:text-white",
+    dark: " hover:bg-color border text-gray-500 hover:text-white ",  
   };
 
   const sizeVarient = {
+    xs: "text-sm px-3 py-1 p-1",
     sm: "sm:text-sm sm:px-14 sm:py-1  p-2",
     md: "sm:text-lg sm:px-16sm:py-2  p-2",
     lg: "sm:text-xl sm:px-18 sm:py-3  p-2",
