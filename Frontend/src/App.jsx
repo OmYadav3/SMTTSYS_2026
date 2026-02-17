@@ -40,7 +40,7 @@ const appRouter = createBrowserRouter([
         element: <ReportsDownloads />,
         children: [
           {
-            path: "transactions",
+            path: "",
             element: <TransactionReports />,
           },
           {

@@ -173,25 +173,25 @@ export const BUTTON = [
     id: "search",
     children: "Search Transactions",
     color: "primary",
-    size: "md",
+    size: "sm",
     icon: "search",
     to: "/transactions",
   },
   {
-    id: "excel",
-    children: "Generate Excel Report",
-    color: "danger",
-    size: "md",
-    icon: "excel",
-    to: "/excel-report",
-  },
-  {
     id: "pdf",
     children: "Generate PDF Report",
-    color: "success",
-    size: "md",
+    color: "danger",
+    size: "sm",
     icon: "File",
     to: "/pdf-report",
+  },
+  {
+    id: "excel",
+    children: "Generate Excel Report",
+    color: "success",
+    size: "sm",
+    icon: "excel",
+    to: "/excel-report",
   },
   {
     id: "reset",
@@ -203,7 +203,7 @@ export const BUTTON = [
 ];
 
 export const REPORT_TYPES = [
-  {id: "transaction", name: "Transaction Details Reports", to: "transactions"},
+  {id: "transaction", name: "Transaction Details Reports", to: ""},
   {id: "summary", name: "Summary Reports", to: "summary"},
   {id: "download", name: "Download Reports", to: "downloads"},
 ];
