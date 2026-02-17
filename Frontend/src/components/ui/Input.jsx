@@ -26,7 +26,7 @@ const Input = ({ type, placeholder, value, onChange, label, color, size, error, 
   return (
     <>
       <div className=" flex justify-between items-center gap-2 p-2">
-        <label className="font-medium">{label}</label>
+        <label className="font-bold text-amber-50/60">{label}</label>
         <input
           type={type}
           placeholder={placeholder}

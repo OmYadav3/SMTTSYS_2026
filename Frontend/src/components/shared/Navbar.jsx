@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Navbar = () => {
+const Navbar = ({children}) => {
   return (
-    <div className='border p-6'>
-      Navbar
+    <div className='bg-component p-8 font-bold text pl-18'>
+      {children}
     </div>
   )
 }

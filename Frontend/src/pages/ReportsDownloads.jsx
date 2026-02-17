@@ -5,14 +5,14 @@ import { REPORT_TYPES } from "../utils/constant";
 
 const ReportsDownloads = () => {
   return (
-    <div className=" bg-color h-screen p-8">
+    <div className="flex flex-col items-start bg-color h-screen py-4 px-6 ">
       {/* Header */}
-      <div>
-        <h1 className="text-2xl font-bold p-4 ">Reports & Downloads</h1>
-      </div>
+      
+        <h1 className="text-lg font-bold py-4 ">Reports & Downloads</h1>
+     
 
       {/* Sub Navigation */}
-      <div className="flex items-center gap-8 font-bold text-lg p-4 ">
+      <div className="flex items-center gap-8 font-semibold text-md p-4 w-full">
         {REPORT_TYPES.map((report) => (
           <NavLink
             key={report.id}
@@ -30,7 +30,7 @@ const ReportsDownloads = () => {
       </div>
 
       {/* Content And Filters*/}
-      <div>
+      <div className="w-full"> 
         <Outlet />
       </div>
     </div>

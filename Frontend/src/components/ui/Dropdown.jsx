@@ -31,7 +31,7 @@ const Dropdown = ({
   return (
     <>
       <div className="flex justify-between items-center gap-2 p-2">
-        <label htmlFor="" className="font-bold  ">
+        <label htmlFor="" className="font-bold text-amber-50/60 ">
           {children}
         </label>
         <select

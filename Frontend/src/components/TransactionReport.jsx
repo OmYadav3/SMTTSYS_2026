@@ -13,10 +13,10 @@ const TransactionReport = () => {
   };
 
   return (
-    <div className="mt-4 p-4 rounded bg-component">
+    <div className="mt-4 p-4 rounded bg-component border border-gray-700 w-full ">
       <div>
         {/* Reproting type */}
-        <div className="grid grid-cols-4 items-center gap-4 p-4 text-lg border-b border-gray-500">
+        <div className="grid grid-cols-4 items-center gap-4 p-2 text border-b border-gray-500">
           <div className="">
             <Dropdown 
             children="Report Type:" 
@@ -30,7 +30,7 @@ const TransactionReport = () => {
         </div>
 
         {/* Filtering Table */}
-        <div className="mt-4 grid grid-cols-4 gap-4 border-b pb-4 border-gray-500">
+        <div className="mt-4 grid grid-cols-4 gap-2 border-b pb-4 border-gray-500">
           {
             INPUT_FIELD.map((input, index) => (
               <Input
@@ -40,6 +40,7 @@ const TransactionReport = () => {
                 color={input.color}
                 placeholder={input.placeholder}
                 label={input.label}
+                
               />
             ))
           }

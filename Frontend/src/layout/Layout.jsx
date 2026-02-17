@@ -16,7 +16,7 @@ const Layout = () => {
       <div className="flex flex-col flex-1">
 
         {/* Top Navbar */}
-        <Navbar />
+        <Navbar children={'320102-Rashoolpur Sikrod Plaza DME KM 3134'} />
 
         {/* Page Content */}
         <main className=" h-full ">

@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { sideMenuIcons } from "../icons/sideMenuIcons";
 
 
@@ -8,13 +8,18 @@ export default function Sidebar() {
     <div className="bg-component flex flex-col items-center justify-between h-screen bg-gray-800 text-gray-300">
       <div className="w-full flex flex-col">
      {/*Logo */}
-      <div className="py-4 mt-3 w-full">
-        <img src="" alt="logo" srcSet="" />
-      </div>
+      <Link className="p-4 mt-2 ">
+        <img 
+        src="logo.jpg"
+        className="w-10 h-6 "   
+        alt="logo"
+        to="/"  
+         />
+      </Link>
 
         {/* Menu Items */}
-      <div className="bg-component mt-4 group bg-gray-800 text-gray-300 w-24 hover:w-64 transition-all duration-300 shadow-xl ">
-        <div className="flex flex-col gap-2 p-5 justify-center w-full">
+      <div className="bg-component mt-4 group bg-gray-800 text-gray-300 w-19 hover:w-64 transition-all duration-300 shadow-xl ">
+        <div className="flex flex-col gap-2 p-4 justify-center w-full">
           {sideMenuIcons.map((item) => {
             const Icon = item.icon;
             return (
@@ -22,14 +27,14 @@ export default function Sidebar() {
                 key={item.path}
                 to={item.path}
                 end={item.path}
-                className={({ isActive }) => ` w-full flex items-center gap-4 p-3 rounded-xl transation-all duration-200
+                className={({ isActive }) => `w-full flex items-center gap-4 p-2 rounded-xl transation-all duration-200
                 ${
                   isActive
                     ? "bg-gray-700 text-white"
                     : "text-gray-400 hover:bg-gray-700 hover:text-white"
                 }`}
               >
-                <Icon size={30} className="min-w-7.5" />
+                <Icon size={23} className="min-w-7.5" />
 
                 <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
                   {item.name}

@@ -5,12 +5,13 @@ import {
   ClipboardList,
   ShieldCheck,
   CircleCheckBig,
+  House 
 } from "lucide-react";
 
 export const sideMenuIcons = [
     {
         name: "Dashboard",
-        icon: LayoutDashboard,
+        icon: House ,
         path: '/'
     },
     {
