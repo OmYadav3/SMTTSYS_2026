@@ -4,7 +4,8 @@ import Button from "./ui/Button";
 import Input from "./ui/Input";
 import { BUTTON, DROPDOWN_FIELD, INPUT_FIELD } from "../utils/constant";
 import Dropdown from "./ui/Dropdown";
-import DateAndTime from "./ui/DateAndTime";
+
+import Calender from "./ui/Calender";
 
 const SummaryReport = () => {
   const OPTIONS_LIST = [
@@ -26,7 +27,7 @@ const SummaryReport = () => {
   };
 
   return (
-    <div className="mt-4  p-4 rounded bg-component text-amber-50/60">
+    <div className="mt-4  p-4 rounded bg-component text-amber-50/60 border border-gray-700">
       <div>
         {/* Reproting type */}
         <div className="grid grid-cols-4 items-center gap-4 p-2 text border-b border-gray-500">
@@ -38,8 +39,8 @@ const SummaryReport = () => {
           </div>
           
           {/* From Date */}
-          <DateAndTime label={'From Date:'}/>
-          <DateAndTime label={'To Date:'}/>
+          <Calender label={'From Date:'}/>
+          <Calender label={'To Date:'}/>
         </div>
 
         {/* Filtering Table */}

@@ -3,7 +3,7 @@ import Button from "./ui/Button";
 import Input from "./ui/Input";
 import { INPUT_FIELD, BUTTON, DROPDOWN_FIELD, OPTIONS_LIST } from "../utils/constant";
 import Dropdown from "./ui/Dropdown";
-import DateAndTime from "./ui/DateAndTime";
+import Calender from "./ui/Calender";
 
 const TransactionReport = () => {
 
@@ -25,8 +25,8 @@ const TransactionReport = () => {
           </div>
           
           {/* From Date */}
-          <DateAndTime label={'From Date:'}/>
-          <DateAndTime label={'To Date:'}/>
+          <Calender label={'From Date:'}/>
+          <Calender label={'To Date:'}/>
         </div>
 
         {/* Filtering Table */}
