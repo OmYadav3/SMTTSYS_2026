@@ -13,7 +13,7 @@ const TransactionReport = () => {
   };
 
   return (
-    <div className="mt-4 p-4 rounded bg-component border border-gray-700 w-full ">
+    <div className="mt-4 p-4 rounded bg-component border-2 border-gray-700 w-full ">
       <div>
         {/* Reproting type */}
         <div className="grid grid-cols-4 items-center gap-4 p-2 text border-b border-gray-500">
@@ -30,7 +30,7 @@ const TransactionReport = () => {
         </div>
 
         {/* Filtering Table */}
-        <div className="mt-4 grid grid-cols-4 gap-2 border-b pb-4 border-gray-500">
+        <div className="mt-4 grid grid-cols-4 gap-2 border-b pb-4 font-bold ">
           {
             INPUT_FIELD.map((input, index) => (
               <Input

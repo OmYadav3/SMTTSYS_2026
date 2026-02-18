@@ -26,12 +26,12 @@ const Dropdown = ({
   const classes = ` 
   ${colorsVarient[color]}
   ${sizeVarient[size]} 
-    bg-component rounded border w-[68%] border-gray-600 `;
+    bg-component rounded border-2 w-[68%] border-gray-600  `;
 
   return (
     <>
-      <div className="flex justify-between items-center gap-2 p-2">
-        <label htmlFor="" className="font-bold text-amber-50/60 ">
+      <div className="flex justify-between items-center gap-2 p-2 font-bold">
+        <label htmlFor="" className="font-bolder text-color">
           {children}
         </label>
         <select

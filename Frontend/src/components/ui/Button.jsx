@@ -16,10 +16,10 @@ import { Link } from "react-router-dom";
 const Button = ({ color, size, icon, children, onClick, to }) => {
   const colorsVarient = {
     primary: "bg-blue-500/20 hover:bg-blue-500 text-blue-500 hover:text-white",
-    danger: "bg-red-500/10 hover:bg-red-500/90 text-red-500/80 hover:text-white",
+    danger: "bg-red-500/10 hover:bg-red-500/90 text-red-500/80 hover:text-white border-2 border-red-500",
     success:
-      "bg-green-500/30 hover:bg-green-300/80 text-lime-500 hover:text-white",
-    dark: " hover:bg-color border text-gray-500 hover:text-white ",  
+      "bg-green-700/30 hover:bg-green-800/80 text-green-800 hover:text-white border-2 border-green-800",
+    dark: "border-2 bg-border-dr hover:text-color-lg bg-component-dark ",  
   };
 
   const sizeVarient = {

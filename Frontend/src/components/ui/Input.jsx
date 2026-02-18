@@ -21,12 +21,12 @@ const Input = ({ type, placeholder, value, onChange, label, color, size, error, 
   ${colorsVarient[colorKey]} 
   ${sizeVarient[size]} 
   
-  bg-component rounded border w-[68%] border-gray-600`;
+  bg-component rounded border-2 w-[68%] text-color font-bold`;
 
   return (
     <>
-      <div className=" flex justify-between items-center gap-2 p-2">
-        <label className="font-bold text-amber-50/60">{label}</label>
+      <div className=" flex justify-between items-center gap-2 p-2 font-bold">
+        <label className="font-bolder text-color ">{label}</label>
         <input
           type={type}
           placeholder={placeholder}

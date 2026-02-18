@@ -12,7 +12,7 @@ const ReportsDownloads = () => {
      
 
       {/* Sub Navigation */}
-      <div className="flex items-center gap-8 text-md p-4 w-full">
+      <div className="flex items-center gap-8 text-md p-4 w-full font-bold">
         {REPORT_TYPES.map((report) => (
           <NavLink
             key={report.id}
@@ -20,7 +20,7 @@ const ReportsDownloads = () => {
             end={report.to}
             className={({ isActive }) =>
               isActive
-                ? "text-blue-500 underline underline-offset-20 scale-112  "
+                ? "text-color-lg bg-component-dr underline underline-offset-20 scale-112 px-4 py-3 rounded-md "
                 : "text-color hover:underline hover:underline-offset-20 hover:scale-112"
             }
           >

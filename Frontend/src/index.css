@@ -5,8 +5,8 @@
 
 @layer base {
   :root {
-    --background-color: #151521;
-    --text-color: #e0e0e0;
+    --background-color: #B2B49C;
+    --text-color: #3B3C36;
   }
 
   html {
@@ -27,8 +27,24 @@
   background-color: var(--background-color);
 }
 .bg-component {
-  background-color: #1e1e2d;
+  background-color: #B2B49C;
+}
+
+.bg-component-dr {
+  background-color: #3B3C36;
+}
+.bg-component-dark:hover {
+  background-color: #3B3C36;
+  color: #B2B49C;
+}
+
+
+.bg-border-dr {
+  border-color: #3B3C36;
 }
 .text-color {
-  color: #565674;
+  color: #3B3C36;
+}
+.text-color-lg {
+  color: #B2B49C;
 }
