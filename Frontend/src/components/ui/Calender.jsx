@@ -1,102 +1,177 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import Input from "./Input";
 
-const weekDays = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-const Calendar = () => {
+export default function Calender({ label }) {
   const [currentDate, setCurrentDate] = useState(new Date());
-  
+  const [isOpen, setIsOpen] = useState(false);
+
+  const [pickedDate, setPickedDate] = useState(null);
+  const [pickedTime, setPickedTime] = useState("");
+
+  const [finalValue, setFinalValue] = useState("");
 
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();
 
-  // how many days in month
   const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-  // start day index (0 = Sun)
   const startDay = new Date(year, month, 1).getDay();
-
-  // previous month days
   const prevMonthDays = new Date(year, month, 0).getDate();
 
-  // build grid
   const dates = [];
 
-  // prev month filler
   for (let i = startDay - 1; i >= 0; i--) {
     dates.push({ day: prevMonthDays - i, muted: true });
   }
 
-  // current month
   for (let i = 1; i <= daysInMonth; i++) {
     dates.push({ day: i, muted: false });
   }
 
-  // next month filler to complete grid
   while (dates.length % 7 !== 0) {
-    dates.push({ day: dates.length % 7 + 1, muted: true });
+    dates.push({ day: (dates.length % 7) + 1, muted: true });
   }
 
-  const prevMonth = () =>
-    setCurrentDate(new Date(year, month - 1, 1));
+  const prevMonth = () => setCurrentDate(new Date(year, month - 1, 1));
+  const nextMonth = () => setCurrentDate(new Date(year, month + 1, 1));
 
-  const nextMonth = () =>
-    setCurrentDate(new Date(year, month + 1, 1));
+  const monthName = currentDate.toLocaleString("default", { month: "long" });
 
-  const monthName = currentDate.toLocaleString("default", {
-    month: "long",
-  });
+  // ✅ select date
+  const selectDate = (day, muted) => {
+    if (muted) return;
+    setPickedDate(new Date(year, month, day));
+  };
 
-  const today = new Date();
+  // ✅ OK button
+  const handleOK = () => {
+    if (!pickedDate || !pickedTime) return;
+
+    const [h, m] = pickedTime.split(":");
+    const d = new Date(pickedDate);
+    d.setHours(h);
+    d.setMinutes(m);
+    setFinalValue(d.toLocaleString());
+    setIsOpen(false);
+  };
+
+  // ✅ NOW button
+  const handleNow = () => {
+    const now = new Date();
+    setPickedDate(now);
+    setPickedTime(now.toTimeString().slice(0, 9));
+    setFinalValue(now.toLocaleString());
+    setIsOpen(false);
+  };
+
+  const ref = useRef();
+
+  useEffect(() => {
+    const handler = (e) => {
+      if (ref.current && !ref.current.contains(e.target)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
 
   return (
-    <div className="w-90  rounded-xl">
+    <div className=" p-4 rounded-xl space-y-3 relative " ref={ref}>
+      {/* TOP FIELD — FINAL VALUE */}
+      <Input
+        label={label}
+        type=""
+        size="sm"
+        color="primary"
+        placeholder="Select Date and Time"
+        onClick={() => setIsOpen(true)}
+        className="w-full"
+        value={finalValue}
+        readOnly
+      />
+      {isOpen === true ? (
+        <div className="w-70 border border-gray-600 absolute bg-component left-28 p-3 py-5 pb-0 rounded-md shadow-xl z-50">
+          {/* YOUR TWO INPUTS */}
+          <div className="grid grid-cols-2 gap-3 border-b border-gray-400 pb-4">
+            <input
+              className="p-2 rounded border border-gray-600 "
+              placeholder="Select Date"
+              value={pickedDate ? pickedDate.toLocaleDateString() : ""}
+              readOnly
+            />
 
-      {/* Header */}
-      <div className="flex items-center justify-between mb-6">
-        <button onClick={prevMonth} className="text-2xl text-gray-400 hover:text-white">
-          &lsaquo;
-        </button>
+            <input
+              type="time"
+              className="p-2 rounded border border-gray-600"
+              value={pickedTime}
+              onChange={(e) => setPickedTime(e.target.value)}
+            />
+          </div>
 
-        <div className="font-semibold text-xl">
-          {monthName} {year}
-        </div>
-
-        <button onClick={nextMonth} className="text-2xl text-gray-400 hover:text-white">
-          &rsaquo;
-        </button>
-      </div>
-
-      {/* Weekdays */}
-      <div className="grid grid-cols-7 text-center text-sm text-gray-400 mb-2">
-        {weekDays.map((d) => (
-          <div key={d}>{d}</div>
-        ))}
-      </div>
-
-      {/* Dates */}
-      <div className="grid grid-cols-7 gap-2 text-center text-sm">
-        {dates.map((d, i) => {
-          const isToday =
-            d.day === today.getDate() &&
-            month === today.getMonth() &&
-            year === today.getFullYear();
-
-          return (
-            <div
-              key={i}
-              className={`
-                py-2 rounded cursor-pointer
-                ${d.muted ? "text-gray-500" : "hover:bg-slate-700"}
-                ${isToday ? "bg-blue-600 text-white font-semibold" : ""}
-              `}
-            >
-              {d.day}
+          {/* CALENDAR */}
+          <div className=" p-4 rounded-xl ">
+            <div className="flex justify-between mb-4">
+              <button onClick={prevMonth}>‹</button>
+              <div className="font-semibold text-lg ">
+                {monthName} {year}
+              </div>
+              <button onClick={nextMonth}>›</button>
             </div>
-          );
-        })}
-      </div>
+
+            <div className="grid grid-cols-7 text-xs text-gray-400 mb-2">
+              {weekDays.map((d) => (
+                <div key={d}>{d}</div>
+              ))}
+            </div>
+
+            <div className="grid grid-cols-7 gap-1 text-sm">
+              {dates.map((d, i) => {
+                const selected =
+                  pickedDate &&
+                  d.day === pickedDate.getDate() &&
+                  month === pickedDate.getMonth() &&
+                  year === pickedDate.getFullYear();
+
+                return (
+                  <div
+                    key={i}
+                    onClick={() => selectDate(d.day, d.muted)}
+                    className={`
+                  py-2 rounded cursor-pointer text-center
+                  ${d.muted && "text-gray-600"}
+                  ${selected && "bg-blue-600"}
+                  hover:bg-slate-700
+                `}
+                  >
+                    {d.day}
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* BUTTONS */}
+            <div className="flex justify-end gap-2 mt-4 border-t border-gray-400 pt-3 ">
+              <button
+                onClick={handleNow}
+                className="px-3 py-1 bg-slate-700 rounded"
+              >
+                Now
+              </button>
+
+              <button
+                onClick={handleOK}
+                className="px-3 py-1 bg-blue-600 rounded"
+              >
+                OK
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
-};
-
-export default Calendar;
+}
