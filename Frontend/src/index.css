@@ -4,47 +4,177 @@
 @import "tailwindcss";
 
 @layer base {
-  :root {
-    --background-color: #B2B49C;
-    --text-color: #3B3C36;
+  [data-theme='sageAndOlive']{
+    --bg: #B2B49C;
+    --text:#3B3C36;
+    --border: #3B3C36;
+    --hover-bg: #3B3C36;
+    --hover-text: #B2B49C;
+
   }
+
+  [data-theme="blueWhale"] {
+    --bg: #C2CBD3;
+    --text: #313851;
+    --border: #313851;
+    --hover-bg: #313851;
+    --hover-text: #C2CBD3;
+  }
+
+  [data-theme="peachFizz"] {
+    --bg: #FFEAD7;
+    --text: #3E4260;
+    --border: #3E4260;
+    --hover-bg: #3E4260;
+    --hover-text: #FFEAD7;
+  }
+
+  [data-theme="whiteBeige"] {
+    --bg: #F2EEE3;
+    --text: #6B495A;
+    --border: #6B495A;
+    --hover-bg: #6B495A;
+    --hover-text: #F2EEE3;
+  }
+ 
 
   html {
     scroll-behavior: smooth;
     font-family: sans-serif;
   }
-
-  body {
-    background-color: var(--background-color);
-    color: var(--text-color);
-  }
 }
 
 
-/*** Custom styles for the application
-*/
-.bg-color {
-  background-color: var(--background-color);
-}
-.bg-component {
-  background-color: #B2B49C;
-}
+/* REAUSABLE UTILITIES */
 
-.bg-component-dr {
-  background-color: #3B3C36;
-}
-.bg-component-dark:hover {
-  background-color: #3B3C36;
-  color: #B2B49C;
+.bg-theme { background: var(--bg); }
+.text-theme { color: var(--text); }
+.border-theme { border-color: var(--border); }
+
+
+
+.btn-theme {
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border)
 }
 
 
-.bg-border-dr {
-  border-color: #3B3C36;
+.btn-theme:hover {
+  background: var(--hover-bg);
+  color: var(--hover-text);
 }
-.text-color {
-  color: #3B3C36;
+
+
+
+/* OPTIONAL VARIANT */
+
+/* ⭐ BUTTON THEME  */
+.btn-danger {
+  background: #ef44441a;
+  color: #ef4444;
+  border: 1px solid #ef4444;
 }
-.text-color-lg {
-  color: #B2B49C;
+.btn-danger:hover {
+  background: #ef4444;
+  color: white;
+}
+
+.btn-success {
+  background: #16a34a1a;
+  color: #16a34a;
+  border: 1px solid #16a34a;
+}
+.btn-success:hover {
+  background: #16a34a;
+  color: white;
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+.btn-outline:hover {
+  background: var(--hover-bg);
+  color: var(--hover-text);
+}
+
+
+
+/* ⭐ INPUT THEME */
+.input-theme {
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.input-theme::placeholder {
+  color: var(--text);
+  opacity: .6;
+}
+
+.input-theme:focus {
+  outline: none;
+  border: 1px solid var(--hover-bg);
+}
+
+/* optional states */
+.input-danger {
+  background: var(--bg);
+  color: #ef4444;
+  border: 1px solid #ef4444;
+}
+
+.input-success {
+  background: var(--bg);
+  color: #16a34a;
+  border: 1px solid #16a34a;
+}
+
+
+/* ⭐ DROPDOWN THEME */
+.select-theme {
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.select-theme:focus {
+  outline: none;
+  border: 1px solid var(--hover-bg);
+}
+
+
+
+/* ⭐ CARD THEME */
+.card-theme {
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+
+
+.select-theme {
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.select-theme:focus {
+  outline: none;
+  border: 1px solid var(--hover-bg);
+}
+
+.select-theme option {
+  background: var(--bg);
+  color: var(--text);
+}
+
+
+
+/* ⭐ TRANSITION */
+.theme-transition {
+  transition: background .25s ease, color .25s ease, border .25s ease;
 }

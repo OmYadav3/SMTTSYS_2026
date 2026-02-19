@@ -3,66 +3,35 @@
 ## FRONTEND FOLDER STRUCTURE 
 
 ```
-
 src/
 │
-├── app/                     # app bootstrap
+├── app/                  ⭐ application core
 │   ├── router.jsx
-│   └── providers.jsx
+│   ├── App.jsx
+│   ├── store.js
+│   ├── providers.jsx
+│   └── theme.js
 │
-├── layouts/                 # layout shells
-│   ├── DashboardLayout.jsx
-│   └── AuthLayout.jsx
+├── layouts/              ⭐ layout wrappers
+│   └── DashboardLayout.jsx
 │
-├── pages/                   # route-level pages
-│   ├── Dashboard.jsx
-│   ├── ReportsDownloads.jsx
-│   └── Auditor.jsx
+├── features/             ⭐ business features (IMPORTANT)
+│   ├── dashboard/
+│   ├── reports/
+│   ├── lanes/
+│   ├── transactions/
+│   ├── auditor/
+│   └── validation/
 │
-├── features/                # business features
-│   └── reports/
-│       ├── components/
-│       │   ├── ReportFilters.jsx
-│       │   ├── TransactionReport.jsx
-│       │   └── ReportTable.jsx
-│       │
-│       ├── hooks/
-│       │   └── useReportFilters.js
-│       │
-│       ├── services/
-│       │   └── report.api.js
-│       │
-│       └── constants.js
+├── components/           ⭐ reusable UI
+│   ├── Button.jsx
+│   ├── Input.jsx
+│   └── Dropdown.jsx
 │
-├── components/
-│   └── ui/                  # reusable UI primitives
-│       ├── Button.jsx
-│       ├── Input.jsx
-│       ├── Dropdown.jsx
-│       ├── Calendar.jsx
-│       ├── Modal.jsx
-│       └── Card.jsx
-│
-├── hooks/                   # global reusable hooks
-│   ├── useTheme.js
-│   └── useClickOutside.js
-│
-├── utils/                   # helpers
-│   ├── formatDate.js
-│   └── cn.js
-│
-├── constants/               # global constants
-│   ├── routes.js
-│   └── config.js
-│
-├── styles/                  # styling system
-│   ├── globals.css
-│   ├── themes.css
-│   └── tailwind.css
-│
-├── assets/
-│   ├── icons/
-│   └── images/
-│
+├── services/             ⭐ API layer
+├── hooks/                ⭐ reusable hooks
+├── utils/                ⭐ constants/helpers
+├── styles/
 └── main.jsx
+
 ```

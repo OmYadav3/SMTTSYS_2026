@@ -1,42 +1,54 @@
 import React from "react";
 
-const Input = ({ type, placeholder, value, onChange, label, color, size, error, onClick }) => {
-  const colorsVarient = {
-    primary: "focus:ring-blue-500 focus:border-blue-500 outline-none",
-    danger: "focus:ring-red-500 focus:border-red-500 outline-none",
-    success: "focus:ring-green-500 focus:border-green-500 outline-none",
+const Input = ({
+  type = "text",
+  placeholder,
+  value,
+  onChange,
+  label,
+  color = "primary",
+  size = "sm",
+  error,
+  onClick,
+}) => {
+
+  /* ⭐ SIZE VARIANTS */
+  const sizeVarient = {
+    xs: "text-xs px-2 py-1",
+    sm: "text-sm px-3 py-2",
+    md: "text-md px-4 py-2",
+    lg: "text-lg px-5 py-3",
   };
-  
+
+  /* ⭐ COLOR VARIANTS */
+  const colorVariant = {
+    primary: "input-theme",
+    danger: "input-danger",
+    success: "input-success",
+  };
+
   const colorKey = error ? "danger" : color;
 
-  const sizeVarient = {
-    xs: "sm:text-sm sm:px-4 sm:py-1  p-1",
-    sm: "sm:text-sm sm:px-4   p-2",
-    md: "sm:text-lg sm:px-6 sm:py-2  p-2",
-    lg: "sm:text-xl sm:px-8 sm:py-3  p-2",
-  };
-
-
   const classes = `
-  ${colorsVarient[colorKey]} 
-  ${sizeVarient[size]} 
-  
-  bg-component rounded border-2 w-[68%] text-color font-bold`;
+    ${sizeVarient[size]}
+    ${colorVariant[colorKey]}
+    theme-transition
+    rounded w-full
+  `;
 
   return (
-    <>
-      <div className=" flex justify-between items-center gap-2 p-2 font-bold">
-        <label className="font-bolder text-color ">{label}</label>
-        <input
-          type={type}
-          placeholder={placeholder}
-          value={value}
-          onChange={onChange}
-          onClick={onClick}
-          className={classes}
-        />
-      </div>
-    </>
+    <div className="flex flex-col gap-1 w-full">
+      {label && <label className="text-theme text-sm font-semibold">{label}</label>}
+
+      <input
+        type={type}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+        onClick={onClick}
+        className={classes}
+      />
+    </div>
   );
 };
 

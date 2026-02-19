@@ -13,22 +13,25 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
-const Button = ({ color, size, icon, children, onClick, to }) => {
+const Button = ({ color = "primary", size = "sm", icon, children, onClick, to }) => {
+
+  /* ⭐ THEME VARIANTS */
   const colorsVarient = {
-    primary: "bg-blue-500/20 hover:bg-blue-500 text-blue-500 hover:text-white",
-    danger: "bg-red-500/10 hover:bg-red-500/90 text-red-500/80 hover:text-white border-2 border-red-500",
-    success:
-      "bg-green-700/30 hover:bg-green-800/80 text-green-800 hover:text-white border-2 border-green-800",
-    dark: "border-2 bg-border-dr hover:text-color-lg bg-component-dark ",  
+    primary: "btn-theme",
+    danger: "btn-danger",
+    success: "btn-success",
+    outline: "btn-outline",
   };
 
+  /* ⭐ SIZE VARIANTS */
   const sizeVarient = {
-    xs: "text-sm px-3 py-1 p-1",
-    sm: "sm:text-md sm:px-6 sm:py-3  p-2",
-    md: "sm:text-lg sm:px-16 sm:py-2  p-2",
-    lg: "sm:text-xl sm:px-18 sm:py-3  p-2",
+    xs: "text-xs px-2 py-1",
+    sm: "text-sm px-4 py-2",
+    md: "text-md px-6 py-2",
+    lg: "text-lg px-8 py-3",
   };
 
+  /* ⭐ ICON MAP */
   const IconVarient = {
     add: Plus,
     edit: Pencil,
@@ -48,15 +51,15 @@ const Button = ({ color, size, icon, children, onClick, to }) => {
     ${colorsVarient[color]}
     ${sizeVarient[size]}
     flex items-center justify-center
-     font-semibold rounded-md
-    transition duration-300
+    font-semibold rounded-md
+    transition duration-200
     active:scale-95
   `;
 
   if (to) {
     return (
       <Link to={to} className={classes}>
-        {Icon && <Icon size={20} className="mr-2" />}
+        {Icon && <Icon size={18} className="mr-2" />}
         {children}
       </Link>
     );
@@ -64,7 +67,7 @@ const Button = ({ color, size, icon, children, onClick, to }) => {
 
   return (
     <button onClick={onClick} className={classes}>
-      {Icon && <Icon size={20} className="mr-2" />}
+      {Icon && <Icon size={18} className="mr-2" />}
       {children}
     </button>
   );

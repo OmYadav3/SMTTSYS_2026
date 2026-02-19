@@ -6,50 +6,43 @@ const Dropdown = ({
   value,
   onChange,
   placeholder = "ALL",
-  size,
-  color,
+  size = "sm",
+  error,
 }) => {
 
-    const colorsVarient = {
-    primary: "focus:ring-blue-500 focus:border-blue-500 outline-none ",
-    danger: "focus:ring-red-500 focus:border-red-500 outline-none",
-    success: "focus:ring-green-500 focus:border-green-500 outline-none",
-  };
-
+  /* ⭐ SIZE VARIANTS */
   const sizeVarient = {
-    xs: "sm:text-sm sm:px-4 sm:py-1  p-1",
-    sm: "sm:text-sm sm:px-4   p-2",
-    md: "sm:text-lg sm:px-6 sm:py-2  p-2",
-    lg: "sm:text-xl sm:px-8 sm:py-3  p-2",
+    xs: "text-xs px-2 py-1",
+    sm: "text-sm px-3 py-2",
+    md: "text-md px-4 py-2",
+    lg: "text-lg px-5 py-3",
   };
 
-  const classes = ` 
-  ${colorsVarient[color]}
-  ${sizeVarient[size]} 
-    bg-component rounded border-2 w-[68%] border-gray-600  `;
+  const classes = `
+    select-theme theme-transition
+    ${sizeVarient[size]}
+    rounded w-[68%] font-semibold
+    ${error ? "border-red-500" : ""}
+  `;
 
   return (
-    <>
-      <div className="flex justify-between items-center gap-2 p-2 font-bold">
-        <label htmlFor="" className="font-bolder text-color">
-          {children}
-        </label>
-        <select
-          name="reports"
-          id="report"
-          className={classes}
-          value={value}
-          onChange={onChange}
-        >
-          <option>{placeholder}</option>
-          {optionList?.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
-      </div>
-    </>
+    <div className="flex justify-between items-center gap-2 p-2">
+      <label className="text-theme font-semibold">{children}</label>
+
+      <select
+        className={classes}
+        value={value}
+        onChange={onChange}
+      >
+        <option value="">{placeholder}</option>
+
+        {optionList?.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
+      </select>
+    </div>
   );
 };
 
