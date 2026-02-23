@@ -1,13 +1,14 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "./Navbar";
+import Sidebar from "@/components/shared/Sidebar";
 
 export default function DashboardLayout() {
   return (
     <div className="flex h-screen overflow-hidden">
 
       {/* SIDEBAR */}
-      <aside className="w-64 border-r p-4">
-        Sidebar
+      <aside className="border-r">
+        <Sidebar/>
       </aside>
 
       {/* RIGHT SIDE */}

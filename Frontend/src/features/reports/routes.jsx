@@ -1,7 +1,7 @@
-import ReportsDownloads from "@/pages/ReportsDownloads";
-import TransactionReport from "@/pages/TransactionReport";
-import SummaryReport from "@/pages/SummaryReport";
-import DownloadsReport from "@/pages/DownloadsReport";
+import ReportsDownloads from "../reports/pages/ReportsDownloads";
+import TransactionReport from "../reports/pages/TransactionReports";
+import SummaryReport from "../reports/pages/SummaryReports";
+import DownloadsReport from "../reports/pages/DownloadReports";
 
 export const reportsRoutes = {
     path: "reports",

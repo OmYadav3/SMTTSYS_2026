@@ -1,22 +1,25 @@
 import { setTheme } from "@/app/theme";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function Navbar() {
   const [theme, setThemeState] = useState(
-    localStorage.getItem("theme") || "sageAndOlive",
+    localStorage.getItem("theme") || "sageAndOlive"
   );
+
+  useEffect(() => {
+    setTheme(theme);
+  }, []);
 
   const handleChange = (e) => {
     const value = e.target.value;
     setThemeState(value);
     setTheme(value);
   };
+
   return (
     <header className="h-16 border-b border-theme flex items-center justify-between px-4 bg-theme">
-      {/* LEFT */}
       <div className="font-semibold">Navbar</div>
 
-      {/* ⭐ THEME DROPDOWN */}
       <select
         value={theme}
         onChange={handleChange}
