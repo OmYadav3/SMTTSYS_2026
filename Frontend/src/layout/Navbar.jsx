@@ -8,7 +8,7 @@ export default function Navbar() {
 
   useEffect(() => {
     setTheme(theme);
-  }, []);
+  }, [theme]);
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -17,18 +17,21 @@ export default function Navbar() {
   };
 
   return (
-    <header className="h-16 border-b border-theme flex items-center justify-between px-4 bg-theme">
+    <header className="h-20 border-b border-theme flex items-center justify-between px-4 bg-theme">
       <div className="font-semibold">Navbar</div>
 
       <select
         value={theme}
         onChange={handleChange}
-        className="border border-theme bg-theme text-theme px-2 py-1 rounded cursor-pointer"
+        className="border-2 border-theme bg-theme text-theme px-1 py-1 rounded cursor-pointer outline-none font-bold"
       >
         <option value="sageAndOlive">Sage & Olive</option>
+        <option value="Olive">Olive</option>
         <option value="blueWhale">Blue Whale</option>
+        <option value="Whale">Whale</option>
         <option value="peachFizz">Peach Fizz</option>
         <option value="whiteBeige">White Beige</option>
+        <option value="old-theme">Old theme</option>
       </select>
     </header>
   );

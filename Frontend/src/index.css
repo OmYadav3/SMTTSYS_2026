@@ -11,6 +11,14 @@
     --hover-text: #b2b49c;
   }
 
+  [data-theme="Olive"] {
+    --bg: #3b3c36;
+    --text: #b2b49c;
+    --border: #b2b49c;
+    --hover-bg: #b2b49c;
+    --hover-text: #3b3c36;
+  }
+
   [data-theme="blueWhale"] {
     --bg: #c2cbd3;
     --text: #313851;
@@ -18,21 +26,37 @@
     --hover-bg: #313851;
     --hover-text: #c2cbd3;
   }
+  
+  [data-theme="Whale"] {
+    --bg: #313851;
+    --text: #c2cbd3;
+    --border: #c2cbd3;
+    --hover-bg: #c2cbd3;
+    --hover-text: #313851;
+  }
 
   [data-theme="peachFizz"] {
-    --bg: #ffead7;
-    --text: #3e4260;
-    --border: #3e4260;
-    --hover-bg: #3e4260;
-    --hover-text: #ffead7;
+    --bg: #3e4260;
+    --text: #ffead7;
+    --border: #ffead7;
+    --hover-bg: #ffead7;
+    --hover-text: #3e4260;
   }
 
   [data-theme="whiteBeige"] {
-    --bg: #f2eee3;
-    --text: #6b495a;
-    --border: #6b495a;
-    --hover-bg: #6b495a;
-    --hover-text: #f2eee3;
+    --bg: #6b495a;
+    --text: #f2eee3;
+    --border: #f2eee3;
+    --hover-bg: #f2eee3;
+    --hover-text: #6b495a;
+  }
+
+  [data-theme="old-theme"] {
+    --bg: #151521;
+    --text: #a9a9a8;
+    --border: #5e5e5c;
+    --hover-bg: #c9c7c1;
+    --hover-text: #151521;
   }
 
   html {

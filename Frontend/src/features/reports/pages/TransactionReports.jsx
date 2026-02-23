@@ -13,7 +13,7 @@ const TransactionReport = () => {
   };
 
   return (
-    <div className="mt-4 p-4 rounded bg-component border-2 border-gray-700 w-full ">
+    <div className="mt-4 p-4 rounded border w-full ">
       <div>
         {/* Reproting type */}
         <div className="grid grid-cols-4 items-center gap-4 p-2 text border-b border-gray-500">
@@ -40,10 +40,10 @@ const TransactionReport = () => {
                 color={input.color}
                 placeholder={input.placeholder}
                 label={input.label}
-                
               />
             ))
           }
+
          { /* DROPDOWN  */}
          {DROPDOWN_FIELD.map((dropdown, index) => (
             <Dropdown

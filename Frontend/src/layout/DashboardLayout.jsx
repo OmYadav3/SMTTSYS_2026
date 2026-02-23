@@ -7,7 +7,7 @@ export default function DashboardLayout() {
     <div className="flex h-screen overflow-hidden">
 
       {/* SIDEBAR */}
-      <aside className="border-r">
+      <aside className="">
         <Sidebar/>
       </aside>
 
