@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
 import themeReducer from '../features/theme/themeSlice';
-import transactionsSlice from './TransactionsSlice';
-import vehiclesSlice from './VehiclesSlice';
-import ReportsSlice from './ReportsSlice';
+import transactionsSlice from '../store/TransactionsSlice';
+import vehiclesSlice from '../store/VehiclesSlice';
+import ReportsSlice from '../features/reports/reportsSlice';
 
 export const store = configureStore({
     reducer: {
