@@ -44,24 +44,34 @@ export default function Calender({ label }) {
     setPickedDate(new Date(year, month, day));
   };
 
-  // ✅ OK button
+  // ✅ OK button (time optional + milliseconds)
   const handleOK = () => {
-    if (!pickedDate || !pickedTime) return;
+    if (!pickedDate) return;
 
-    const [h, m] = pickedTime.split(":");
     const d = new Date(pickedDate);
-    d.setHours(h);
-    d.setMinutes(m);
-    setFinalValue(d.toLocaleString());
+
+    if (pickedTime) {
+      const [h, m] = pickedTime.split(":");
+      d.setHours(h);
+      d.setMinutes(m);
+    }
+
+    d.setSeconds(new Date().getSeconds());
+    d.setMilliseconds(new Date().getMilliseconds());
+
+    setFinalValue(d.toLocaleString() + "." + d.getMilliseconds());
     setIsOpen(false);
   };
 
-  // ✅ NOW button
+  // ✅ NOW button (with milliseconds)
   const handleNow = () => {
     const now = new Date();
+
     setPickedDate(now);
-    setPickedTime(now.toTimeString().slice(0, 9));
-    setFinalValue(now.toLocaleString());
+    const time = now.toTimeString().slice(0, 5); // HH:mm
+    setPickedTime(time);
+
+    setFinalValue(now.toLocaleString() + "." + now.getMilliseconds());
     setIsOpen(false);
   };
 
@@ -78,7 +88,7 @@ export default function Calender({ label }) {
   }, []);
 
   return (
-    <div className=" p-4 rounded-xl space-y-3 relative " ref={ref}>
+    <div className=" p-4 rounded-xl relative " ref={ref}>
       {/* TOP FIELD — FINAL VALUE */}
       <Input
         label={label}
@@ -91,8 +101,9 @@ export default function Calender({ label }) {
         value={finalValue}
         readOnly
       />
+
       {isOpen === true ? (
-        <div className="w-70 border border-gray-600 absolute bg-component left-28 p-3 py-5 pb-0 rounded-md shadow-xl z-50">
+        <div className="w-70 border bg-theme text-theme absolute  left-28 p-3 py-5 pb-0 rounded-md shadow-xl z-50">
           {/* YOUR TWO INPUTS */}
           <div className="grid grid-cols-2 gap-3 border-b border-gray-400 pb-4">
             <input

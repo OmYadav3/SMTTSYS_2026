@@ -172,7 +172,7 @@ export const BUTTON = [
   {
     id: "search",
     children: "Search Transactions",
-    color: "dark",
+    color: "outline",
     size: "sm",
     icon: "search",
     to: "/transactions",
