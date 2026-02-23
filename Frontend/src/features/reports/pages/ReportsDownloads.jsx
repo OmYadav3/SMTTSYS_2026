@@ -3,12 +3,12 @@ import { NavLink, Outlet } from "react-router-dom";
 
 const ReportsDownloads = () => {
   return (
-    <div className="flex flex-col items-start h-screen py-4 px-8 ">
+    <div className="flex flex-col items-start h-screen py-4 px-4 ">
       {/* Header */}
       <h1 className="text-lg font-bold py-4 ">Reports & Downloads</h1>
 
       {/* Sub Navigation */}
-      <div className="flex items-center gap-12 text-md p-4 w-full font-bold">
+      <div className="flex items-center gap-10 text-md py-4 w-full font-bold">
         {REPORT_TYPES.map((report) => (
           <NavLink
             key={report.id}

@@ -51,6 +51,7 @@ const TransactionReport = () => {
               children={dropdown.label}
               size={dropdown.size}
               optionList={dropdown.optionList}
+              
             />
           ))}
         </div>
