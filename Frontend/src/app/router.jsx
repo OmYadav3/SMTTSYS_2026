@@ -4,7 +4,7 @@ import Auditor from "@/pages/Auditor";
 import Dashboard from "@/pages/Dashboard";
 import LaneStatus from "@/pages/LaneStatus";
 import TransactionValidation from "@/pages/TransactionValidation";
-import VRNValidation from "@/pages/VRNValidation";
+import VRNValidation from "@/features/validation/pages/VRNValidation";
 import { createBrowserRouter } from "react-router-dom";
 
 export const router  = createBrowserRouter([

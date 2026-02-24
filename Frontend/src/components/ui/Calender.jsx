@@ -88,7 +88,7 @@ export default function Calender({ label }) {
   }, []);
 
   return (
-    <div className=" p-4 rounded-xl relative " ref={ref}>
+    <div className="rounded-xl relative " ref={ref}>
       {/* TOP FIELD — FINAL VALUE */}
       <Input
         label={label}
