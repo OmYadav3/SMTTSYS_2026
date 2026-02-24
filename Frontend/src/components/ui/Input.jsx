@@ -4,7 +4,7 @@ const Input = ({
   type = "text",
   placeholder,
   value,
-  onChange,
+ 
   label,
   color = "primary",
   size = "sm",
@@ -43,7 +43,7 @@ const Input = ({
         type={type}
         placeholder={placeholder}
         value={value}
-        onChange={onChange}
+        
         onClick={onClick}
         className={classes}
       />

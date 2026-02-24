@@ -3,9 +3,6 @@ export const TRANSACTION_API_END_POINT = "http://localhost:8080/api/v1/transacti
 export const VEHICLE_API_END_POINT = "http://localhost:8080/api/v1/vehicles";
 export const REPORT_API_END_POINT = "http://localhost:8080/api/v1/reports";
 
-
-
-
 export const INPUT_FIELD = [
   {
     label: "CCH Txn ID",
