@@ -1,4 +1,4 @@
-import { data } from '@/utils/transaciondata'
+import { data } from '@/utils/Validation'
 
 export default function Table() {
   // const[data, setData] =useState()
