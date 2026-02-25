@@ -172,7 +172,6 @@ export const BUTTON = [
     color: "outline",
     size: "sm",
     icon: "search",
-    
   },
   {
     id: "pdf",

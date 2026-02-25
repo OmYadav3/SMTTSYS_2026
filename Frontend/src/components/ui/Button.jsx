@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
-const Button = ({ color = "primary", size = "sm", icon, children, onClick, to }) => {
+const Button = ({ color = "primary", size = "sm", icon, children, onClick, to, disabled } ) => {
 
   /* ⭐ THEME VARIANTS */
   const colorsVarient = {
@@ -58,7 +58,7 @@ const Button = ({ color = "primary", size = "sm", icon, children, onClick, to })
 
   if (to) {
     return (
-      <Link to={to} className={classes}>
+      <Link to={to} className={classes} >
         {Icon && <Icon size={18} className="mr-2" />}
         {children}
       </Link>
@@ -66,7 +66,7 @@ const Button = ({ color = "primary", size = "sm", icon, children, onClick, to })
   }
 
   return (
-    <button onClick={onClick} className={classes}>
+    <button onClick={onClick} className={classes} disabled={disabled} >
       {Icon && <Icon size={18} className="mr-2" />}
       {children}
     </button>

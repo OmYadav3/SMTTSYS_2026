@@ -32,7 +32,7 @@ const Dropdown = ({
       <select
         className={classes}
         value={value}
-        onChange={onChange}
+        onChange={(e) => onChange(e.target.value)}
       >
         <option value="">{placeholder}</option>
 
