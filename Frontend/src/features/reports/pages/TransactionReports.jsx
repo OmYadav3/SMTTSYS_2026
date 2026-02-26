@@ -12,8 +12,6 @@ import Table from "../components/Table";
 
 const TransactionReport = () => {
   const[reportType, setReportType] = useState()
-  // const[tableData, setTableData] = useState([])
-
   const [tableOpen, setTableOpen] = useState(false);
 
   const handleDropDown = (value) => {

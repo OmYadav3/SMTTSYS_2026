@@ -1,5 +1,5 @@
-import sql from 'mssql';
-import dotenv from 'dotenv';
+import sql from "mssql";
+import dotenv from "dotenv";
 
 dotenv.config();
 
@@ -14,22 +14,21 @@ const sqlConfig = {
     idleTimeoutMillis: 30000
   },
   options: {
-    encrypt: false,              
-    trustServerCertificate: true, 
+    encrypt: false,
+    trustServerCertificate: true,
     enableArithAbort: true
   }
 };
 
-// This function handles the connection
-export const connectDB = async () => {
-  try {
-    const pool = await sql.connect(sqlConfig);
+/* ⭐ Create single reusable pool */
+const poolPromise = new sql.ConnectionPool(sqlConfig)
+  .connect()
+  .then(pool => {
     console.log("✅ SQL Server Connected");
     return pool;
-  } catch (err) {
-    console.error("❌ Database Connection Failed! ", err.message);
-    throw err;
-  }
-};
+  })
+  .catch(err => {
+    console.error("❌ DB Connection Failed", err);
+  });
 
-export { sql };
+export { poolPromise, sql };

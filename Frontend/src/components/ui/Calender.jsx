@@ -99,6 +99,7 @@ export default function Calender({ label }) {
         onClick={() => setIsOpen(true)}
         className="w-full"
         value={finalValue}
+        onChange={(e) => setPickedDate(e.target.value)}
         readOnly
       />
 
