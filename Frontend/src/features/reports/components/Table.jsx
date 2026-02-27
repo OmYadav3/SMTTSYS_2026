@@ -1,7 +1,12 @@
 import { Tdata } from '@/utils/Validation'
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 export default function Table() {
-  // const[data, setData] =useState()
+  const[data, setData] =useState()
+
+  const dispatch = useDispatch()
+
 
   const TABLEHEARDER = [
     { id: 1, name: "PLAZE CODE" },
@@ -19,6 +24,8 @@ export default function Table() {
     { id: 11, name: "VEH CLASS" },
     { id: 11, name: "AVC CLASS" },
   ];
+
+
 
   return (
     <table className="w-full bg-theme text-theme border rounded-xl">

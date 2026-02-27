@@ -3,7 +3,11 @@ import { REPORT_TYPES } from "@/utils/constant";
 import { NavLink, Outlet } from "react-router-dom";
 
 const ReportsDownloads = () => {
-  useFetchAllReports()
+  const { loading, error } = useFetchAllReports();
+
+  if (loading) return <p>Loading...</p>;
+
+  if (error) return <p>{error}</p>;
 
   return (
     <div className="flex flex-col items-start h-screen py-4 px-4 ">
@@ -32,7 +36,6 @@ const ReportsDownloads = () => {
       <div className="w-full">
         <Outlet />
       </div>
-      
     </div>
   );
 };

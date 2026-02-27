@@ -1,7 +1,7 @@
 export const USER_API_END_POINT = "http://localhost:8080/api/v1/users";
 export const TRANSACTION_API_END_POINT = "http://localhost:8080/api/v1/transactions";
 export const VEHICLE_API_END_POINT = "http://localhost:8080/api/v1/vehicles";
-export const REPORT_API_END_POINT = "http://localhost:8000/api/v1/transactions?page=1";
+export const REPORT_API_END_POINT = "http://localhost:8000/api/v1/transactions";
 
 export const INPUT_FIELD = [
   {
