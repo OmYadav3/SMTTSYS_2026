@@ -2,78 +2,73 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 export default function Table() {
-  const reportsData = useSelector((state) => state.reports.allReports);
-  console.log(reportsData);
+  const reportsData = useSelector((state) => state.reports.allReports) || [];
+  console.log(reportsData)
 
-  const TABLEHEARDER = [
-    { id: 1, name: "PLAZE CODE" },
-    { id: 2, name: "PLAZA NAME" },
-    { id: 3, name: "IMAGE" },
-    { id: 4, name: "CCH TRANS ID" },
-    { id: 5, name: "LANE TRANS ID" },
-    { id: 6, name: "TAG" },
-    { id: 7, name: "VEH PLATE" },
-    { id: 8, name: "IS ANPR" },
-    { id: 9, name: "ANPR PLATE" },
-    { id: 10, name: "LANE ID" },
-    { id: 11, name: "LANE TYPE" },
-    { id: 11, name: "DIRECTION" },
-    { id: 11, name: "VEH CLASS" },
-    { id: 11, name: "AVC CLASS" },
+  /* Column Config  */
+  const columns = [
+    { key: "PLAZA_CODE", label: "PLAZA CODE" },
+    { key: "PLAZE_NAME", label: "PLAZA NAME" },
+    {
+      key: "image",
+      label: "IMAGE",
+      render: (value) => (
+        <img src={value} alt="" className="h-10 w-16 object-cover mx-auto" />
+      ),
+    },
+    { key: "CCH_TRANS_ID", label: "CCH TRANS ID" },
+    { key: "LANE_TRANS_ID", label: "LANE TRANS ID" },
+    { key: "TAG", label: "TAG" },
+    { key: "IS_ANPR", label: "IS ANPR" },
+    { key: "ANPR_PLATE", label: "ANPR PLATE" },
+    { key: "LANE_ID", label: "LANE TRANS ID" },
+    { key: "LANE_TYPE", label: "LANE TYPE" },
+    { key: "PASSAGE_TIME", label: "PASSAGE TIME" },
+    { key: "DIRECTION", label: "DIRECTION" },
+    { key: "VEH_CLASS", label: "VEH CLASS" },
+    { key: "AVC_CLASS", label: "AVC CLASS" },
   ];
 
   return (
-    <table className="w-full bg-theme text-theme border rounded-xl">
-      <thead className="rounded-xl">
-        <tr className="rounded-xl">
-          {TABLEHEARDER?.map((items) => {
-            return (
-              <th
-                key={items.id}
-                className="border-r border-b p-5 text-white bg-blue-400/60  "
-              >
-                {items.name}
-              </th>
-            );
-          })}
-        </tr>
-      </thead>
-
-      <tbody>
-        {reportsData ? (
-          reportsData.map((row) => (
-            <tr key={row.id} className="hover:text-white">
-              <td className="p-3 text-center">{row.PLAZA_CODE}</td>
-              <td className="p-3 text-center">{row.plazaName}</td>
-              <td className="p-3 text-center">{row.image}</td>
-              <td className="p-3 tracking-wider text-center">
-                {row.CCH_TRANS_ID}
-              </td>
-              <td className="p-3 tracking-wider text-center">
-                {row.LANE_TRANS_ID}
-              </td>
-              <td className="p-3 tracking-wider text-center">{row.TAG}</td>
-              <td className="p-3 text-center">{row.VEH_PLATE}</td>
-              <td className="p-3 text-center">{row.isAnpr}</td>
-              <td className="p-3 text-center">{row.anprPlate}</td>
-              <td className="p-3 text-center">{row.LANE_ID}</td>
-              <td className="p-3 text-center">{row.LANE_TYPE}</td>
-              <td className="p-3 text-center">{row.DIRECTION}</td>
-              <td className="p-3 text-center">{row.VEH_CLASS}</td>
-              <td className="p-3 text-center">{row.AVC_CLASS}</td>
-            </tr>
-          ))
-        ) : (
+    <div className="overflow-auto rounded-xl border">
+      <table className="w-full text-sm">
+        {/* ⭐ Header */}
+        <thead className="bg-blue-400/60 text-white">
           <tr>
-            <td
-              className="bg-theme text-theme p-10 text-3xl font-bold "
-              colSpan={TABLEHEARDER.length}
-            >
-              Data Not Found
-            </td>
+            {columns.map((col) => (
+              <th key={col.key} className="p-4 border-r whitespace-nowrap">
+                {col.label}
+              </th>
+            ))}
           </tr>
-        )}
-      </tbody>
-    </table>
+        </thead>
+
+        {/* ⭐ Body */}
+        <tbody>
+          {reportsData.length > 0 ? (
+            reportsData.map((row, rowIndex) => (
+              <tr key={row.id || rowIndex} className="hover:text-gray-100 ">
+                {columns.map((col) => (
+                  <td key={col.key} className="p-3 text-center border-t hover:scale-x-103">
+                    {col.render
+                      ? col.render(row[col.key], row)
+                      : row[col.key] ?? "-"}
+                  </td>
+                ))}
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td
+                colSpan={columns.length}
+                className="p-10 text-center text-xl font-semibold"
+              >
+                Data Not Found
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+    </div>
   );
 }
