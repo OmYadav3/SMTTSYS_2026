@@ -1,12 +1,9 @@
-import { Tdata } from '@/utils/Validation'
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React from "react";
+import { useSelector } from "react-redux";
 
 export default function Table() {
-  const[data, setData] =useState()
-
-  const dispatch = useDispatch()
-
+  const reportsData = useSelector((state) => state.reports.allReports);
+  console.log(reportsData);
 
   const TABLEHEARDER = [
     { id: 1, name: "PLAZE CODE" },
@@ -25,15 +22,16 @@ export default function Table() {
     { id: 11, name: "AVC CLASS" },
   ];
 
-
-
   return (
     <table className="w-full bg-theme text-theme border rounded-xl">
       <thead className="rounded-xl">
-        <tr className='rounded-xl'>
+        <tr className="rounded-xl">
           {TABLEHEARDER?.map((items) => {
             return (
-              <th key={items.id} className="border-r border-b p-6 text-white bg-blue-400/60  ">
+              <th
+                key={items.id}
+                className="border-r border-b p-5 text-white bg-blue-400/60  "
+              >
                 {items.name}
               </th>
             );
@@ -42,24 +40,27 @@ export default function Table() {
       </thead>
 
       <tbody>
-        {Tdata ? (
-          Tdata.map((row) => (
+        {reportsData ? (
+          reportsData.map((row) => (
             <tr key={row.id} className="hover:text-white">
-              <td className="p-5 border rounded-xl font-bold text-lg">{row.plazaCode}</td>
-              <td className="p-5 border rounded-xl font-bold text-lg">{row.plazaName}</td>
-              <td className="p-5 border rounded-xl font-bold text-lg">{row.image}</td>
-              <td className="p-5 border rounded-xl font-bold text-lg">{row.cchTransId}</td>
-              <td className="p-5 border rounded-xl font-bold text-lg">{row.laneTransId}</td>
-              <td className="p-5 border rounded-xl font-bold text-lg">{row.tag}</td>
-              <td className="p-5 border rounded-xl font-bold text-lg">{row.vehPlate}</td>
-              <td className="p-5 border rounded-xl font-bold text-lg">{row.isAnpr}</td>
-              <td className="p-5 border rounded-xl font-bold text-lg">{row.anprPlate}</td>
-              <td className="p-5 border rounded-xl font-bold text-lg">{row.laneId}</td>
-              <td className="p-5 border rounded-xl font-bold text-lg">{row.laneType}</td>
-              <td className="p-5 border rounded-xl font-bold text-lg">{row.direction}</td>
-              <td className="p-5 border rounded-xl font-bold text-lg">{row.vehClass}</td>
-              <td className="p-5 border rounded-xl font-bold text-lg">{row.avcClass}</td>
-              
+              <td className="p-3 text-center">{row.PLAZA_CODE}</td>
+              <td className="p-3 text-center">{row.plazaName}</td>
+              <td className="p-3 text-center">{row.image}</td>
+              <td className="p-3 tracking-wider text-center">
+                {row.CCH_TRANS_ID}
+              </td>
+              <td className="p-3 tracking-wider text-center">
+                {row.LANE_TRANS_ID}
+              </td>
+              <td className="p-3 tracking-wider text-center">{row.TAG}</td>
+              <td className="p-3 text-center">{row.VEH_PLATE}</td>
+              <td className="p-3 text-center">{row.isAnpr}</td>
+              <td className="p-3 text-center">{row.anprPlate}</td>
+              <td className="p-3 text-center">{row.LANE_ID}</td>
+              <td className="p-3 text-center">{row.LANE_TYPE}</td>
+              <td className="p-3 text-center">{row.DIRECTION}</td>
+              <td className="p-3 text-center">{row.VEH_CLASS}</td>
+              <td className="p-3 text-center">{row.AVC_CLASS}</td>
             </tr>
           ))
         ) : (
