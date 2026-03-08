@@ -49,7 +49,7 @@ export default function Table() {
             reportsData.map((row, rowIndex) => (
               <tr key={row.id || rowIndex} className="hover:text-gray-100 ">
                 {columns.map((col) => (
-                  <td key={col.key} className="p-3 text-center border-t hover:scale-x-103">
+                  <td key={col.key} className="p-2 text-center border-t hover:scale-x-103">
                     {col.render
                       ? col.render(row[col.key], row)
                       : row[col.key] ?? "-"}
