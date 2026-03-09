@@ -9,12 +9,13 @@ import {
 const DateAndTime = () => {
   const date = new Date();
 
-  const monthName = date.toLocaleString("default", { month: "long" });
-  const year = date.toLocaleString("default", { year: "numeric" });
+  const monthName = date.toLocaleString("default", { month: "short" });
+  const year = date.getFullYear();
 
   const [selectedDay, setSelectedDay] = useState(date.getDate());
   const [selectedMonth, setSelectedMonth] = useState(monthName);
   const [selectedYear, setSelectedYear] = useState(year);
+
   const [dateValue, setDateValue] = useState("");
 
   const [isDateBox, setIsDateBox] = useState(false);
@@ -22,27 +23,37 @@ const DateAndTime = () => {
   const [isMonthBox, setIsMonthBox] = useState(false);
   const [isCalender, setIsCalender] = useState(true);
 
+  // TIME STATES
+  const [hour, setHour] = useState("00");
+  const [minute, setMinute] = useState("00");
+  const [second, setSecond] = useState("00");
+  const [timeValue, setTimeValue] = useState("00:00:00");
+  const [isTimeBox, setIsTimeBox] = useState(false);
+
   const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
   const months = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
+    "Jan","Feb","Mar","Apr","May","Jun",
+    "Jul","Aug","Sep","Oct","Nov","Dec",
   ];
 
   const years = [];
   for (let i = 2021; i <= 2050; i++) {
     years.push(i);
   }
+
+  // TIME ARRAYS
+  const hours = Array.from({ length: 24 }, (_, i) =>
+    String(i).padStart(2, "0")
+  );
+
+  const minutes = Array.from({ length: 60 }, (_, i) =>
+    String(i).padStart(2, "0")
+  );
+
+  const seconds = Array.from({ length: 60 }, (_, i) =>
+    String(i).padStart(2, "0")
+  );
 
   // dynamic days
   const getDaysInMonth = (month, year) => {
@@ -57,14 +68,12 @@ const DateAndTime = () => {
     days.push(i);
   }
 
-  // MAIN DATE HANDLER
+  // DATE HANDLER
   const evenChangeHandler = (value, type) => {
-
     if (type === "day") {
       setSelectedDay(value);
 
       const fullDate = `${value} ${selectedMonth} ${selectedYear}`;
-      console.log(fullDate);
       setDateValue(fullDate);
     }
 
@@ -79,7 +88,31 @@ const DateAndTime = () => {
       setIsYearBox(false);
       setIsCalender(true);
     }
-    console.log(selectedDay)
+  };
+
+  // TIME HANDLER
+  const handleTimeChange = (value, type) => {
+    let h = hour;
+    let m = minute;
+    let s = second;
+
+    if (type === "hour") {
+      setHour(value);
+      h = value;
+    }
+
+    if (type === "minute") {
+      setMinute(value);
+      m = value;
+    }
+
+    if (type === "second") {
+      setSecond(value);
+      s = value;
+    }
+
+    const fullTime = `${h}:${m}:${s}`;
+    setTimeValue(fullTime);
   };
 
   const handleDateInputBox = () => {
@@ -105,11 +138,10 @@ const DateAndTime = () => {
   return (
     <div>
       <div className="relative">
-        {/* Main Input Field */}
+
+        {/* Main Input */}
         <div>
-          <label htmlFor="" className="p-4">
-            From Date
-          </label>
+          <label className="p-4">From Date</label>
           <input
             type="text"
             value={dateValue}
@@ -119,26 +151,33 @@ const DateAndTime = () => {
           />
         </div>
 
-        {/*DateBox */}
         {isDateBox && (
-          <div className="absolute left-26 border rounded-md w-73 mt-4 bg-black/30 ">
-            {/*Calender inputs */}
-            <div className="border-b flex justify-around ">
+          <div className="absolute left-26 border rounded-md w-73 mt-4 bg-black/30">
+
+            {/* Top Inputs */}
+            <div className="border-b flex justify-around">
+
+              {/* DATE INPUT */}
               <input
                 type="text"
                 value={dateValue}
                 onChange={(e) => setDateValue(e.target.value)}
                 className="text-sm border w-32 m-2 rounded-md px-4"
               />
+
+              {/* TIME INPUT */}
               <input
                 type="text"
-                
-                className="text-xl p-2 border w-32 m-2 rounded-md"
+                value={timeValue}
+                onClick={() => setIsTimeBox(!isTimeBox)}
+                onChange={(e) => setTimeValue(e.target.value)}
+                className="text-sm p-2 border w-32 m-2 rounded-md"
               />
             </div>
 
-            {/* Main Calender */}
+            {/* Calendar Header */}
             <div className="border-b">
+
               <div className="flex items-center justify-center">
 
                 <div className="flex p-2">
@@ -171,41 +210,37 @@ const DateAndTime = () => {
 
               </div>
 
-              {/* Year Box */}
+              {/* YEAR BOX */}
               {isYearBox && (
                 <div className="border grid grid-cols-3 text-center">
-                  {years.slice(0, 10).map((year, index) => {
-                    return (
-                      <div
-                        key={index}
-                        onClick={() => evenChangeHandler(year, "year")}
-                        className="border p-2 font-extrabold hover:bg-blue-500"
-                      >
-                        {year}
-                      </div>
-                    );
-                  })}
+                  {years.slice(0, 10).map((year, index) => (
+                    <div
+                      key={index}
+                      onClick={() => evenChangeHandler(year, "year")}
+                      className="border p-2 font-extrabold hover:bg-blue-500"
+                    >
+                      {year}
+                    </div>
+                  ))}
                 </div>
               )}
 
-              {/* Month Box */}
+              {/* MONTH BOX */}
               {isMonthBox && (
                 <div className="border grid grid-cols-3 text-center">
-                  {months.map((month, index) => {
-                    return (
-                      <button
-                        key={index}
-                        onClick={() => evenChangeHandler(month, "month")}
-                        className="border p-2 font-extrabold hover:bg-blue-500"
-                      >
-                        {month}
-                      </button>
-                    );
-                  })}
+                  {months.map((month, index) => (
+                    <button
+                      key={index}
+                      onClick={() => evenChangeHandler(month, "month")}
+                      className="border p-2 font-extrabold hover:bg-blue-500"
+                    >
+                      {month}
+                    </button>
+                  ))}
                 </div>
               )}
 
-              {/* Calendar */}
+              {/* CALENDAR */}
               {isCalender && (
                 <div className="border-t grid grid-cols-7 text-center">
 
@@ -219,10 +254,8 @@ const DateAndTime = () => {
                     <button
                       key={index}
                       onClick={() => evenChangeHandler(day, "day")}
-                     className={`border-l p-2 font-extrabold hover:bg-blue-500 
-                
-                    ${selectedDay === day ? "bg-blue-500 text-white scale-102 " : ""}
-                    `}
+                      className={`border-l p-2 font-extrabold hover:bg-blue-500
+                      ${selectedDay === day ? "bg-blue-500 text-white scale-102" : ""}`}
                     >
                       {day}
                     </button>
@@ -230,7 +263,54 @@ const DateAndTime = () => {
 
                 </div>
               )}
+
             </div>
+
+            {/* TIME PICKER */}
+            {isTimeBox && (
+              <div className="flex gap-2 p-2 border-t bg-black/80  absolute top-16 left-34 ">
+
+                <div className="h-32 overflow-y-scroll scroll-auto border">
+                  {hours.map((h, i) => (
+                    <div
+                      key={i}
+                      onClick={() => handleTimeChange(h, "hour")}
+                      className={`p-1 cursor-pointer hover:bg-blue-400
+                      ${hour === h ? "bg-blue-500 text-white" : ""}`}
+                    >
+                      {h}
+                    </div>
+                  ))}
+                </div>
+
+                <div className="h-32 overflow-y-scroll border">
+                  {minutes.map((m, i) => (
+                    <div
+                      key={i}
+                      onClick={() => handleTimeChange(m, "minute")}
+                      className={`p-1 cursor-pointer hover:bg-blue-400
+                      ${minute === m ? "bg-blue-500 text-white" : ""}`}
+                    >
+                      {m}
+                    </div>
+                  ))}
+                </div>
+
+                <div className="h-32 overflow-y-scroll border">
+                  {seconds.map((s, i) => (
+                    <div
+                      key={i}
+                      onClick={() => handleTimeChange(s, "second")}
+                      className={`p-1 cursor-pointer hover:bg-blue-400
+                      ${second === s ? "bg-blue-500 text-white" : ""}`}
+                    >
+                      {s}
+                    </div>
+                  ))}
+                </div>
+
+              </div>
+            )}
 
             <div className="flex items-center justify-end mx-3 gap-2">
               <button
@@ -239,6 +319,7 @@ const DateAndTime = () => {
               >
                 Now
               </button>
+
               <button
                 onClick={handleDateBox}
                 className="border my-2 px-2 py-1 rounded-lg hover:bg-blue-500/50"
