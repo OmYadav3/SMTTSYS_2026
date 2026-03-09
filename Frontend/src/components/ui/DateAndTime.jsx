@@ -12,7 +12,7 @@ const DateAndTime = () => {
   const monthName = date.toLocaleString("default", { month: "long" });
   const year = date.toLocaleString("default", { year: "numeric" });
 
-  const [selectedDay, setSelectedDay] = useState("");
+  const [selectedDay, setSelectedDay] = useState(date.getDate());
   const [selectedMonth, setSelectedMonth] = useState(monthName);
   const [selectedYear, setSelectedYear] = useState(year);
   const [dateValue, setDateValue] = useState("");
@@ -219,7 +219,10 @@ const DateAndTime = () => {
                     <button
                       key={index}
                       onClick={() => evenChangeHandler(day, "day")}
-                      className="border-l p-2 font-extrabold hover:bg-blue-500"
+                     className={`border-l p-2 font-extrabold hover:bg-blue-500 
+                
+                    ${selectedDay === day ? "bg-blue-500 text-white scale-102 " : ""}
+                    `}
                     >
                       {day}
                     </button>
