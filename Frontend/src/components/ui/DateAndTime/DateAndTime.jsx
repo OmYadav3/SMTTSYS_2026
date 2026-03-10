@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   ChevronsLeft,
   ChevronLeft,
@@ -6,29 +6,41 @@ import {
   ChevronRight,
 } from "lucide-react";
 
-const DateAndTime = () => {
+const DateAndTime = ({ label }) => {
+
+  /* ---------------- CURRENT DATE ---------------- */
+
   const date = new Date();
 
   const monthName = date.toLocaleString("default", { month: "short" });
   const year = date.getFullYear();
 
+  /* ---------------- SELECTED DATE STATES ---------------- */
+
   const [selectedDay, setSelectedDay] = useState(date.getDate());
   const [selectedMonth, setSelectedMonth] = useState(monthName);
   const [selectedYear, setSelectedYear] = useState(year);
 
+  /* input field value */
   const [dateValue, setDateValue] = useState("");
+
+  /* ---------------- UI STATE CONTROLLERS ---------------- */
 
   const [isDateBox, setIsDateBox] = useState(false);
   const [isYearBox, setIsYearBox] = useState(false);
   const [isMonthBox, setIsMonthBox] = useState(false);
   const [isCalender, setIsCalender] = useState(true);
 
-  // TIME STATES
+  /* ---------------- TIME STATES ---------------- */
+
   const [hour, setHour] = useState("00");
   const [minute, setMinute] = useState("00");
   const [second, setSecond] = useState("00");
+
   const [timeValue, setTimeValue] = useState("00:00:00");
   const [isTimeBox, setIsTimeBox] = useState(false);
+
+  /* ---------------- STATIC DATA ---------------- */
 
   const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
@@ -42,7 +54,6 @@ const DateAndTime = () => {
     years.push(i);
   }
 
-  // TIME ARRAYS
   const hours = Array.from({ length: 24 }, (_, i) =>
     String(i).padStart(2, "0")
   );
@@ -55,7 +66,8 @@ const DateAndTime = () => {
     String(i).padStart(2, "0")
   );
 
-  // dynamic days
+  /* ---------------- GET DAYS IN MONTH ---------------- */
+
   const getDaysInMonth = (month, year) => {
     const monthIndex = months.indexOf(month);
     return new Date(year, monthIndex + 1, 0).getDate();
@@ -63,13 +75,29 @@ const DateAndTime = () => {
 
   const daysInMonth = getDaysInMonth(selectedMonth, selectedYear);
 
+  /* create array of days */
   const days = [];
   for (let i = 1; i <= daysInMonth; i++) {
     days.push(i);
   }
 
-  // DATE HANDLER
+  /* ---------------- FIX WEEKDAY ALIGNMENT ---------------- */
+  /* find which weekday the first day of month starts */
+
+  const firstDayIndex = new Date(
+    selectedYear,
+    months.indexOf(selectedMonth),
+    1
+  ).getDay();
+
+  /* create empty spaces before day 1 */
+
+  const emptyDays = Array.from({ length: firstDayIndex });
+
+  /* ---------------- DATE CHANGE HANDLER ---------------- */
+
   const evenChangeHandler = (value, type) => {
+
     if (type === "day") {
       setSelectedDay(value);
 
@@ -90,8 +118,10 @@ const DateAndTime = () => {
     }
   };
 
-  // TIME HANDLER
+  /* ---------------- TIME HANDLER ---------------- */
+
   const handleTimeChange = (value, type) => {
+
     let h = hour;
     let m = minute;
     let s = second;
@@ -115,13 +145,19 @@ const DateAndTime = () => {
     setTimeValue(fullTime);
   };
 
+  /* ---------------- INPUT BOX OPEN ---------------- */
+
   const handleDateInputBox = () => {
     setIsDateBox(true);
   };
 
+  /* ---------------- CLOSE DATE BOX ---------------- */
+
   const handleDateBox = () => {
     setIsDateBox(false);
   };
+
+  /* ---------------- YEAR SELECT ---------------- */
 
   const HandlerYears = () => {
     setIsYearBox(true);
@@ -129,35 +165,128 @@ const DateAndTime = () => {
     setIsCalender(false);
   };
 
+  /* ---------------- MONTH SELECT ---------------- */
+
   const HandlerMonths = () => {
     setIsMonthBox(true);
     setIsYearBox(false);
     setIsCalender(false);
   };
 
+  /* ---------------- CHEVRON FUNCTIONS ---------------- */
+
+  const handlePrevYear = () => {
+    setSelectedYear((prev) => prev - 1);
+  };
+
+  const handleNextYear = () => {
+    setSelectedYear((prev) => prev + 1);
+  };
+
+  const handlePrevMonth = () => {
+
+    const currentIndex = months.indexOf(selectedMonth);
+
+    if (currentIndex === 0) {
+      setSelectedMonth(months[11]);
+      setSelectedYear((prev) => prev - 1);
+    } else {
+      setSelectedMonth(months[currentIndex - 1]);
+    }
+  };
+
+  const handleNextMonth = () => {
+
+    const currentIndex = months.indexOf(selectedMonth);
+
+    if (currentIndex === 11) {
+      setSelectedMonth(months[0]);
+      setSelectedYear((prev) => prev + 1);
+    } else {
+      setSelectedMonth(months[currentIndex + 1]);
+    }
+  };
+
+  /* ---------------- CLICK OUTSIDE CLOSE ---------------- */
+
+  const ref = useRef();
+
+  useEffect(() => {
+
+    const handler = (e) => {
+      if (ref.current && !ref.current.contains(e.target)) {
+        setIsDateBox(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handler);
+
+    return () => document.removeEventListener("mousedown", handler);
+
+  }, []);
+
+  /* ---------------HandleNowButton ---------*/
+
+  const handleNowButton = () => {
+  const now = new Date();
+
+  const day = now.getDate();
+  const month = months[now.getMonth()];
+  const year = now.getFullYear();
+
+  const h = String(now.getHours()).padStart(2, "0");
+  const m = String(now.getMinutes()).padStart(2, "0");
+  const s = String(now.getSeconds()).padStart(2, "0");
+
+  // set calendar values
+  setSelectedDay(day);
+  setSelectedMonth(month);
+  setSelectedYear(year);
+
+  // set time values
+  setHour(h);
+  setMinute(m);
+  setSecond(s);
+
+  // update input values
+  setDateValue(`${day} ${month} ${year}`);
+  setTimeValue(`${h}:${m}:${s}`);
+
+  // close picker
+  setIsDateBox(false);
+};
+
+
+  /* ---------------- UI ---------------- */
+
   return (
-    <div>
+    <div ref={ref}>
       <div className="relative">
 
-        {/* Main Input */}
-        <div>
-          <label className="p-4">From Date</label>
+        {/* INPUT FIELD */}
+
+        <div className="flex items-center">
+          <label className="pr-8 font-bold w-45">{label}</label>
+
           <input
             type="text"
             value={dateValue}
             onChange={(e) => setDateValue(e.target.value)}
-            className="text-sm border p-2 font-bold"
+            className="text-sm border p-2 font-bold w-full"
             onClick={handleDateInputBox}
+            placeholder="Select Date and Time"
           />
         </div>
 
-        {isDateBox && (
-          <div className="absolute left-26 border rounded-md w-73 mt-4 bg-black/30">
+        {/* DATE PICKER BOX */}
 
-            {/* Top Inputs */}
+        {isDateBox === true && (
+          <div className="absolute left-26 border rounded-md w-73 mt-4 bg-black/70">
+
+            {/* DATE + TIME INPUT */}
+
             <div className="border-b flex justify-around">
 
-              {/* DATE INPUT */}
               <input
                 type="text"
                 value={dateValue}
@@ -165,7 +294,6 @@ const DateAndTime = () => {
                 className="text-sm border w-32 m-2 rounded-md px-4"
               />
 
-              {/* TIME INPUT */}
               <input
                 type="text"
                 value={timeValue}
@@ -175,21 +303,24 @@ const DateAndTime = () => {
               />
             </div>
 
-            {/* Calendar Header */}
+            {/* CALENDAR HEADER */}
+
             <div className="border-b">
 
               <div className="flex items-center justify-center">
 
                 <div className="flex p-2">
-                  <button>
+                  <button onClick={handlePrevYear}>
                     <ChevronsLeft className="w-8 h-8" />
                   </button>
-                  <button>
+
+                  <button onClick={handlePrevMonth}>
                     <ChevronLeft className="w-8 h-8" />
                   </button>
                 </div>
 
                 <div className="flex p-2 m-2 gap-2">
+
                   <button onClick={HandlerYears}>
                     <div className="text-xl">{selectedYear}</div>
                   </button>
@@ -197,20 +328,25 @@ const DateAndTime = () => {
                   <button onClick={HandlerMonths}>
                     <div className="text-xl">{selectedMonth}</div>
                   </button>
+
                 </div>
 
                 <div className="flex p-2">
-                  <button>
+
+                  <button onClick={handleNextMonth}>
                     <ChevronRight className="w-8 h-8" />
                   </button>
-                  <button>
+
+                  <button onClick={handleNextYear}>
                     <ChevronsRight className="w-8 h-8" />
                   </button>
+
                 </div>
 
               </div>
 
               {/* YEAR BOX */}
+
               {isYearBox && (
                 <div className="border grid grid-cols-3 text-center">
                   {years.slice(0, 10).map((year, index) => (
@@ -226,6 +362,7 @@ const DateAndTime = () => {
               )}
 
               {/* MONTH BOX */}
+
               {isMonthBox && (
                 <div className="border grid grid-cols-3 text-center">
                   {months.map((month, index) => (
@@ -241,6 +378,7 @@ const DateAndTime = () => {
               )}
 
               {/* CALENDAR */}
+
               {isCalender && (
                 <div className="border-t grid grid-cols-7 text-center">
 
@@ -249,6 +387,14 @@ const DateAndTime = () => {
                       {day}
                     </div>
                   ))}
+
+                  {/* empty spaces before first day */}
+
+                  {emptyDays.map((_, index) => (
+                    <div key={`empty-${index}`} className="p-2"></div>
+                  ))}
+
+                  {/* actual days */}
 
                   {days.map((day, index) => (
                     <button
@@ -267,10 +413,11 @@ const DateAndTime = () => {
             </div>
 
             {/* TIME PICKER */}
-            {isTimeBox && (
-              <div className="flex gap-2 p-2 border-t bg-black/80  absolute top-16 left-34 ">
 
-                <div className="h-32 overflow-y-scroll scroll-auto border">
+            {isTimeBox && (
+              <div className="flex gap-2 p-2 border-t bg-black/80 absolute top-16 left-34">
+
+                <div className="h-32 overflow-y-scroll border">
                   {hours.map((h, i) => (
                     <div
                       key={i}
@@ -312,9 +459,12 @@ const DateAndTime = () => {
               </div>
             )}
 
+            {/* BUTTONS */}
+
             <div className="flex items-center justify-end mx-3 gap-2">
+
               <button
-                onClick={handleDateBox}
+                onClick={handleNowButton}
                 className="border my-2 px-2 py-1 rounded-lg hover:bg-green-500/50"
               >
                 Now
@@ -326,6 +476,7 @@ const DateAndTime = () => {
               >
                 Ok
               </button>
+
             </div>
 
           </div>

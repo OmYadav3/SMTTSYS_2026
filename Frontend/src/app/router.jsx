@@ -1,9 +1,9 @@
 import { reportsRoutes } from "@/features/reports/routes";
 import DashboardLayout from "@/layout/DashboardLayout";
-import Auditor from "@/pages/Auditor";
-import Dashboard from "@/pages/Dashboard";
-import LaneStatus from "@/pages/LaneStatus";
-import TransactionValidation from "@/pages/TransactionValidation";
+import Auditor from "@/features/auditor/Auditor";
+import Dashboard from "@/features/dashboard/Dashboard";
+import LaneStatus from "@/features/lanes/LaneStatus";
+import TransactionValidation from "@/features/transactions/TransactionValidation";
 import VRNValidation from "@/features/validation/pages/VRNValidation";
 import { createBrowserRouter } from "react-router-dom";
 

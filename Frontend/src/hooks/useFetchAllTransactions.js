@@ -1,4 +1,4 @@
-import { setAllTransactions } from "../store/TransactionsSlice.js";
+import { setAllTransactions } from "../features/transactions/TransactionsSlice.js";
 import { TRANSACTION_API_END_POINT } from "@/utils/constant";
 import axios from "axios";
 import { useEffect } from "react";

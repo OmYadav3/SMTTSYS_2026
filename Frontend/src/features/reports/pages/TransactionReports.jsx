@@ -7,8 +7,8 @@ import {
   OPTIONS_LIST,
 } from "../../../utils/constant";
 import Dropdown from "../../../components/ui/Dropdown";
-import Calender from "../../../components/ui/Calender";
 import Table from "../components/Table";
+import DateAndTime from "@/components/ui/DateAndTime/DateAndTime";
 
 
 
@@ -19,7 +19,6 @@ const TransactionReport = () => {
   const handleDropDown = (value) => {
     setReportType(value)
   }
-
 
   const searchTableHandler = async () => {
     if(!reportType) {
@@ -45,8 +44,8 @@ const TransactionReport = () => {
           </div>
 
           {/* From Date */}
-          <Calender label={"From Date:"} />
-          <Calender label={"To Date:"} />
+          <DateAndTime label={"From Date:"} />
+          <DateAndTime label={"To Date:"} />
         </div>
 
         {/* Filtering Table */}

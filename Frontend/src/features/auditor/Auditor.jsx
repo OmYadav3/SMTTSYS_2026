@@ -1,4 +1,4 @@
-import DateAndTime from "@/components/ui/DateAndTime";
+import DateAndTime from "@/components/ui/DateAndTime/DateAndTime";
 import React from "react";
 
 const Auditor = () => {
