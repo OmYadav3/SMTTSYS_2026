@@ -18,10 +18,12 @@ app.use(express.static("public"));
 
 /* ⭐ Routes import */
 import authRouter from "./routes/auth.route.js";
+import reportRouter from "./routes/report.route.js";
 import transactionRouter from "./routes/transaction.route.js";
 
 /* ⭐ Routes declaration */
 app.use("/api/v1/users", authRouter);
+app.use("/api/v1/report", reportRouter);
 app.use("/api/v1/transactions", transactionRouter);
 
 /* ⭐ Health check */
