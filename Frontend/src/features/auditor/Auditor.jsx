@@ -1,4 +1,4 @@
-import DateAndTime from "@/components/ui/DateAndTime/DateAndTime";
+// import DateAndTime from "@/components/ui/DateTime";
 import React from "react";
 
 const Auditor = () => {
@@ -6,7 +6,7 @@ const Auditor = () => {
     <div>
       Auditor
       <div>
-        <DateAndTime/>
+        {/* <DateAndTime/> */}
       </div>
     </div>
   );

@@ -6,7 +6,8 @@ import {
   ChevronRight,
 } from "lucide-react";
 
-const DateAndTime = ({ label }) => {
+
+const DateTime = ({ label }) => {
 
   /* ---------------- CURRENT DATE ---------------- */
 
@@ -486,4 +487,4 @@ const DateAndTime = ({ label }) => {
   );
 };
 
-export default DateAndTime;
+export default DateTime;

@@ -8,8 +8,8 @@ import {
 } from "../../../utils/constant";
 import Dropdown from "../../../components/ui/Dropdown";
 import Table from "../components/Table";
-import DateAndTime from "@/components/ui/DateAndTime/DateAndTime";
-
+import DateAndTime from "@/components/DateAndTimePicker/DateAndTime";
+import DateTime from "@/components/ui/DateTime";
 
 
 const TransactionReport = () => {
@@ -44,8 +44,8 @@ const TransactionReport = () => {
           </div>
 
           {/* From Date */}
-          <DateAndTime label={"From Date:"} />
-          <DateAndTime label={"To Date:"} />
+          <DateTime label={"From Date:"} />
+          <DateTime label={"To Date:"} />
         </div>
 
         {/* Filtering Table */}
