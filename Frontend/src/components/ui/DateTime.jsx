@@ -6,9 +6,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 
-
-const DateTime = ({ label }) => {
-
+const DateTime = ({ label, value, onChange }) => {
   /* ---------------- CURRENT DATE ---------------- */
 
   const date = new Date();
@@ -24,6 +22,12 @@ const DateTime = ({ label }) => {
 
   /* input field value */
   const [dateValue, setDateValue] = useState("");
+
+ useEffect(() => {
+  if (value !== undefined && value !== null) {
+    setDateValue(value);
+  }
+}, [value]);
 
   /* ---------------- UI STATE CONTROLLERS ---------------- */
 
@@ -41,13 +45,26 @@ const DateTime = ({ label }) => {
   const [timeValue, setTimeValue] = useState("00:00:00");
   const [isTimeBox, setIsTimeBox] = useState(false);
 
+
+
+
   /* ---------------- STATIC DATA ---------------- */
 
   const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
   const months = [
-    "Jan","Feb","Mar","Apr","May","Jun",
-    "Jul","Aug","Sep","Oct","Nov","Dec",
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
   ];
 
   const years = [];
@@ -56,15 +73,15 @@ const DateTime = ({ label }) => {
   }
 
   const hours = Array.from({ length: 24 }, (_, i) =>
-    String(i).padStart(2, "0")
+    String(i).padStart(2, "0"),
   );
 
   const minutes = Array.from({ length: 60 }, (_, i) =>
-    String(i).padStart(2, "0")
+    String(i).padStart(2, "0"),
   );
 
   const seconds = Array.from({ length: 60 }, (_, i) =>
-    String(i).padStart(2, "0")
+    String(i).padStart(2, "0"),
   );
 
   /* ---------------- GET DAYS IN MONTH ---------------- */
@@ -88,7 +105,7 @@ const DateTime = ({ label }) => {
   const firstDayIndex = new Date(
     selectedYear,
     months.indexOf(selectedMonth),
-    1
+    1,
   ).getDay();
 
   /* create empty spaces before day 1 */
@@ -97,13 +114,17 @@ const DateTime = ({ label }) => {
 
   /* ---------------- DATE CHANGE HANDLER ---------------- */
 
-  const evenChangeHandler = (value, type) => {
 
+  const evenChangeHandler = (value, type) => {
     if (type === "day") {
       setSelectedDay(value);
 
       const fullDate = `${value} ${selectedMonth} ${selectedYear}`;
       setDateValue(fullDate);
+
+      if (onChange) {
+        onChange(fullDate);
+      }
     }
 
     if (type === "month") {
@@ -122,7 +143,6 @@ const DateTime = ({ label }) => {
   /* ---------------- TIME HANDLER ---------------- */
 
   const handleTimeChange = (value, type) => {
-
     let h = hour;
     let m = minute;
     let s = second;
@@ -185,7 +205,6 @@ const DateTime = ({ label }) => {
   };
 
   const handlePrevMonth = () => {
-
     const currentIndex = months.indexOf(selectedMonth);
 
     if (currentIndex === 0) {
@@ -197,7 +216,6 @@ const DateTime = ({ label }) => {
   };
 
   const handleNextMonth = () => {
-
     const currentIndex = months.indexOf(selectedMonth);
 
     if (currentIndex === 11) {
@@ -213,7 +231,6 @@ const DateTime = ({ label }) => {
   const ref = useRef();
 
   useEffect(() => {
-
     const handler = (e) => {
       if (ref.current && !ref.current.contains(e.target)) {
         setIsDateBox(false);
@@ -223,47 +240,47 @@ const DateTime = ({ label }) => {
     document.addEventListener("mousedown", handler);
 
     return () => document.removeEventListener("mousedown", handler);
-
   }, []);
 
   /* ---------------HandleNowButton ---------*/
 
   const handleNowButton = () => {
-  const now = new Date();
+    const now = new Date();
 
-  const day = now.getDate();
-  const month = months[now.getMonth()];
-  const year = now.getFullYear();
+    const day = now.getDate();
+    const month = months[now.getMonth()];
+    const year = now.getFullYear();
 
-  const h = String(now.getHours()).padStart(2, "0");
-  const m = String(now.getMinutes()).padStart(2, "0");
-  const s = String(now.getSeconds()).padStart(2, "0");
+    const h = String(now.getHours()).padStart(2, "0");
+    const m = String(now.getMinutes()).padStart(2, "0");
+    const s = String(now.getSeconds()).padStart(2, "0");
 
-  // set calendar values
-  setSelectedDay(day);
-  setSelectedMonth(month);
-  setSelectedYear(year);
+    // set calendar values
+    setSelectedDay(day);
+    setSelectedMonth(month);
+    setSelectedYear(year);
 
-  // set time values
-  setHour(h);
-  setMinute(m);
-  setSecond(s);
+    // set time values
+    setHour(h);
+    setMinute(m);
+    setSecond(s);
 
-  // update input values
-  setDateValue(`${day} ${month} ${year}`);
-  setTimeValue(`${h}:${m}:${s}`);
+    // update input values
+    setDateValue(`${day} ${month} ${year}`);
+    if (onChange) {
+      onChange(`${day} ${month} ${year} ${h}:${m}:${s}`);
+    }
+    setTimeValue(`${h}:${m}:${s}`);
 
-  // close picker
-  setIsDateBox(false);
-};
-
+    // close picker
+    setIsDateBox(false);
+  };
 
   /* ---------------- UI ---------------- */
 
   return (
     <div ref={ref}>
       <div className="relative">
-
         {/* INPUT FIELD */}
 
         <div className="flex items-center">
@@ -272,7 +289,10 @@ const DateTime = ({ label }) => {
           <input
             type="text"
             value={dateValue}
-            onChange={(e) => setDateValue(e.target.value)}
+            onChange={(e) => {
+              setDateValue(e.target.value);
+              onChange && onChange(e.target.value);
+            }}
             className="text-sm border p-2 font-bold w-full"
             onClick={handleDateInputBox}
             placeholder="Select Date and Time"
@@ -283,11 +303,9 @@ const DateTime = ({ label }) => {
 
         {isDateBox === true && (
           <div className="absolute left-26 border rounded-md w-73 mt-4 bg-black/70">
-
             {/* DATE + TIME INPUT */}
 
             <div className="border-b flex justify-around">
-
               <input
                 type="text"
                 value={dateValue}
@@ -307,9 +325,7 @@ const DateTime = ({ label }) => {
             {/* CALENDAR HEADER */}
 
             <div className="border-b">
-
               <div className="flex items-center justify-center">
-
                 <div className="flex p-2">
                   <button onClick={handlePrevYear}>
                     <ChevronsLeft className="w-8 h-8" />
@@ -321,7 +337,6 @@ const DateTime = ({ label }) => {
                 </div>
 
                 <div className="flex p-2 m-2 gap-2">
-
                   <button onClick={HandlerYears}>
                     <div className="text-xl">{selectedYear}</div>
                   </button>
@@ -329,11 +344,9 @@ const DateTime = ({ label }) => {
                   <button onClick={HandlerMonths}>
                     <div className="text-xl">{selectedMonth}</div>
                   </button>
-
                 </div>
 
                 <div className="flex p-2">
-
                   <button onClick={handleNextMonth}>
                     <ChevronRight className="w-8 h-8" />
                   </button>
@@ -341,9 +354,7 @@ const DateTime = ({ label }) => {
                   <button onClick={handleNextYear}>
                     <ChevronsRight className="w-8 h-8" />
                   </button>
-
                 </div>
-
               </div>
 
               {/* YEAR BOX */}
@@ -382,7 +393,6 @@ const DateTime = ({ label }) => {
 
               {isCalender && (
                 <div className="border-t grid grid-cols-7 text-center">
-
                   {weekdays.map((day, index) => (
                     <div key={index} className="border-b p-2 font-extrabold">
                       {day}
@@ -407,17 +417,14 @@ const DateTime = ({ label }) => {
                       {day}
                     </button>
                   ))}
-
                 </div>
               )}
-
             </div>
 
             {/* TIME PICKER */}
 
             {isTimeBox && (
               <div className="flex gap-2 p-2 border-t bg-black/80 absolute top-16 left-34">
-
                 <div className="h-32 overflow-y-scroll border">
                   {hours.map((h, i) => (
                     <div
@@ -456,14 +463,12 @@ const DateTime = ({ label }) => {
                     </div>
                   ))}
                 </div>
-
               </div>
             )}
 
             {/* BUTTONS */}
 
             <div className="flex items-center justify-end mx-3 gap-2">
-
               <button
                 onClick={handleNowButton}
                 className="border my-2 px-2 py-1 rounded-lg hover:bg-green-500/50"
@@ -477,9 +482,7 @@ const DateTime = ({ label }) => {
               >
                 Ok
               </button>
-
             </div>
-
           </div>
         )}
       </div>

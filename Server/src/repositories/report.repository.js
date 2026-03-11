@@ -21,8 +21,6 @@ export const getReports = async (filters) => {
         LANE_TRANS_ID,
         TAG,
         VEH_PLATE,
-        IS_ANPR,
-        ANPR_PLATE,
         LANE_ID,
         DIRECTION,
         VEH_CLASS,
@@ -30,7 +28,7 @@ export const getReports = async (filters) => {
         ENCODED_DATE
     FROM [AFSGantry].[dbo].[TBL_SLAVE_TRANS]
     WHERE ENCODED_DATE BETWEEN @fromDate AND @toDate
-    AND REPORT_TYPE = @reportType     
+         
     `;
 
    if (laneId) {
@@ -50,6 +48,7 @@ export const getReports = async (filters) => {
 
    const result = await pool
       .request()
+      .input("limit", sql.Int, limit)
       .input("fromDate", sql.DateTime, fromDate)
       .input("toDate", sql.DateTime, toDate)
       .input("reportType", sql.VarChar, reportType)
@@ -72,3 +71,4 @@ export const getReports = async (filters) => {
       nextCursor,
    };
 };
+

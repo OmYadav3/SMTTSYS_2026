@@ -6,6 +6,7 @@ export const REPORT_API_END_POINT = "http://localhost:8000/api/v1/transactions";
 export const INPUT_FIELD = [
   {
     label: "CCH Txn ID",
+    name: "cchTxnId",
     type: "text",
     placeholder: "Enter CCH Txn ID",
     color: "primary",
@@ -13,6 +14,7 @@ export const INPUT_FIELD = [
   },
   {
     label: "LANE Txn ID",
+    name: "laneTxnId",
     type: "text",
     placeholder: "LANE TXN ID",
     color: "primary",
@@ -20,6 +22,7 @@ export const INPUT_FIELD = [
   },
   {
     label: "Plate Number",
+    name: "plateNumber",
     type: "text",
     placeholder: "Enter Plate Number",
     color: "primary",
@@ -28,6 +31,7 @@ export const INPUT_FIELD = [
 
   {
     label: "Tag ID",
+    name: "tagId",
     type: "text",
     placeholder: "Enter Tag ID",
     color: "primary",

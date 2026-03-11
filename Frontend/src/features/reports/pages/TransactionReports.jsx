@@ -8,23 +8,50 @@ import {
 } from "../../../utils/constant";
 import Dropdown from "../../../components/ui/Dropdown";
 import Table from "../components/Table";
-import DateAndTime from "@/components/DateAndTimePicker/DateAndTime";
-import DateTime from "@/components/ui/DateTime";
 
+import DateTime from "@/components/ui/DateTime";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchReports } from "../reportThunk";
 
 const TransactionReport = () => {
-  const[reportType, setReportType] = useState()
+  const [filters, setFilters] = useState({
+    reportType: "",
+    fromDate: "",
+    toDate: "",
+    laneId: "",
+    plateNumber: "",
+    tagId: "",
+    cchTxnId: "",
+    laneTxnId: "",
+  });
+
+  const dispatch = useDispatch();
+  const { data, loading } = useSelector((state) => state.reports);
+
   const [tableOpen, setTableOpen] = useState(false);
 
+  // useEffect(() => {
+  //   dispatch(fetchReports());
+  // }, [dispatch]);
+
+  const handleInputChange = (field, value) => {
+    setFilters((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  };
+
   const handleDropDown = (value) => {
-    setReportType(value)
-  }
+    handleInputChange("reportType", value);
+  };
 
   const searchTableHandler = async () => {
-    if(!reportType) {
-      alert("Please Select report type ")
-      return ;
+    if (!filters.reportType || !filters.fromDate || !filters.toDate) {
+      alert("Report Type, From Date, To Date are required");
+      return;
     }
+
+    dispatch(fetchReports(filters));
     setTableOpen(true);
   };
 
@@ -38,14 +65,25 @@ const TransactionReport = () => {
               children="Report Type:"
               optionList={OPTIONS_LIST}
               size={"sm"}
-              value={reportType}
+              value={filters.reportType}
               onChange={handleDropDown}
             />
           </div>
 
           {/* From Date */}
+          <DateTime
+            label={"From Date"}
+            value={filters.fromDate}
+            onChange={(value) => handleInputChange("fromDate", value)}
+            />
+          <DateTime
+            label={"From Date"}
+            value={filters.toDate}
+            onChange={(value) => handleInputChange("toDate", value)}
+            />
+{/* 
           <DateTime label={"From Date:"} />
-          <DateTime label={"To Date:"} />
+          <DateTime label={"To Date:"} /> */}
         </div>
 
         {/* Filtering Table */}
@@ -58,6 +96,8 @@ const TransactionReport = () => {
               color={input.color}
               placeholder={input.placeholder}
               label={input.label}
+              value={filters[input.name]}
+              onChange={(e) => handleInputChange(input.name, e.target.value)}
             />
           ))}
 
@@ -81,7 +121,6 @@ const TransactionReport = () => {
           children={"Search Transactions"}
           icon={"search"}
           onClick={searchTableHandler}
-          
         />
         <Button
           color={"danger"}
@@ -100,7 +139,7 @@ const TransactionReport = () => {
       </div>
 
       {/*Table */}
-      {tableOpen && <Table/>}
+      {tableOpen && <Table data={data} loading={loading} />}
     </div>
   );
 };
