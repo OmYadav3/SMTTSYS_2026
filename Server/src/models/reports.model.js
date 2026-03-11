@@ -1,4 +1,4 @@
-import { poolPromise, sql } from "../config/db";
+import { poolPromise, sql } from "../config/db.js";
 
 export const getReports = async (req, res) => {
    try {
@@ -41,7 +41,8 @@ export const getReports = async (req, res) => {
          .input("reportType", sql.VarChar, reportType)
          .input("laneId", sql.Int, laneId || null)
          .input("plateNumber", sql.VarChar, plateNumber)
-         .input("tagId", sql.VarChar, tagId);
+         .input("tagId", sql.VarChar, tagId)
+         .query(query);
 
       res.json(result.recordset);
    } catch (error) {
