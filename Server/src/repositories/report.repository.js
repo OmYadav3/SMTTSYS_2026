@@ -33,6 +33,8 @@ export const getReports = async (filters) => {
 
       let query = "";
 
+      // TODO: CHANGE QUERIES ACCORDING TO REPORT_TYPE AND TABLE_NAME    
+
       switch (reportType) {
          case "Toll_Transaction_Details_Report":
             query = `
@@ -177,6 +179,9 @@ export const getReports = async (filters) => {
             throw new Error("Invalid Report Type");
       }
 
+
+      // TODO: CHECK FIELD NAME AND CHANGE AFTER CHECK THE QUERY COLUMN NAME
+
       if (laneId) {
          query += ` AND LANE_ID = @laneId`;
       }
@@ -241,6 +246,7 @@ export const getReports = async (filters) => {
          data: rows,
          nextCursor,
       };
+      
    } catch (error) {
       console.error("Error in getReports Repository: ", error.message);
 
