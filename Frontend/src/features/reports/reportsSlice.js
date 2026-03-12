@@ -3,7 +3,6 @@ import { fetchReports } from './reportThunk.js';
 
 const initialState = {
     data: [],
-    allReports : [],
     loading: false,
     error: null,
 }
@@ -12,10 +11,6 @@ const reportsSlice = createSlice({
     name: 'reports',
     initialState,
     reducers: {
-        // setAllReports: (state, actions) => {
-        //     state.loading = true;
-        //     state.allReports = actions.payload;
-        // }
     },
 
     extraReducers: (builder) => {
@@ -35,5 +30,5 @@ const reportsSlice = createSlice({
     }
     
 })
-// export const { setAllReports } = reportsSlice.actions;
+
 export default reportsSlice.reducer;

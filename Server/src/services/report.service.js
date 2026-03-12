@@ -17,6 +17,7 @@ export const getReports = async (filters) => {
       });
 
       console.log(data, "DATA")
+      
       return data;
 
    } catch (error) {

@@ -19,7 +19,7 @@ export const getReports = async (filters) => {
          limit,
       } = filters;
 
-      console.log("FILTERS : ",
+      console.log("FIELDS: ",
          fromDate,
          toDate,
          limit)
