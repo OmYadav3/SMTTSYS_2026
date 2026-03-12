@@ -7,11 +7,19 @@ export const getReports = async (filters) => {
    Default limit = 50
    Maximum limit allowed = 500
    */
-   const limit = Math.min(parseInt(filters.limit) || 50, 500);
+   try {
+      const limit = Math.min(parseInt(filters.limit) || 50, 500);
+      console.log(limit, "LIMIT VALUE")
 
-   const data = await reportRepo.getReports({
-      ...filters,
-      limit,
-   });
-   return data;
+      const data = await reportRepo.getReports({
+         ...filters,
+         limit,
+      });
+
+      console.log(data, "DATA")
+      return data;
+
+   } catch (error) {
+      console.log(error, "Error In Service")
+   }
 };

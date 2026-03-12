@@ -1,30 +1,40 @@
 import express from "express";
 import cors from "cors";
+import morgan from "morgan";
+import helmet from "helmet";
 
 const app = express();
+
+/* ⭐ Security Middleware */
+app.use(helmet());
+
 
 /* ⭐ CORS */
 app.use(
   cors({
-    origin: process.env.CORS_ORIGIN,
+    origin: process.env.CORS_ORIGIN || "*",
     credentials: true
   })
 );
 
+
+/* ⭐ Logging Middleware */
+app.use(morgan("dev"));
+
+
 /* ⭐ Middlewares */
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: "20kb" }));
+app.use(express.urlencoded({ extended: true, limit: "20kb"  }));
 app.use(express.static("public"));
 
+
 /* ⭐ Routes import */
-import authRouter from "./routes/auth.route.js";
 import reportRouter from "./routes/report.route.js";
-import transactionRouter from "./routes/transaction.route.js";
+
 
 /* ⭐ Routes declaration */
-app.use("/api/v1/users", authRouter);
 app.use("/api/v1/report", reportRouter);
-app.use("/api/v1/transactions", transactionRouter);
+
 
 /* ⭐ Health check */
 app.get("/health", (req, res) => {

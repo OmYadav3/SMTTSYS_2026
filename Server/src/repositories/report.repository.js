@@ -19,6 +19,11 @@ export const getReports = async (filters) => {
          limit,
       } = filters;
 
+      console.log("FILTERS : ",
+         fromDate,
+         toDate,
+         limit)
+
       if (!fromDate || !toDate) {
          throw new Error("Date range required");
       }
