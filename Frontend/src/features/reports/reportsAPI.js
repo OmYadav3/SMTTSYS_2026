@@ -1,9 +1,15 @@
 import axiosInstance from "@/api/axiosInstance";
 
-export const fetchReportAPI = async(params) => {
-    const response = await axiosInstance.get("/report", {
-        params,
-    })
+export const fetchReportAPI = async(params = {} ) => {
+    try {
+        const { data } = await axiosInstance.get("/report/get", {
+            params,
+        })
+    
+        return data;
 
-    return response.data;
+    } catch (error) {
+    console.log(error) 
+    throw error;
+    }
 }

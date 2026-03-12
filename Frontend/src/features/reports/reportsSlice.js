@@ -22,14 +22,15 @@ const reportsSlice = createSlice({
         builder
             .addCase(fetchReports.pending, (state) => {
                 state.loading = true;
+                state.error = null;
             })
             .addCase(fetchReports.fulfilled, (state, action) => {
                 state.loading = false;
                 state.data = action.payload;
             })
-            .addCase(fetchReports.rejected, (state) => {
+            .addCase(fetchReports.rejected, (state, action) => {
                 state.loading = false;
-                state.error = "Failed to fetch reports "
+                state.error = action.payload || "Failed to fetch reports "
             })
     }
     
