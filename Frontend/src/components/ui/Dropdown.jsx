@@ -5,6 +5,7 @@ const Dropdown = ({
   optionList = [],
   value,
   onChange,
+  onClick,
   placeholder = "ALL",
   size = "sm",
   error,
@@ -33,6 +34,7 @@ const Dropdown = ({
         className={classes}
         value={value}
         onChange={(e) => onChange(e.target.value)}
+        onClick={onClick}
       >
         <option value="">{placeholder}</option>
 

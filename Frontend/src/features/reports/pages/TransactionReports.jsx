@@ -1,11 +1,6 @@
 import React, { useState } from "react";
 import Button from "../../../components/ui/Button";
-import Input from "../../../components/ui/Input";
-import {
-  INPUT_FIELD,
-  DROPDOWN_FIELD,
-  OPTIONS_LIST,
-} from "../../../utils/constant";
+import { OPTIONS_LIST } from "../../../utils/constant";
 import Dropdown from "../../../components/ui/Dropdown";
 import Table from "../components/Table";
 
@@ -13,21 +8,41 @@ import DateTime from "@/components/ui/DateTime";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchReports } from "../reportThunk";
 
+import TransactionReportForm from "../components/TransactionReportForm";
+import ETCReportForm from "../components/ETCReportForm";
+import ExemptionDetailsReport from "../components/ExemptionDetailsReport";
+import AVCLanewiseAccuracyReport from "../components/AVCLanewiseAccuracyReport";
+import AVCClassAccuracyReport from "../components/AVCClassAccuracyReport";
+import TransactionPerformanceReport from "../components/TransactionPerformanceReport";
+import TCANPRPerformanceReport from "../components/TCANPRPerformanceReport";
+import UPITransactionReport from "../components/UPITransactionReport";
+
 const TransactionReport = () => {
   const [filters, setFilters] = useState({
     reportType: "",
     fromDate: "",
     toDate: "",
-    laneId: "",
-    plateNumber: "",
-    tagId: "",
     cchTxnId: "",
     laneTxnId: "",
+    plateNumber: "",
+    tagId: "",
+    vehicleClass: "",
+    laneId: "",
+    laneType: "",
+    paymentType: "",
+    patmentSubType: "",
+    paymentMode: "",
+    tcId: "",
+    FreeFlow: "",
+    tagInHand: "",
+    annualPass: "",
   });
+  // const [open, setOpen] = useState(false)
 
   const dispatch = useDispatch();
   const { data, loading } = useSelector((state) => state.reports);
 
+  const reportType = filters.reportType;
   const [tableOpen, setTableOpen] = useState(false);
 
   const handleInputChange = (field, value) => {
@@ -39,6 +54,7 @@ const TransactionReport = () => {
 
   const handleDropDown = (value) => {
     handleInputChange("reportType", value);
+    // setOpen(true)
   };
 
   const searchTableHandler = async () => {
@@ -71,42 +87,66 @@ const TransactionReport = () => {
             label={"From Date"}
             value={filters.fromDate}
             onChange={(value) => handleInputChange("fromDate", value)}
-            />
+          />
           <DateTime
             label={"From Date"}
             value={filters.toDate}
             onChange={(value) => handleInputChange("toDate", value)}
-            />
-{/* 
+          />
+          {/* 
           <DateTime label={"From Date:"} />
           <DateTime label={"To Date:"} /> */}
         </div>
 
         {/* Filtering Table */}
-        <div className="mt-4 grid grid-cols-4 gap-2 border-b pb-4 font-bold ">
-          {INPUT_FIELD.map((input, index) => (
-            <Input
-              key={index}
-              type={input.type}
-              size={input.size}
-              color={input.color}
-              placeholder={input.placeholder}
-              label={input.label}
-              value={filters[input.name]}
-              onChange={(e) => handleInputChange(input.name, e.target.value)}
-            />
-          ))}
-
-          {/* DROPDOWN  */}
-          {DROPDOWN_FIELD.map((dropdown, index) => (
-            <Dropdown
-              key={index}
-              children={dropdown.label}
-              size={dropdown.size}
-              optionList={dropdown.optionList}
-            />
-          ))}
-        </div>
+        {reportType === "Toll_Transaction_Details_Report" && (
+          <TransactionReportForm
+            filters={filters}
+            handleInputChange={handleInputChange}
+          />
+        )}
+        {reportType === "ETC_Bank_Transaction_Report" && (
+          <ETCReportForm
+            filters={filters}
+            handleInputChange={handleInputChange}
+          />
+        )}
+        {reportType === "UPI_Transaction_Report" && (
+          <UPITransactionReport
+            filters={filters}
+            handleInputChange={handleInputChange}
+          />
+        )}
+        {reportType === "TC_ANPR_Performance_Report" && (
+          <TCANPRPerformanceReport
+            filters={filters}
+            handleInputChange={handleInputChange}
+          />
+        )}
+        {reportType === "Transaction_Performance_Report" && (
+          <TransactionPerformanceReport
+            filters={filters}
+            handleInputChange={handleInputChange}
+          />
+        )}
+        {reportType === "AVC_Class_Accuracy_Report" && (
+          <AVCClassAccuracyReport
+            filters={filters}
+            handleInputChange={handleInputChange}
+          />
+        )}
+        {reportType === "AVC_Lanewise_Accuracy_Report" && (
+          <AVCLanewiseAccuracyReport
+            filters={filters}
+            handleInputChange={handleInputChange}
+          />
+        )}
+        {reportType === "Exemption_Details_Report" && (
+          <ExemptionDetailsReport
+            filters={filters}
+            handleInputChange={handleInputChange}
+          />
+        )}
       </div>
 
       {/* Action Buttons */}
