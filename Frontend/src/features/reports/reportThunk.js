@@ -6,6 +6,7 @@ export const fetchReports = createAsyncThunk(
     async (filters, {rejectWithValue}) => {
         try {
             const data = await fetchReportAPI(filters);
+            console.log(data, "THUNK")
              return data;
 
         } catch (error) {

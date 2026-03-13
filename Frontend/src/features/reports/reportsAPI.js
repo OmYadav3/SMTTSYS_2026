@@ -5,8 +5,9 @@ export const fetchReportAPI = async(params = {} ) => {
         const { data } = await axiosInstance.get("/report/get", {
             params,
         })
-    
-        return data;
+        let dataInObj = data.data
+        console.log(dataInObj, "data")
+        return dataInObj;
 
     } catch (error) {
     console.log(error) 

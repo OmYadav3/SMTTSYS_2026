@@ -30,10 +30,6 @@ const TransactionReport = () => {
 
   const [tableOpen, setTableOpen] = useState(false);
 
-  // useEffect(() => {
-  //   dispatch(fetchReports());
-  // }, [dispatch]);
-
   const handleInputChange = (field, value) => {
     setFilters((prev) => ({
       ...prev,

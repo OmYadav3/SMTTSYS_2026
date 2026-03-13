@@ -6,6 +6,8 @@ export const getReports = async (filters) => {
          fromDate,
          toDate,
          reportType,
+         cchTxnId,
+         laneTransId,
          laneId,
          laneType,
          plateNumber,
@@ -19,17 +21,8 @@ export const getReports = async (filters) => {
          limit,
       } = filters;
 
-      console.log("FIELDS: ",
-         fromDate,
-         toDate,
-         limit)
-
       if (!fromDate || !toDate) {
          throw new Error("Date range required");
-      }
-
-      if (!reportType) {
-         throw new Error("reportType is required");
       }
 
       const pool = await poolPromise;
@@ -50,6 +43,7 @@ export const getReports = async (filters) => {
              TAG,
              VEH_PLATE,
              LANE_ID,
+             LANE_TYPE,
              DIRECTION,
              VEH_CLASS,
              AVC_CLASS,
@@ -187,6 +181,12 @@ export const getReports = async (filters) => {
 
       // TODO: CHECK FIELD NAME AND CHANGE AFTER CHECK THE QUERY COLUMN NAME
 
+      if (cchTxnId) {
+         query += ` AND CCH_TRANS_ID = @cchTxnId`;
+      }
+      if (laneTransId) {
+         query += ` AND lane_TRANS_ID = @laneTransId`;
+      }
       if (laneId) {
          query += ` AND LANE_ID = @laneId`;
       }
@@ -200,7 +200,7 @@ export const getReports = async (filters) => {
          query += ` AND VEH_CLASS = @vehicleClass`;
       }
       if (tagId) {
-         query += ` AND TAG_ID = @tagId`;
+         query += ` AND TAG = @tagId`;
       }
       if (paymentType) {
          query += ` AND PAYMENT_TYPE = @paymentType`;
@@ -226,9 +226,11 @@ export const getReports = async (filters) => {
          .input("fromDate", sql.DateTime, fromDate)
          .input("toDate", sql.DateTime, toDate)
          .input("laneId", sql.Int, laneId || null)
+         .input("laneType", sql.VarChar, laneType || null)
+         .input("cchTxnId", sql.VarChar, cchTxnId || null)
+         .input("laneTransId", sql.VarChar, laneTransId || null)
          .input("plateNumber", sql.VarChar, plateNumber || null)
          .input("tagId", sql.VarChar, tagId || null)
-         .input("laneType", sql.VarChar, laneType || null)
          .input("vehicleClass", sql.Int, vehicleClass || null)
          .input("paymentType", sql.VarChar, paymentType || null)
          .input("paymentSubType", sql.VarChar, paymentSubType || null)
