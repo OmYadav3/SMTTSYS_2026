@@ -19,7 +19,6 @@ const allOptionList = {
     ]
 } 
 
-
 const ETCReportForm = ({filters, handleInputChange}) => {
   return (
     <div className="mt-4 grid grid-cols-4 gap-2 border-b pb-4 font-bold ">

@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-export default function Table() {
+export default function TransactionReportFormTable() {
    const { data: reportsData, loading } = useSelector((state) => state.reports);
   console.log(reportsData, "TABLE COMPONENT")
 

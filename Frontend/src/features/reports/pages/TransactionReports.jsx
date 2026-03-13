@@ -2,20 +2,20 @@ import React, { useState } from "react";
 import Button from "../../../components/ui/Button";
 import { OPTIONS_LIST } from "../../../utils/constant";
 import Dropdown from "../../../components/ui/Dropdown";
-import Table from "../components/tables/Table";
 
 import DateTime from "@/components/ui/DateTime";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchReports } from "../reportThunk";
 
-import TransactionReportForm from "../components/TransactionReportForm";
-import ETCReportForm from "../components/ETCReportForm";
-import ExemptionDetailsReport from "../components/ExemptionDetailsReport";
-import AVCLanewiseAccuracyReport from "../components/AVCLanewiseAccuracyReport";
-import AVCClassAccuracyReport from "../components/AVCClassAccuracyReport";
-import TransactionPerformanceReport from "../components/TransactionPerformanceReport";
-import TCANPRPerformanceReport from "../components/TCANPRPerformanceReport";
-import UPITransactionReport from "../components/UPITransactionReport";
+import TransactionReportForm from "../components/forms/TransactionReportForm";
+import ETCReportForm from "../components/forms/ETCReportForm";
+import ExemptionDetailsReport from "../components/forms/ExemptionDetailsReport";
+import AVCLanewiseAccuracyReport from "../components/forms/AVCLanewiseAccuracyReport";
+import AVCClassAccuracyReport from "../components/forms/AVCClassAccuracyReport";
+import TransactionPerformanceReport from "../components/forms/TransactionPerformanceReport";
+import TCANPRPerformanceReport from "../components/forms/TCANPRPerformanceReport";
+import UPITransactionReport from "../components/forms/UPITransactionReport";
+import TransactionReportFormTable from "../components/tables/TransactionReportFormTable";
 
 const TransactionReport = () => {
   const [filters, setFilters] = useState({
@@ -175,7 +175,7 @@ const TransactionReport = () => {
       </div>
 
       {/*Table */}
-      {tableOpen && <Table data={data} loading={loading} />}
+      {tableOpen && <TransactionReportFormTable data={data} loading={loading} />}
     </div>
   );
 };
