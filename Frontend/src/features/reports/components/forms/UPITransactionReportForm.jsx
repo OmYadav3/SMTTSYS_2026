@@ -3,7 +3,7 @@ import Input from '@/components/ui/Input'
 import { DROPDOWN_FIELD, INPUT_FIELD } from '@/utils/constant'
 import React from 'react'
 
-const ExemptionDetailsReport = ({filters,  handleInputChange }) => {
+const UPITransactionReportForm = ({filters,  handleInputChange }) => {
   return (
      <div className="mt-4 grid grid-cols-4 gap-2 border-b pb-4 font-bold ">
           {INPUT_FIELD.map((input, index) => (
@@ -20,7 +20,7 @@ const ExemptionDetailsReport = ({filters,  handleInputChange }) => {
           ))}
 
           {/* DROPDOWN  */}
-          {DROPDOWN_FIELD.slice(0,2).map((dropdown, index) => (
+          {DROPDOWN_FIELD.slice(0,6).map((dropdown, index) => (
             <Dropdown
               key={index}
               children={dropdown.label}
@@ -32,5 +32,7 @@ const ExemptionDetailsReport = ({filters,  handleInputChange }) => {
   )
 }
 
+export default UPITransactionReportForm
 
-export default ExemptionDetailsReport
+
+

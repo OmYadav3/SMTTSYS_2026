@@ -1,21 +1,27 @@
 import React, { useState } from "react";
-import Button from "../../../components/ui/Button";
-import { OPTIONS_LIST } from "../../../utils/constant";
-import Dropdown from "../../../components/ui/Dropdown";
-
-import DateTime from "@/components/ui/DateTime";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchReports } from "../reportThunk";
 
+
+import Button from "../../../components/ui/Button";
+import { OPTIONS_LIST } from "../../../utils/constant";
+import Dropdown from "../../../components/ui/Dropdown";
+import DateTime from "@/components/ui/DateTime";
+
+
+/*----------- FORMS IMPORTS -------*/
 import TransactionReportForm from "../components/forms/TransactionReportForm";
 import ETCReportForm from "../components/forms/ETCReportForm";
-import ExemptionDetailsReport from "../components/forms/ExemptionDetailsReport";
-import AVCLanewiseAccuracyReport from "../components/forms/AVCLanewiseAccuracyReport";
-import AVCClassAccuracyReport from "../components/forms/AVCClassAccuracyReport";
-import TransactionPerformanceReport from "../components/forms/TransactionPerformanceReport";
-import TCANPRPerformanceReport from "../components/forms/TCANPRPerformanceReport";
-import UPITransactionReport from "../components/forms/UPITransactionReport";
+import UPITransactionReportForm from "../components/forms/UPITransactionReportForm";
+import TCANPRPerformanceReportForm from "../components/forms/TCANPRPerformanceReportForm";
+import TransactionPerformanceReportForm from "../components/forms/TransactionPerformanceReportForm";
+import AVCClassAccuracyReportForm from "../components/forms/AVCClassAccuracyReportform";
+import AVCLanewiseAccuracyReportForm from "../components/forms/AVCLanewiseAccuracyReportForm";
+import ExemptionDetailsReportForm from "../components/forms/ExemptionDetailsReportForm";
+
+/*----------- TABLES IMPORTS -------*/
 import TransactionReportFormTable from "../components/tables/TransactionReportFormTable";
+
 
 const TransactionReport = () => {
   const [filters, setFilters] = useState({
@@ -30,7 +36,7 @@ const TransactionReport = () => {
     laneId: "",
     laneType: "",
     paymentType: "",
-    patmentSubType: "",
+    paymentSubType: "",
     paymentMode: "",
     tcId: "",
     FreeFlow: "",
@@ -64,7 +70,9 @@ const TransactionReport = () => {
     }
 
     dispatch(fetchReports(filters));
-    setTableOpen(true);
+    if (reportType === "Toll_Transaction_Details_Report") {
+      setTableOpen(true);
+    }
   };
 
   return (
@@ -112,37 +120,37 @@ const TransactionReport = () => {
           />
         )}
         {reportType === "UPI_Transaction_Report" && (
-          <UPITransactionReport
+          <UPITransactionReportForm
             filters={filters}
             handleInputChange={handleInputChange}
           />
         )}
         {reportType === "TC_ANPR_Performance_Report" && (
-          <TCANPRPerformanceReport
+          <TCANPRPerformanceReportForm
             filters={filters}
             handleInputChange={handleInputChange}
           />
         )}
         {reportType === "Transaction_Performance_Report" && (
-          <TransactionPerformanceReport
+          <TransactionPerformanceReportForm
             filters={filters}
             handleInputChange={handleInputChange}
           />
         )}
         {reportType === "AVC_Class_Accuracy_Report" && (
-          <AVCClassAccuracyReport
+          <AVCClassAccuracyReportForm
             filters={filters}
             handleInputChange={handleInputChange}
           />
         )}
         {reportType === "AVC_Lanewise_Accuracy_Report" && (
-          <AVCLanewiseAccuracyReport
+          <AVCLanewiseAccuracyReportForm
             filters={filters}
             handleInputChange={handleInputChange}
           />
         )}
         {reportType === "Exemption_Details_Report" && (
-          <ExemptionDetailsReport
+          <ExemptionDetailsReportForm
             filters={filters}
             handleInputChange={handleInputChange}
           />
@@ -176,6 +184,7 @@ const TransactionReport = () => {
 
       {/*Table */}
       {tableOpen && <TransactionReportFormTable data={data} loading={loading} />}
+      {/* {tableOpen && <TransactionReportFormTable data={data} loading={loading} />} */}
     </div>
   );
 };

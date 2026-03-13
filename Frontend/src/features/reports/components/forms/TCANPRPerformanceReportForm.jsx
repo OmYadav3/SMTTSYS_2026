@@ -3,11 +3,10 @@ import Input from '@/components/ui/Input'
 import { DROPDOWN_FIELD, INPUT_FIELD } from '@/utils/constant'
 import React from 'react'
 
-
-const TransactionPerformanceReport = ({filters, handleInputChange}) => {
+const TCANPRPerformanceReportForm = ({filters,  handleInputChange }) => {
   return (
-    <div className="mt-4 grid grid-cols-4 gap-2 border-b pb-4 font-bold ">
-          {INPUT_FIELD.slice(0,3).map((input, index) => (
+     <div className="mt-4 grid grid-cols-4 gap-2 border-b pb-4 font-bold ">
+          {INPUT_FIELD.map((input, index) => (
             <Input
               key={index}
               type={input.type}
@@ -21,7 +20,7 @@ const TransactionPerformanceReport = ({filters, handleInputChange}) => {
           ))}
 
           {/* DROPDOWN  */}
-          {DROPDOWN_FIELD.slice(0,3).map((dropdown, index) => (
+          {DROPDOWN_FIELD.map((dropdown, index) => (
             <Dropdown
               key={index}
               children={dropdown.label}
@@ -33,5 +32,5 @@ const TransactionPerformanceReport = ({filters, handleInputChange}) => {
   )
 }
 
-export default TransactionPerformanceReport
 
+export default TCANPRPerformanceReportForm

@@ -3,10 +3,11 @@ import Input from '@/components/ui/Input'
 import { DROPDOWN_FIELD, INPUT_FIELD } from '@/utils/constant'
 import React from 'react'
 
-const AVCLanewiseAccuracyReport = ({filters,  handleInputChange }) => {
+
+const TransactionPerformanceReportForm = ({filters, handleInputChange}) => {
   return (
-     <div className="mt-4 grid grid-cols-4 gap-2 border-b pb-4 font-bold ">
-          {INPUT_FIELD.map((input, index) => (
+    <div className="mt-4 grid grid-cols-4 gap-2 border-b pb-4 font-bold ">
+          {INPUT_FIELD.slice(0,3).map((input, index) => (
             <Input
               key={index}
               type={input.type}
@@ -20,7 +21,7 @@ const AVCLanewiseAccuracyReport = ({filters,  handleInputChange }) => {
           ))}
 
           {/* DROPDOWN  */}
-          {DROPDOWN_FIELD.slice(0,6).map((dropdown, index) => (
+          {DROPDOWN_FIELD.slice(0,3).map((dropdown, index) => (
             <Dropdown
               key={index}
               children={dropdown.label}
@@ -32,4 +33,5 @@ const AVCLanewiseAccuracyReport = ({filters,  handleInputChange }) => {
   )
 }
 
-export default AVCLanewiseAccuracyReport
+export default TransactionPerformanceReportForm
+
