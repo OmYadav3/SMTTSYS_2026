@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Button from "../../../components/ui/Button";
 import { OPTIONS_LIST } from "../../../utils/constant";
 import Dropdown from "../../../components/ui/Dropdown";
-import Table from "../components/Table";
+import Table from "../components/tables/Table";
 
 import DateTime from "@/components/ui/DateTime";
 import { useDispatch, useSelector } from "react-redux";
