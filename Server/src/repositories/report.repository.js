@@ -1,262 +1,102 @@
 import { poolPromise, sql } from "../config/db.js";
 
 export const getReports = async (filters) => {
-   try {
-      const {
-         fromDate,
-         toDate,
-         reportType,
-         cchTxnId,
-         laneTransId,
-         laneId,
-         laneType,
-         plateNumber,
-         vehicleClass,
-         tagId,
-         paymentType,
-         paymentSubType,
-         paymentMode,
-         tcId,
-         cursor,
-         limit,
-      } = filters;
+  try {
+    const { fromDate, toDate, cursor, limit, ...restFilters } = filters;
 
-      if (!fromDate || !toDate) {
-         throw new Error("Date range required");
+    // ✅ Validation
+    if (!fromDate || !toDate) {
+      throw new Error("Date range required");
+    }
+
+    // ✅ Safe limit
+    const safeLimit = Math.min(parseInt(limit) || 50, 500);
+
+    const pool = await poolPromise;
+    const request = pool.request();
+
+    // ✅ Base Query
+    let query = `
+      SELECT TOP (@limit)
+        PLAZA_CODE,
+        CCH_TRANS_ID,
+        LANE_TRANS_ID,
+        TAG,
+        VEH_PLATE,
+        LANE_ID,
+        LANE_TYPE,
+        DIRECTION,
+        VEH_CLASS,
+        AVC_CLASS,
+        ENCODED_DATE
+      FROM [AFSGantry].[dbo].[TBL_SLAVE_TRANS]
+      WHERE ENCODED_DATE BETWEEN @fromDate AND @toDate
+    `;
+
+    // ✅ Required params
+    request.input("limit", sql.Int, safeLimit);
+    request.input("fromDate", sql.DateTime, fromDate);
+    request.input("toDate", sql.DateTime, toDate);
+
+    // 🔥 Cursor Pagination
+    if (cursor) {
+      query += ` AND ENCODED_DATE < @cursor`;
+      request.input("cursor", sql.DateTime, cursor);
+    }
+
+    // 🔥 Filter Config
+    const filterConfig = {
+      cchTxnId: { column: "CCH_TRANS_ID", type: sql.VarChar },
+      laneTransId: { column: "LANE_TRANS_ID", type: sql.VarChar },
+      laneId: { column: "LANE_ID", type: sql.Int },
+      laneType: { column: "LANE_TYPE", type: sql.VarChar },
+      vehicleClass: { column: "VEH_CLASS", type: sql.Int },
+      tagId: { column: "TAG", type: sql.VarChar },
+      paymentType: { column: "PAYMENT_TYPE", type: sql.VarChar },
+      paymentSubType: { column: "PAYMENT_SUBTYPE", type: sql.VarChar },
+      paymentMode: { column: "PAYMENT_MODE", type: sql.VarChar },
+      tcId: { column: "TC_ID", type: sql.VarChar }
+    };
+
+    // 🔥 Apply filters dynamically
+    Object.keys(filterConfig).forEach((key) => {
+      if (restFilters[key]) {
+        const { column, type } = filterConfig[key];
+
+        query += ` AND ${column} = @${key}`;
+        request.input(key, type, restFilters[key]);
       }
+    });
 
-      const pool = await poolPromise;
+    // 🔥 Special LIKE filter
+    if (restFilters.plateNumber) {
+      query += ` AND VEH_PLATE LIKE @plateNumber`;
+      request.input(
+        "plateNumber",
+        sql.VarChar,
+        `%${restFilters.plateNumber}%`
+      );
+    }
 
-      /* ------ BASED ON REPORT TYPE QUERY ---*/
+    // ✅ Sorting
+    query += ` ORDER BY ENCODED_DATE DESC`;
 
-      let query = "";
+    // ✅ Execute
+    const result = await request.query(query);
+    const rows = result.recordset;
 
-      // TODO: CHANGE QUERIES ACCORDING TO REPORT_TYPE AND TABLE_NAME    
+    // ✅ Next Cursor
+    const nextCursor = rows.length
+      ? rows[rows.length - 1].ENCODED_DATE
+      : null;
 
-      switch (reportType) {
-         case "Toll_Transaction_Details_Report":
-            query = `
-          SELECT TOP (@limit)
-             PLAZA_CODE,
-             CCH_TRANS_ID,
-             LANE_TRANS_ID,
-             TAG,
-             VEH_PLATE,
-             LANE_ID,
-             LANE_TYPE,
-             DIRECTION,
-             VEH_CLASS,
-             AVC_CLASS,
-             ENCODED_DATE
-          FROM [AFSGantry].[dbo].[TBL_SLAVE_TRANS]
-          WHERE ENCODED_DATE BETWEEN @fromDate AND @toDate
-          `;
-            break;
+    return {
+      data: rows,
+      nextCursor
+    };
 
-         case "ETC_Bank_Transaction_Report":
-            query = `
-          SELECT TOP (@limit)
-             CCH_TRANS_ID,
-             LANE_TRANS_ID,
-             TAG,
-             VEH_PLATE,
-             LANE_ID,
-             VEH_CLASS,
-             AVC_CLASS,
-             ENCODED_DATE
-          FROM [AFSGantry].[dbo].[TBL_SLAVE_TRANS]
-          WHERE ENCODED_DATE BETWEEN @fromDate AND @toDate
-          `;
-            break;
-
-         case "UPI_Transaction_Report":
-            query = `
-          SELECT TOP (@limit)
-             REQUEST_ID,
-             PLATE_NUMBER,
-             VPA,
-             TERMINAL_ID,
-             QR_TXN_ID,
-             TIMESTAMP,
-             STATUS
-          FROM [AFSGantry].[dbo].[TBL_SLAVE_TRANS]
-          WHERE ENCODED_DATE BETWEEN @fromDate AND @toDate
-          `;
-            break;
-
-         case "TC_ANPR_Performance_Report":
-            query = `
-          SELECT TOP (@limit)
-             PLAZA_CODE,
-             CCH_TRANS_ID,
-             LANE_TRANS_ID,
-             TAG,
-             VEH_PLATE,
-             LANE_ID,
-             DIRECTION,
-             VEH_CLASS,
-             AVC_CLASS,
-             ENCODED_DATE
-          FROM [AFSGantry].[dbo].[TBL_SLAVE_TRANS]
-          WHERE ENCODED_DATE BETWEEN @fromDate AND @toDate
-          `;
-            break;
-
-         case "Transaction_Performance_Report":
-            query = `
-          SELECT TOP (@limit)
-             PLAZA_CODE,
-             CCH_TRANS_ID,
-             LANE_TRANS_ID,
-             TAG,
-             VEH_PLATE,
-             LANE_ID,
-             DIRECTION,
-             VEH_CLASS,
-             AVC_CLASS,
-             ENCODED_DATE
-          FROM [AFSGantry].[dbo].[TBL_SLAVE_TRANS]
-          WHERE ENCODED_DATE BETWEEN @fromDate AND @toDate
-          `;
-            break;
-
-         case "AVC_Class_Accuracy_Report":
-            query = `
-          SELECT TOP (@limit)
-             PLAZA_CODE,
-             CCH_TRANS_ID,
-             LANE_TRANS_ID,
-             TAG,
-             VEH_PLATE,
-             LANE_ID,
-             DIRECTION,
-             VEH_CLASS,
-             AVC_CLASS,
-             ENCODED_DATE
-          FROM [AFSGantry].[dbo].[TBL_SLAVE_TRANS]
-          WHERE ENCODED_DATE BETWEEN @fromDate AND @toDate
-          `;
-            break;
-
-         case "AVC_Lanewise_Accuracy_Report":
-            query = `
-          SELECT TOP (@limit)
-             PLAZA_CODE,
-             CCH_TRANS_ID,
-             LANE_TRANS_ID,
-             TAG,
-             VEH_PLATE,
-             LANE_ID,
-             DIRECTION,
-             VEH_CLASS,
-             AVC_CLASS,
-             ENCODED_DATE
-          FROM [AFSGantry].[dbo].[TBL_SLAVE_TRANS]
-          WHERE ENCODED_DATE BETWEEN @fromDate AND @toDate
-          `;
-            break;
-
-         case "Exemption_Details_Report":
-            query = `
-          SELECT TOP (@limit)
-             PLAZA_CODE,
-             CCH_TRANS_ID,
-             LANE_TRANS_ID,
-             TAG,
-             VEH_PLATE,
-             LANE_ID,
-             DIRECTION,
-             VEH_CLASS,
-             AVC_CLASS,
-             ENCODED_DATE
-          FROM [AFSGantry].[dbo].[TBL_SLAVE_TRANS]
-          WHERE ENCODED_DATE BETWEEN @fromDate AND @toDate
-          `;
-            break;
-
-         default:
-            throw new Error("Invalid Report Type");
-      }
-
-
-      // TODO: CHECK FIELD NAME AND CHANGE AFTER CHECK THE QUERY COLUMN NAME
-
-      if (cchTxnId) {
-         query += ` AND CCH_TRANS_ID = @cchTxnId`;
-      }
-      if (laneTransId) {
-         query += ` AND lane_TRANS_ID = @laneTransId`;
-      }
-      if (laneId) {
-         query += ` AND LANE_ID = @laneId`;
-      }
-      if (laneType) {
-         query += ` AND LANE_TYPE = @laneType`;
-      }
-      if (plateNumber) {
-         query += ` AND VEH_PLATE = @plateNumber`;
-      }
-      if (vehicleClass) {
-         query += ` AND VEH_CLASS = @vehicleClass`;
-      }
-      if (tagId) {
-         query += ` AND TAG = @tagId`;
-      }
-      if (paymentType) {
-         query += ` AND PAYMENT_TYPE = @paymentType`;
-      }
-      if (paymentSubType) {
-         query += ` AND PAYMENT_SUBTYPE = @paymentSubType`;
-      }
-      if (paymentMode) {
-         query += ` AND PAYMENT_MODE = @paymentMode`;
-      }
-      if (tcId) {
-         query += ` AND TC_ID = @tcId`;
-      }
-      if (cursor) {
-         query += ` AND ENCODED_DATE < @cursor`;
-      }
-
-      query += ` ORDER BY ENCODED_DATE DESC `;
-
-      const result = await pool
-         .request()
-         .input("limit", sql.Int, limit)
-         .input("fromDate", sql.DateTime, fromDate)
-         .input("toDate", sql.DateTime, toDate)
-         .input("laneId", sql.Int, laneId || null)
-         .input("laneType", sql.VarChar, laneType || null)
-         .input("cchTxnId", sql.VarChar, cchTxnId || null)
-         .input("laneTransId", sql.VarChar, laneTransId || null)
-         .input("plateNumber", sql.VarChar, plateNumber || null)
-         .input("tagId", sql.VarChar, tagId || null)
-         .input("vehicleClass", sql.Int, vehicleClass || null)
-         .input("paymentType", sql.VarChar, paymentType || null)
-         .input("paymentSubType", sql.VarChar, paymentSubType || null)
-         .input("paymentMode", sql.VarChar, paymentMode || null)
-         .input("tcId", sql.VarChar, tcId || null)
-         .input("cursor", sql.DateTime, cursor || null)
-         .query(query);
-
-      const rows = result.recordset;
-      console.log(rows, "ROWS OF REPORTS");
-
-      const nextCursor = rows.length
-         ? {
-              cursorDate: rows[rows.length - 1].ENCODED_DATE,
-              cursorId: rows[rows.length - 1].LANE_TRANS_ID,
-           }
-         : null;
-
-      return {
-         data: rows,
-         nextCursor,
-      };
-      
-   } catch (error) {
-      console.error("Error in getReports Repository: ", error.message);
-
-      throw new Error("Failed to fetch Reports");
-   }
+  } catch (error) {
+    console.error("Error in getReports Repository:", error.message);
+    throw new Error("Failed to fetch Reports");
+  }
 };
