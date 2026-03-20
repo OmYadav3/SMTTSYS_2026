@@ -1,4 +1,5 @@
 import { poolPromise, sql } from "../config/db.js";
+import { decodeCursor, encodeCursor } from "../utils/cursor.js";
 
 export const getReports = async (filters) => {
    try {
@@ -8,7 +9,7 @@ export const getReports = async (filters) => {
       if (!fromDate || !toDate) {
          throw new Error("Date range required");
       }
-      console.log(...restFilters.laneId, "LANE_ID")
+      console.log(restFilters.laneId, "LANE_ID");
 
       const pool = await poolPromise;
       const request = pool.request();
@@ -38,8 +39,16 @@ export const getReports = async (filters) => {
 
       // 🔥 Cursor Pagination
       if (cursor) {
-         query += ` AND ENCODED_DATE < @cursor`;
-         request.input("cursor", sql.DateTime, cursor);
+         const decoded = decodeCursor(cursor) 
+
+         query += `
+        AND (
+          ENCODED_DATE < @cursorDate
+          OR (ENCODED_DATE = @cursorDate AND CCH_TRANS_ID < @cursorId)
+        )
+      `;
+         request.input("cursorDate", sql.DateTime, decoded.encodedDate);
+         request.input("cursorId", sql.VarChar, decoded.cchTxnId);
       }
 
       // 🔥 Filter Config
@@ -77,20 +86,36 @@ export const getReports = async (filters) => {
       }
 
       // ✅ Sorting
-      query += ` ORDER BY ENCODED_DATE DESC`;
+      query += ` ORDER BY ENCODED_DATE DESC, CCH_TRANS_ID DESC`;
 
       // ✅ Execute
       const result = await request.query(query);
       const rows = result.recordset;
 
-      // ✅ Next Cursor
-      const nextCursor = rows.length
-         ? rows[rows.length - 1].ENCODED_DATE
-         : null;
+      // ✅ Create nextCursor (encoded)
+      let nextCursor = null;
+
+      if (rows.length) {
+         const last = rows[rows.length - 1];
+
+         nextCursor = encodeCursor({
+            encodedDate: last.ENCODED_DATE,
+            cchTxnId: last.CCH_TRANS_ID,
+         });
+      }
+
+      const hasMore = rows.length === limit;
 
       return {
          data: rows,
-         nextCursor,
+         pagination: {
+            type: "cursor",
+            limit,
+            nextCursor,
+            prevCursor: null,
+            hasMore,
+            totalCount: null,
+         },
       };
    } catch (error) {
       console.error("Error in getReports Repository:", error.message);

@@ -3,18 +3,29 @@ import * as reportService from "../services/report.service.js";
 export const getReports = async (req, res) => {
    try {
       const filters = req.query;
+
+      if (!filters.fromDate || !filters.toDate) {
+         return res.status(400).json({
+            success: false,
+            message: "fromDate and toDate are required",
+         });
+      }
+
+      console.log("GET /reports called");
       console.log("QUERY:", req.query);
-    
 
       const result = await reportService.getReports(filters);
 
-      return res.status(200).json(result);
+      return res.status(200).json({
+         success: true,
+         ...result,
+      });
    } catch (error) {
-      console.error("Error In Service", error);
+      console.error("Controller Error:", error.message);
 
-      res.status(500).json({
+      return res.status(500).json({
          success: false,
-         message: error.message,
+         message: "Failed to fetch reports",
       });
    }
 };

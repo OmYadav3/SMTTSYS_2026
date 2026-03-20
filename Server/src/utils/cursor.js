@@ -5,7 +5,7 @@ const TTL = 5 * 60 * 1000;     // TTl-Time to live
 
 /*-------------- ENCODED THE CURSOR_TOKEN--------------------- */
 
-export const encoderCursor = (payload) => {
+export const encodeCursor = (payload) => {
     const data = {...payload, exp: Date.now() + TTL};
 
 
@@ -24,7 +24,7 @@ export const encoderCursor = (payload) => {
 
 /*-------------- DECODED THE CURSOR_TOKEN--------------------- */
 
-export const decoderCursor = (cursor) => {
+export const decodeCursor = (cursor) => {
     // Destructure the values - And split the value by dot
     const [base64, signature] = cursor.split(".");
 
@@ -49,4 +49,6 @@ export const decoderCursor = (cursor) => {
     if (Date.now() > data.exp) {
         throw new Error("Cursor Expired")
     }
+
+    return data;
 }
