@@ -4,13 +4,6 @@ export const getReports = async (req, res) => {
    try {
       const filters = req.query;
 
-      if (!filters.fromDate || !filters.toDate) {
-         return res.status(400).json({
-            success: false,
-            message: "fromDate and toDate are required",
-         });
-      }
-
       console.log("GET /reports called");
       console.log("QUERY:", req.query);
 

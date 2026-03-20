@@ -10,7 +10,7 @@ export const fetchReports = createAsyncThunk(
              return data;
 
         } catch (error) {
-            return rejectWithValue(error.message || "failed to fetch reports");
+            return rejectWithValue(error.response?.message || "failed to fetch reports");
         }
     }
 )

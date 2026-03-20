@@ -23,6 +23,7 @@ import ExemptionDetailsReportForm from "../components/forms/ExemptionDetailsRepo
 import TransactionReportFormTable from "../components/tables/TransactionReportFormTable";
 
 const TransactionReport = () => {
+  
   const initialFilters = {
     reportType: "",
     fromDate: "",

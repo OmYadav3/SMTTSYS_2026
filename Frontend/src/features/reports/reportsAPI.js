@@ -1,16 +1,15 @@
 import axiosInstance from "@/api/axiosInstance";
 
-export const fetchReportAPI = async(params = {} ) => {
-    try {
-        const { data } = await axiosInstance.get("/report/get", {
-            params,
-        })
-        let dataInObj = data.data
-        console.log(dataInObj, "data")
-        return dataInObj;
+export const fetchReportAPI = async (params = {}) => {
+  try {
+    const { data } = await axiosInstance.get("/report/get", {
+      params,
+    });
+    console.log(data, "FULL API RESPONSE");
 
-    } catch (error) {
-    console.log(error) 
+    return data; // ✅ return full response
+  } catch (error) {
+    console.error("API Error:", error);
     throw error;
-    }
-}
+  }
+};
