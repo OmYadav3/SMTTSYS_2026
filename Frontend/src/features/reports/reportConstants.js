@@ -1,8 +1,8 @@
 export const DROPDOWN_FIELD = [
   {
+    name: "vehicleClass",
     label: "Vehicle Class",
     size: "sm",
-    color: "primary",
     optionList: [
       { value: "1-CAR/JEEP/VAN", label: "1-CAR/JEEP/VAN" },
       { value: "2-LCV/MINIBUS", label: "2-LCV/MINIBUS" },
@@ -14,37 +14,37 @@ export const DROPDOWN_FIELD = [
     ],
   },
   {
+    name: "laneId",
     label: "Lane ID",
     size: "sm",
-    color: "primary",
     optionList: [
-      { value: "LANE01", label: " LANE01" },
-      { value: "LANE02", label: " LANE02" },
-      { value: "LANE03", label: " LANE03" },
-      { value: "LANE04", label: " LANE04" },
-      { value: "LANE05", label: " LANE05" },
-      { value: "LANE06", label: " LANE06" },
-      { value: "LANE07", label: " LANE07" },
-      { value: "LANE08", label: " LANE08" },
-      { value: "LANE09", label: " LANE09" },
-      { value: "LANE10", label: " LANE10" },
-      { value: "LANE11", label: " LANE11" },
-      { value: "LANE12", label: " LANE12" },
+      { value: "LANE01", label: "LANE01" },
+      { value: "LANE02", label: "LANE02" },
+      { value: "LANE03", label: "LANE03" },
+      { value: "LANE04", label: "LANE04" },
+      { value: "LANE05", label: "LANE05" },
+      { value: "LANE06", label: "LANE06" },
+      { value: "LANE07", label: "LANE07" },
+      { value: "LANE08", label: "LANE08" },
+      { value: "LANE09", label: "LANE09" },
+      { value: "LANE10", label: "LANE10" },
+      { value: "LANE11", label: "LANE11" },
+      { value: "LANE12", label: "LANE12" },
     ],
   },
   {
+    name: "laneType",
     label: "Lane Type",
     size: "sm",
-    color: "primary",
     optionList: [
-      { value: "EX", label: " EN " },
-      { value: "EN", label: " Ex " },
+      { value: "EX", label: "EX" },
+      { value: "EN", label: "EN" },
     ],
   },
-  { 
+  {
+    name: "paymentType",
     label: "Payment Type",
     size: "sm",
-    color: "primary",
     optionList: [
       { value: "Violation", label: "Violation" },
       { value: "Exempt", label: "Exempt" },
@@ -54,13 +54,13 @@ export const DROPDOWN_FIELD = [
       { value: "FastTag", label: "FastTag" },
     ],
   },
-  { 
+  {
+    name: "paymentSubType",
     label: "P.SubType",
     size: "sm",
-    color: "primary",
     optionList: [
       { value: "1-Single Journey", label: "1-Single Journey" },
-      { value: "2-Double Fee", label: "2-DoubleFee" },
+      { value: "2-Double Fee", label: "2-Double Fee" },
       { value: "3-Handheld", label: "3-Handheld" },
       { value: "4-CancelPayment", label: "4-Cancel Payment" },
       { value: "5-FastTag", label: "5-FastTag" },
@@ -68,10 +68,10 @@ export const DROPDOWN_FIELD = [
       { value: "8-Convoy", label: "8-Convoy" },
     ],
   },
-  { 
+  {
+    name: "paymentMode",
     label: "P.Mode",
     size: "sm",
-    color: "primary",
     optionList: [
       { value: "CASH", label: "CASH" },
       { value: "UPI", label: "UPI" },
@@ -79,10 +79,10 @@ export const DROPDOWN_FIELD = [
       { value: "CREDIT CARD", label: "CREDIT CARD" },
     ],
   },
-  { 
+  {
+    name: "tcId",
     label: "TC ID",
     size: "sm",
-    color: "primary",
     optionList: [
       { value: "SDM383", label: "SDM383" },
       { value: "SDM382", label: "SDM382" },
@@ -92,37 +92,68 @@ export const DROPDOWN_FIELD = [
       { value: "SDM371", label: "SDM371" },
     ],
   },
-  { 
-    label: "FreeFlow",
+  {
+    name: "freeFlow",   // ✅ consistent
+    label: "Free Flow",
     size: "sm",
-    color: "primary",
     optionList: [
       { value: "YES", label: "YES" },
       { value: "NO", label: "NO" },
-   
     ],
   },
-  { 
-    label: "TAG in Hand",
+  {
+    name: "tagInHand",
+    label: "Tag in Hand",
     size: "sm",
-    color: "primary",
     optionList: [
       { value: "YES", label: "YES" },
       { value: "NO", label: "NO" },
-   
     ],
   },
-  { 
-    label: "AnnuaL Pass",
+  {
+    name: "annualPass",   // ✅ FIXED
+    label: "Annual Pass",
     size: "sm",
-    color: "primary",
     optionList: [
       { value: "YES", label: "YES" },
       { value: "NO", label: "NO" },
-   
     ],
+  },
+];
+
+export const INPUT_FIELD = [
+  {
+    label: "CCH Txn ID",
+    name: "cchTxnId",
+    type: "text",
+    placeholder: "Enter CCH Txn ID",
+    color: "primary",
+    size: "sm",
+  },
+  {
+    label: "LANE Txn ID",
+    name: "laneTxnId",
+    type: "text",
+    placeholder: "LANE TXN ID",
+    color: "primary",
+    size: "sm",
+  },
+  {
+    label: "Plate Number",
+    name: "plateNumber",
+    type: "text",
+    placeholder: "Enter Plate Number",
+    color: "primary",
+    size: "sm",
   },
 
-
+  {
+    label: "Tag ID",
+    name: "tagId",
+    type: "text",
+    placeholder: "Enter Tag ID",
+    color: "primary",
+    size: "sm",
+  },
 
 ];

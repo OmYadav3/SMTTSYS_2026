@@ -4,6 +4,8 @@ import { fetchReports } from './reportThunk.js';
 const initialState = {
     data: [],
     loading: false,
+    // nextCursor:null,
+    // prevStack:[],
     error: null,
 }
 

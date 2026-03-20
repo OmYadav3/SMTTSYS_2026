@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchReports } from "../reportThunk";
-
-
-import Button from "../../../components/ui/Button";
 import { OPTIONS_LIST } from "../../../utils/constant";
+import { DROPDOWN_FIELD, INPUT_FIELD } from "../reportConstants";
+
+/*------------ REUSABLE COMPONENTS------------*/
+import Button from "../../../components/ui/Button";
 import Dropdown from "../../../components/ui/Dropdown";
 import DateTime from "@/components/ui/DateTime";
-
 
 /*----------- FORMS IMPORTS -------*/
 import TransactionReportForm from "../components/forms/TransactionReportForm";
@@ -22,27 +22,17 @@ import ExemptionDetailsReportForm from "../components/forms/ExemptionDetailsRepo
 /*----------- TABLES IMPORTS -------*/
 import TransactionReportFormTable from "../components/tables/TransactionReportFormTable";
 
-
 const TransactionReport = () => {
-  const [filters, setFilters] = useState({
+  const initialFilters = {
     reportType: "",
     fromDate: "",
     toDate: "",
-    cchTxnId: "",
-    laneTxnId: "",
-    plateNumber: "",
-    tagId: "",
-    vehicleClass: "",
-    laneId: "",
-    laneType: "",
-    paymentType: "",
-    paymentSubType: "",
-    paymentMode: "",
-    tcId: "",
-    FreeFlow: "",
-    tagInHand: "",
-    annualPass: "",
-  });
+    ...Object.fromEntries(DROPDOWN_FIELD.map((field) => [field.name, ""])),
+    ...Object.fromEntries(INPUT_FIELD.map((field) => [field.name, ""])),
+  };
+
+  const [filters, setFilters] = useState(initialFilters);
+
   // const [open, setOpen] = useState(false)
 
   const dispatch = useDispatch();
@@ -78,7 +68,7 @@ const TransactionReport = () => {
   return (
     <div className="mt-4 p-4 rounded border w-full ">
       <div>
-        {/* Reproting type */}
+        {/*---------------- REPORT TYPES---------------- */}
         <div className="grid grid-cols-4 items-center gap-4 p-2 text border-b border-gray-500">
           <div className="">
             <Dropdown
@@ -90,7 +80,7 @@ const TransactionReport = () => {
             />
           </div>
 
-          {/* From Date */}
+          {/*--------------- DATE COMPONENT---------------*/}
           <DateTime
             label={"From Date"}
             value={filters.fromDate}
@@ -106,7 +96,7 @@ const TransactionReport = () => {
           <DateTime label={"To Date:"} /> */}
         </div>
 
-        {/* Filtering Table */}
+        {/*--------------- FILTER FORMS---------------*/}
         {reportType === "Toll_Transaction_Details_Report" && (
           <TransactionReportForm
             filters={filters}
@@ -157,7 +147,7 @@ const TransactionReport = () => {
         )}
       </div>
 
-      {/* Action Buttons */}
+      {/*--------------- ACTION BUTTONS---------------*/}
       <div className="flex items-center gap-4 justify-center p-4">
         <Button
           color={"outline"}
@@ -182,9 +172,10 @@ const TransactionReport = () => {
         />
       </div>
 
-      {/*Table */}
-      {tableOpen && <TransactionReportFormTable data={data} loading={loading} />}
-      {/* {tableOpen && <TransactionReportFormTable data={data} loading={loading} />} */}
+      {/*--------------- TABLE COMPONENT---------------*/}
+      {tableOpen && (
+        <TransactionReportFormTable data={data} loading={loading} />
+      )}
     </div>
   );
 };

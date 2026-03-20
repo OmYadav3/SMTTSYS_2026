@@ -1,6 +1,6 @@
 import Dropdown from '@/components/ui/Dropdown'
 import Input from '@/components/ui/Input'
-import { DROPDOWN_FIELD, INPUT_FIELD } from '@/utils/constant'
+import { DROPDOWN_FIELD, INPUT_FIELD } from '../../reportConstants'
 import React from 'react'
 
 const TransactionReportForm = ({filters,  handleInputChange }) => {
@@ -26,6 +26,9 @@ const TransactionReportForm = ({filters,  handleInputChange }) => {
               children={dropdown.label}
               size={dropdown.size}
               optionList={dropdown.optionList}
+             onChange={(value) =>
+      handleInputChange(dropdown.name, value)
+    }
             />
           ))}
         </div>

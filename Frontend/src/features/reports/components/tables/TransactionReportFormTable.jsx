@@ -1,3 +1,4 @@
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import React from "react";
 import { useSelector } from "react-redux";
 
@@ -37,6 +38,25 @@ export default function TransactionReportFormTable() {
   }
 
   return (
+    <>
+     {/*--------------- PAGINATION SETUP------------------- */}
+      {/* <div className="border-2 border-black">
+          <div>
+              <p className="font-bold ">Total Transactions Count: </p>
+              <p className="font-bold ">Showing:  Transaction Per Page</p>
+          </div>
+
+          <div className="flex gap-4 items-center">
+            <div>{ChevronLeft}</div>
+            <div>{ChevronLeft}</div>
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+            <div>4</div>
+            <div>{ChevronRight}</div>
+            <div>{ChevronRight}</div>
+          </div>
+      </div> */}
     <div className="overflow-auto rounded-xl border">
       <table className="w-full text-sm">
         {/* ⭐ Header */}
@@ -77,5 +97,6 @@ export default function TransactionReportFormTable() {
         </tbody>
       </table>
     </div>
+    </>
   );
 }

@@ -8,8 +8,9 @@ export const getReports = async (filters) => {
    Maximum limit allowed = 500
    */
    try {
-      const limit = Math.min(parseInt(filters.limit) || 20, 500);
-      console.log(limit, "LIMIT VALUE")
+      // ✅ Safe limit
+      const limit = Math.min(parseInt(filters.limit) || 50, 500);
+      console.log(limit, "SAFER LIMIT VALUE")
 
       const data = await reportRepo.getReports({
          ...filters,
