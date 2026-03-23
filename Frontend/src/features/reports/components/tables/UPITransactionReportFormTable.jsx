@@ -3,7 +3,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchReports } from "../../reportThunk";
 
-export default function TransactionReportFormTable({filters}) {
+export default function UPITransactionReportFormTable({filters}) {
   const dispatch = useDispatch()
 
   const {
@@ -47,26 +47,13 @@ export default function TransactionReportFormTable({filters}) {
 
   /*------------------ Column Config ------------------------*/
   const columns = [
-    { key: "PLAZA_CODE", label: "PLAZA CODE" },
-    { key: "PLAZE_NAME", label: "PLAZA NAME" },
-    {
-      key: "image",
-      label: "IMAGE",
-      render: (value) => (
-        <img src={value} alt="" className="h-8 w-8 mx-auto text-center" />
-      ),
-    },
-    { key: "CCH_TRANS_ID", label: "CCH TRANS ID" },
-    { key: "LANE_TRANS_ID", label: "LANE TRANS ID" },
-    { key: "TAG", label: "TAG" },
+    { key: "REQUEST_ID", label: "REQUEST ID" },
     { key: "VEH_PLATE", label: "VEH PLATE" },
-    { key: "IS_ANPR", label: "IS ANPR" },
-    { key: "ANPR_PLATE", label: "ANPR PLATE" },
-    { key: "LANE_ID", label: "LANE ID" },
-    { key: "LANE_TYPE", label: "LANE TYPE" },
-    { key: "DIRECTION", label: "DIRECTION" },
-    { key: "VEH_CLASS", label: "VEH CLASS" },
-    { key: "AVC_CLASS", label: "AVC CLASS" },
+    { key: "VPA", label: "VPA" },
+    { key: "TERMINAL_ID", label: "TERMINAL ID" },
+    { key: "QR_TXN_ID", label: "QR TXN ID" },
+    { key: "TIMESTAMP", label: "TIMESTAMP" },
+    { key: "STATUS", label: "STATUS" },
   ];
 
   /*------------------ loading ------------------------*/
@@ -161,3 +148,7 @@ export default function TransactionReportFormTable({filters}) {
     </>
   );
 }
+
+
+
+// UPITransactionReportFormTable

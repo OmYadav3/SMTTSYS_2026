@@ -43,11 +43,10 @@ export const getReports = async (filters) => {
 
          query += `
         AND (
-          ENCODED_DATE < @cursorDate
-          OR (ENCODED_DATE = @cursorDate AND CCH_TRANS_ID < @cursorId)
+          CCH_TRANS_ID < @cursorDate
+          OR (CCH_TRANS_ID < @cursorId)
         )
       `;
-         request.input("cursorDate", sql.DateTime, decoded.encodedDate);
          request.input("cursorId", sql.VarChar, decoded.cchTxnId);
       }
 
@@ -99,7 +98,6 @@ export const getReports = async (filters) => {
          const last = rows[rows.length - 1];
 
          nextCursor = encodeCursor({
-            encodedDate: last.ENCODED_DATE,
             cchTxnId: last.CCH_TRANS_ID,
          });
       }
