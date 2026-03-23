@@ -24,6 +24,8 @@ import TransactionReportFormTable from "../components/tables/TransactionReportFo
 import UPITransactionReportFormTable from "../components/tables/UPITransactionReportFormTable";
 import TCANPRPerformanceReportFormTable from "../components/tables/TCANPRPerformanceReportFormTable";
 import Table from "../components/tables/transactionPerformanceReportTables/Table";
+import AVCLanewiseAccuracyReportFormTable from "../components/tables/AVCLanewiseAccuracyReportFormTable";
+import AVCClassAccuracyReportformTable from "../components/tables/AVCClassAccuracyReportformTable";
 
 const TransactionReport = () => {
   
@@ -187,9 +189,15 @@ const TransactionReport = () => {
        <TCANPRPerformanceReportFormTable data={data} loading={loading} />
       )}
 
-      //Transaction Perfromance Table
+      {/* Transaction Perfromance Table */}
       {tableOpen && (
        <Table data={data} loading={loading} />
+      )}
+      {tableOpen && (
+       <AVCLanewiseAccuracyReportFormTable data={data} loading={loading} />
+      )}
+      {tableOpen && (
+       <AVCClassAccuracyReportformTable data={data} loading={loading} />
       )}
 
     </div>
