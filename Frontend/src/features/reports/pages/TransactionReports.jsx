@@ -23,6 +23,7 @@ import ExemptionDetailsReportForm from "../components/forms/ExemptionDetailsRepo
 import TransactionReportFormTable from "../components/tables/TransactionReportFormTable";
 import UPITransactionReportFormTable from "../components/tables/UPITransactionReportFormTable";
 import TCANPRPerformanceReportFormTable from "../components/tables/TCANPRPerformanceReportFormTable";
+import Table from "../components/tables/transactionPerformanceReportTables/Table";
 
 const TransactionReport = () => {
   
@@ -179,12 +180,16 @@ const TransactionReport = () => {
       {tableOpen && (
         <TransactionReportFormTable data={data} loading={loading} />
       )}
-
       {tableOpen && (
        <UPITransactionReportFormTable data={data} loading={loading} />
       )}
       {tableOpen && (
        <TCANPRPerformanceReportFormTable data={data} loading={loading} />
+      )}
+
+      //Transaction Perfromance Table
+      {tableOpen && (
+       <Table data={data} loading={loading} />
       )}
 
     </div>
