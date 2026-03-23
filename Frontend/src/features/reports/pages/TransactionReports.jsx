@@ -1,34 +1,23 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
+/*------------ REUSABLE COMPONENTS------------*/
 import { fetchReports } from "../reportThunk";
-import { OPTIONS_LIST } from "../../../utils/constant";
-import { DROPDOWN_FIELD, INPUT_FIELD } from "../reportConstants";
+import { REPORT_CONFIG } from "../config/reportConfig";
+
+/*------------ CONSTANTS------------*/
+import { DROPDOWN_FIELD, INPUT_FIELD, OPTIONS_LIST } from "../reportConstants";
 
 /*------------ REUSABLE COMPONENTS------------*/
 import Button from "../../../components/ui/Button";
 import Dropdown from "../../../components/ui/Dropdown";
 import DateTime from "@/components/ui/DateTime";
 
-/*----------- FORMS IMPORTS -------*/
-import TransactionReportForm from "../components/forms/TransactionReportForm";
-import ETCReportForm from "../components/forms/ETCReportForm";
-import UPITransactionReportForm from "../components/forms/UPITransactionReportForm";
-import TCANPRPerformanceReportForm from "../components/forms/TCANPRPerformanceReportForm";
-import TransactionPerformanceReportForm from "../components/forms/TransactionPerformanceReportForm";
-import AVCClassAccuracyReportForm from "../components/forms/AVCClassAccuracyReportform";
-import AVCLanewiseAccuracyReportForm from "../components/forms/AVCLanewiseAccuracyReportForm";
-import ExemptionDetailsReportForm from "../components/forms/ExemptionDetailsReportForm";
-
-/*----------- TABLES IMPORTS -------*/
-import TransactionReportFormTable from "../components/tables/TransactionReportFormTable";
-import UPITransactionReportFormTable from "../components/tables/UPITransactionReportFormTable";
-import TCANPRPerformanceReportFormTable from "../components/tables/TCANPRPerformanceReportFormTable";
-import Table from "../components/tables/transactionPerformanceReportTables/Table";
-import AVCLanewiseAccuracyReportFormTable from "../components/tables/AVCLanewiseAccuracyReportFormTable";
-import AVCClassAccuracyReportformTable from "../components/tables/AVCClassAccuracyReportformTable";
-
 const TransactionReport = () => {
-  
+  const dispatch = useDispatch();
+  const { data, loading } = useSelector((state) => state.reports);
+  console.log(data)
+
   const initialFilters = {
     reportType: "",
     fromDate: "",
@@ -39,13 +28,12 @@ const TransactionReport = () => {
 
   const [filters, setFilters] = useState(initialFilters);
 
-  // const [open, setOpen] = useState(false)
-
-  const dispatch = useDispatch();
-  const { data, loading } = useSelector((state) => state.reports);
+  const isTableVisible = data?.length > 0;
 
   const reportType = filters.reportType;
-  const [tableOpen, setTableOpen] = useState(false);
+
+  const SelectedForm = REPORT_CONFIG[reportType]?.form;
+  const SelectedTable = REPORT_CONFIG[reportType]?.table;
 
   const handleInputChange = (field, value) => {
     setFilters((prev) => ({
@@ -54,21 +42,13 @@ const TransactionReport = () => {
     }));
   };
 
-  const handleDropDown = (value) => {
-    handleInputChange("reportType", value);
-    // setOpen(true)
-  };
-
-  const searchTableHandler = async () => {
+  const handleSearch = () => {
     if (!filters.reportType || !filters.fromDate || !filters.toDate) {
       alert("Report Type, From Date, To Date are required");
       return;
     }
 
     dispatch(fetchReports(filters));
-    if (reportType === "Toll_Transaction_Details_Report") {
-      setTableOpen(true);
-    }
   };
 
   return (
@@ -82,7 +62,7 @@ const TransactionReport = () => {
               optionList={OPTIONS_LIST}
               size={"sm"}
               value={filters.reportType}
-              onChange={handleDropDown}
+              onChange={(val) => handleInputChange("reportType", val)}
             />
           </div>
 
@@ -93,7 +73,7 @@ const TransactionReport = () => {
             onChange={(value) => handleInputChange("fromDate", value)}
           />
           <DateTime
-            label={"From Date"}
+            label={"To Date"}
             value={filters.toDate}
             onChange={(value) => handleInputChange("toDate", value)}
           />
@@ -103,50 +83,10 @@ const TransactionReport = () => {
         </div>
 
         {/*--------------- FILTER FORMS---------------*/}
-        {reportType === "Toll_Transaction_Details_Report" && (
-          <TransactionReportForm
-            filters={filters}
-            handleInputChange={handleInputChange}
-          />
-        )}
-        {reportType === "ETC_Bank_Transaction_Report" && (
-          <ETCReportForm
-            filters={filters}
-            handleInputChange={handleInputChange}
-          />
-        )}
-        {reportType === "UPI_Transaction_Report" && (
-          <UPITransactionReportForm
-            filters={filters}
-            handleInputChange={handleInputChange}
-          />
-        )}
-        {reportType === "TC_ANPR_Performance_Report" && (
-          <TCANPRPerformanceReportForm
-            filters={filters}
-            handleInputChange={handleInputChange}
-          />
-        )}
-        {reportType === "Transaction_Performance_Report" && (
-          <TransactionPerformanceReportForm
-            filters={filters}
-            handleInputChange={handleInputChange}
-          />
-        )}
-        {reportType === "AVC_Class_Accuracy_Report" && (
-          <AVCClassAccuracyReportForm
-            filters={filters}
-            handleInputChange={handleInputChange}
-          />
-        )}
-        {reportType === "AVC_Lanewise_Accuracy_Report" && (
-          <AVCLanewiseAccuracyReportForm
-            filters={filters}
-            handleInputChange={handleInputChange}
-          />
-        )}
-        {reportType === "Exemption_Details_Report" && (
-          <ExemptionDetailsReportForm
+
+        {/* Dynamic Form */}
+        {SelectedForm && (
+          <SelectedForm
             filters={filters}
             handleInputChange={handleInputChange}
           />
@@ -160,7 +100,7 @@ const TransactionReport = () => {
           size={"md"}
           children={"Search Transactions"}
           icon={"search"}
-          onClick={searchTableHandler}
+          onClick={handleSearch}
         />
         <Button
           color={"danger"}
@@ -178,28 +118,11 @@ const TransactionReport = () => {
         />
       </div>
 
-      {/*--------------- TABLE COMPONENT---------------*/}
-      {tableOpen && (
-        <TransactionReportFormTable data={data} loading={loading} />
-      )}
-      {tableOpen && (
-       <UPITransactionReportFormTable data={data} loading={loading} />
-      )}
-      {tableOpen && (
-       <TCANPRPerformanceReportFormTable data={data} loading={loading} />
-      )}
+      {/*--------------- DYNAMIC TABLE COMPONENT---------------*/}
 
-      {/* Transaction Perfromance Table */}
-      {tableOpen && (
-       <Table data={data} loading={loading} />
+      {isTableVisible && SelectedTable && (
+        <SelectedTable data={data} filters={filters} loading={loading} />
       )}
-      {tableOpen && (
-       <AVCLanewiseAccuracyReportFormTable data={data} loading={loading} />
-      )}
-      {tableOpen && (
-       <AVCClassAccuracyReportformTable data={data} loading={loading} />
-      )}
-
     </div>
   );
 };

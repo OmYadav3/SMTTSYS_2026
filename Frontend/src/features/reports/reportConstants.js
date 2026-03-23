@@ -157,3 +157,14 @@ export const INPUT_FIELD = [
   },
 
 ];
+
+export const OPTIONS_LIST = [
+  { value: "Toll_Transaction_Details_Report", label: "Toll Transaction Details Report", size: "sm", color: "primary" },
+  { value: "ETC_Bank_Transaction_Report", label: "ETC Bank Transaction Report", size: "sm", color: "primary" },
+  { value: "UPI_Transaction_Report", label: "UPI Transaction Report", size: "sm", color: "primary" },
+  { value: "TC_ANPR_Performance_Report", label: "TC-ANPR Performance Report", size: "sm", color: "primary" },
+  { value: "Transaction_Performance_Report", label: "Transaction Performance Report", size: "sm", color: "primary" },
+  { value: "AVC_Class_Accuracy_Report", label: "AVC Class Accuracy Report", size: "sm", color: "primary" },
+  { value: "AVC_Lanewise_Accuracy_Report", label: "AVC Lanewise Accuracy Report", size: "sm", color: "primary" },
+  { value: "Exemption_Details_Report", label: "Exemption Details Report", size: "sm", color: "primary" },
+];
