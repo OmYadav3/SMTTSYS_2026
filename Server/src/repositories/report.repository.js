@@ -104,6 +104,18 @@ export const getReports = async (filters) => {
 
       const hasMore = rows.length === limit;
 
+      console.log({
+         data: rows,
+         pagination: {
+            type: "cursor",
+            limit,
+            nextCursor,
+            prevCursor: null,
+            hasMore,
+            totalCount: null,
+         },
+      })
+      
       return {
          data: rows,
          pagination: {

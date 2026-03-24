@@ -2,7 +2,7 @@ import Dropdown from '@/components/ui/Dropdown'
 import Input from '@/components/ui/Input'
 import React from 'react'
 
-const UPITransactionReportForm = ({filters, handleInputChange }) => {
+const UPIForm = ({filters, handleInputChange }) => {
   return (
      <div className="mt-4 grid grid-cols-4 gap-2 border-b pb-4 font-bold ">
           <Input
@@ -28,7 +28,7 @@ const UPITransactionReportForm = ({filters, handleInputChange }) => {
   )
 }
 
-export default UPITransactionReportForm
+export default UPIForm
 
 
 

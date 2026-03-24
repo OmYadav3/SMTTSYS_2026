@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-export default function AVCLanewiseAccuracyReportFormTable() {
+export default function AVCAccuracyTable() {
 
   const {
     data: reportsData,

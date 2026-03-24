@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-export default function PaymentWiseTransactionTable() {
+export default function HLPWTable() {
 
   const {
     data: reportsData,
@@ -13,6 +13,8 @@ export default function PaymentWiseTransactionTable() {
 
   /*------------------ Column Config ------------------------*/
   const columns = [
+    { key: "dateTime", label: "DATE/TIME" },
+    { key: "LaneId", label: "LANE ID" },
     { key: "paymentType", label: "Payment Type" },
     { key: "transactionCount", label: "transactionCount" },
     { key: "avgTime", label: "AVG TIME (sec / vehicle)" },

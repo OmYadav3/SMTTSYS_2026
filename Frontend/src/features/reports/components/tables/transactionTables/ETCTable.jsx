@@ -1,9 +1,9 @@
 import React from 'react'
 
-const ETCReportFormTable = () => {
+const ETCTable = () => {
   return (
     <div>ETCReportFormTable</div>
   )
 }
 
-export default ETCReportFormTable
+export default ETCTable

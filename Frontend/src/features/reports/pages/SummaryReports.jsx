@@ -1,85 +1,129 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+/*------------ REUSABLE COMPONENTS------------*/
+import { fetchReports } from "../reportThunk";
+import { REPORT_CONFIG } from "../config/reportConfig";
+
+/*------------ CONSTANTS------------*/
+import { DROPDOWN_FIELD, INPUT_FIELD, OPTIONS_LIST } from "../reportConstants";
+
+/*------------ REUSABLE COMPONENTS------------*/
 import Button from "../../../components/ui/Button";
-import Input from "../../../components/ui/Input";
-import { BUTTON, DROPDOWN_FIELD, INPUT_FIELD } from "../../../utils/constant";
 import Dropdown from "../../../components/ui/Dropdown";
-import Calender from "../../../components/ui/Calender";
+import DateTime from "@/components/ui/DateTime";
+
 
 const SummaryReport = () => {
-  const OPTIONS_LIST = [
-    { value: "transaction", label: "Toll Transaction Details Report" },
-    { value: "etc", label: "ETC Bank Transaction Report" },
-    { value: "upi", label: "UPI Transaction Report" },
-    { value: "tc-anpr", label: "TC-ANPR Performance Report" },
-    {
-      value: "transaction-performance",
-      label: "Transaction Performance Report",
-    },
-    { value: "avc-class-accuracy", label: "AVC Class Accuracy Report" },
-    { value: "avc-lanewise-accuracy", label: "AVC Lanewise Accuracy Report" },
-    { value: "exemption-details", label: "Exemption Details Report" },
-  ];
-  const handleClick = () => {
-    // Logic to generate the report based on selected filters
-    alert("Report generated!");
+  const dispatch = useDispatch();
+  const { data, loading } = useSelector((state) => state.reports);
+  console.log(data)
+
+  const initialFilters = {
+    reportType: "",
+    fromDate: "",
+    toDate: "",
+    ...Object.fromEntries(DROPDOWN_FIELD.map((field) => [field.name, ""])),
+    ...Object.fromEntries(INPUT_FIELD.map((field) => [field.name, ""])),
+  };
+
+  const [filters, setFilters] = useState(initialFilters);
+
+  const isTableVisible = data?.length > 0;
+
+  const reportType = filters.reportType;
+
+  const SelectedForm = REPORT_CONFIG[reportType]?.form;
+  const SelectedTable = REPORT_CONFIG[reportType]?.table;
+
+  const handleInputChange = (field, value) => {
+    setFilters((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  };
+
+  const handleSearch = () => {
+    if (!filters.reportType || !filters.fromDate || !filters.toDate) {
+      alert("Report Type, From Date, To Date are required");
+      return;
+    }
+
+    dispatch(fetchReports(filters));
   };
 
   return (
-    <div className="mt-4  p-4 rounded bg-component text-amber-50/60 border border-gray-700">
+    <div className="mt-4 p-4 rounded border w-full ">
       <div>
-        {/* Reproting type */}
+        {/*---------------- REPORT TYPES---------------- */}
         <div className="grid grid-cols-4 items-center gap-4 p-2 text border-b border-gray-500">
           <div className="">
             <Dropdown
               children="Report Type:"
               optionList={OPTIONS_LIST}
               size={"sm"}
+              value={filters.reportType}
+              onChange={(val) => handleInputChange("reportType", val)}
             />
           </div>
 
-          {/* From Date */}
-          <Calender label={"From Date:"} />
-          <Calender label={"To Date:"} />
-        </div>
-
-        {/* Filtering Table */}
-        <div className="mt-4 grid grid-cols-4 gap-2 border-b pb-4 border-gray-500">
-          {INPUT_FIELD.slice(1, 4).map((input, index) => (
-            <Input
-              key={index}
-              type={input.type}
-              size={input.size}
-              color={input.color}
-              placeholder={input.placeholder}
-              label={input.label}
-            />
-          ))}
-          {/* DROPDOWN  */}
-          {DROPDOWN_FIELD.slice(0, 5).map((dropdown, index) => (
-            <Dropdown
-              key={index}
-              children={dropdown.label}
-              size={dropdown.size}
-              optionList={dropdown.optionList}
-            />
-          ))}
-        </div>
-      </div>
-
-      {/* Action Buttons */}
-      <div className="flex items-center gap-4 justify-center p-4">
-        {BUTTON.slice(0, 3).map((button, index) => (
-          <Button
-            key={index}
-            to={button.to}
-            color={button.color}
-            size={button.size}
-            children={button.children}
-            icon={button.icon}
-            onClick={handleClick}
+          {/*--------------- DATE COMPONENT---------------*/}
+          <DateTime
+            label={"From Date"}
+            value={filters.fromDate}
+            onChange={(value) => handleInputChange("fromDate", value)}
           />
-        ))}
+          <DateTime
+            label={"To Date"}
+            value={filters.toDate}
+            onChange={(value) => handleInputChange("toDate", value)}
+          />
+          {/* 
+          <DateTime label={"From Date:"} />
+          <DateTime label={"To Date:"} /> */}
+        </div>
+
+        {/*--------------- FILTER FORMS---------------*/}
+
+        {/* Dynamic Form */}
+        {SelectedForm && (
+          <SelectedForm
+            filters={filters}
+            handleInputChange={handleInputChange}
+          />
+        )}
       </div>
+
+      {/*--------------- ACTION BUTTONS---------------*/}
+      <div className="flex items-center gap-4 justify-center p-4">
+        <Button
+          color={"outline"}
+          size={"md"}
+          children={"Search Transactions"}
+          icon={"search"}
+          onClick={handleSearch}
+        />
+        <Button
+          color={"danger"}
+          size={"md"}
+          children={"Generate PDF Report"}
+          icon={"File"}
+          // onClick={tableHandler}
+        />
+        <Button
+          color={"success"}
+          size={"md"}
+          children={"Generate Excel Report"}
+          icon={"excel"}
+          // onClick={tableHandler}
+        />
+      </div>
+
+      {/*--------------- DYNAMIC TABLE COMPONENT---------------*/}
+
+      {isTableVisible && SelectedTable && (
+        <SelectedTable data={data} filters={filters} loading={loading} />
+      )}
     </div>
   );
 };

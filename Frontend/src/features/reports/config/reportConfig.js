@@ -1,53 +1,53 @@
 /*----------- FORMS IMPORTS -------*/
-import TransactionReportForm from "../components/forms/TransactionReportForm";
-import ETCReportForm from "../components/forms/ETCReportForm";
-import UPITransactionReportForm from "../components/forms/UPITransactionReportForm";
-import TCANPRPerformanceReportForm from "../components/forms/TCANPRPerformanceReportForm";
-import TransactionPerformanceReportForm from "../components/forms/TransactionPerformanceReportForm";
-import AVCClassAccuracyReportForm from "../components/forms/AVCClassAccuracyReportform";
-import AVCLanewiseAccuracyReportForm from "../components/forms/AVCLanewiseAccuracyReportForm";
-import ExemptionDetailsReportForm from "../components/forms/ExemptionDetailsReportForm";
+import TransactionForm from "../components/forms/transactionForms/TransactionForm";
+import ETCForm from "../components/forms/transactionForms/ETCForm";
+import UPIForm from "../components/forms/transactionForms/UPIForm";
+import ANPRForm from "../components/forms/transactionForms/ANPRForm";
+import TransactionPerformanceForm from "../components/forms/transactionForms/TransactionPerformanceForm";
+import AVCClassForm from "../components/forms/transactionForms/AVCClassForm";
+import AVCAccuracyForm from "../components/forms/transactionForms/AVCAccuracyForm";
+import ExemptionForm from "../components/forms/transactionForms/ExemptionForm";
 
 /*----------- TABLES IMPORTS -------*/
-import TransactionReportFormTable from "../components/tables/TransactionReportFormTable";
-import ETCReportFormTable from "../components/tables/ETCReportFormTable";
-import UPITransactionReportFormTable from "../components/tables/UPITransactionReportFormTable";
-import TCANPRPerformanceReportFormTable from "../components/tables/TCANPRPerformanceReportFormTable";
-import Table from "../components/tables/transactionPerformanceReportTables/Table";
-import AVCClassAccuracyReportformTable from "../components/tables/AVCClassAccuracyReportformTable";
-import AVCLanewiseAccuracyReportFormTable from "../components/tables/AVCLanewiseAccuracyReportFormTable";
+import TransactionTable from "../components/tables/transactionTables/TransactionTable";
+import ETCTable from "../components/tables/transactionTables/ETCTable";
+import UPITable from "../components/tables/transactionTables/UPITable";
+import ANPRTable from "../components/tables/transactionTables/ANPRTable";
+import Table from "../components/tables/transactionTables/performanceTable/Table";
+import AVCClassTable from "../components/tables/transactionTables/AVCClassTable";
+import AVCAccuracyTable from "../components/tables/transactionTables/AVCAccuracyTable";
 
 export const REPORT_CONFIG = {
   Toll_Transaction_Details_Report: {
-    form: TransactionReportForm,
-    table: TransactionReportFormTable,
+    form: TransactionForm,
+    table: TransactionTable,
   },
   ETC_Bank_Transaction_Report: {
-    form: ETCReportForm,
-    table: ETCReportFormTable,
+    form: ETCForm,
+    table: ETCTable,
   },
   UPI_Transaction_Report: {
-    form: UPITransactionReportForm,
-    table: UPITransactionReportFormTable,
+    form: UPIForm,
+    table: UPITable,
   },
   TC_ANPR_Performance_Report: {
-    form: TCANPRPerformanceReportForm,
-    table: TCANPRPerformanceReportFormTable,
+    form: ANPRForm,
+    table: ANPRTable,
   },
   Transaction_Performance_Report: {
-    form: TransactionPerformanceReportForm,
+    form: TransactionPerformanceForm,
     table: Table,
   },
   AVC_Class_Accuracy_Report: {
-    form: AVCClassAccuracyReportForm,
-    table: AVCClassAccuracyReportformTable,
+    form: AVCClassForm,
+    table: AVCClassTable,
   },
   AVC_Lanewise_Accuracy_Report: {
-    form: AVCLanewiseAccuracyReportForm,
-    table: AVCLanewiseAccuracyReportFormTable,
+    form: AVCAccuracyForm,
+    table: AVCAccuracyTable,
   },
   Exemption_Details_Report: {
-    form: ExemptionDetailsReportForm,
-    table: TransactionReportFormTable,
+    form: ExemptionForm,
+    table: TransactionTable,
   },
 };

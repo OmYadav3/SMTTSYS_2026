@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-export default function LaneWiseTransactionTable() {
+export default function PaymentTable() {
 
   const {
     data: reportsData,
@@ -13,7 +13,7 @@ export default function LaneWiseTransactionTable() {
 
   /*------------------ Column Config ------------------------*/
   const columns = [
-    { key: "LaneId", label: "LANE ID" },
+    { key: "paymentType", label: "Payment Type" },
     { key: "transactionCount", label: "transactionCount" },
     { key: "avgTime", label: "AVG TIME (sec / vehicle)" },
   ];

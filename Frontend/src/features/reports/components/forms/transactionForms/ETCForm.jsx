@@ -19,7 +19,8 @@ const allOptionList = {
     ]
 } 
 
-const ETCReportForm = ({filters, handleInputChange}) => {
+const ETCForm = ({filters, handleInputChange}) => {
+
   return (
     <div className="mt-4 grid grid-cols-4 gap-2 border-b pb-4 font-bold ">
           {INPUT_FIELD.map((input, index) => (
@@ -50,4 +51,4 @@ const ETCReportForm = ({filters, handleInputChange}) => {
   )
 }
 
-export default ETCReportForm
+export default ETCForm

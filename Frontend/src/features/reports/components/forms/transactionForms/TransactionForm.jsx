@@ -1,9 +1,9 @@
 import React from "react";
-import Dropdown from "../../../../components/ui/Dropdown";
-import Input from "../../../../components/ui/Input";
-import { DROPDOWN_FIELD, INPUT_FIELD } from "../../reportConstants";
+import Dropdown from "@/components/ui/Dropdown";
+import Input from "@/components/ui/Input";
+import { DROPDOWN_FIELD, INPUT_FIELD } from "../../../reportConstants";
 
-const TransactionReportForm = ({ filters, handleInputChange }) => {
+const TransactionForm = ({ filters, handleInputChange }) => {
   return (
     <div className="mt-4 grid grid-cols-4 gap-2 border-b pb-4 font-bold ">
       {INPUT_FIELD.map((input) => (
@@ -33,4 +33,4 @@ const TransactionReportForm = ({ filters, handleInputChange }) => {
   );
 };
 
-export default TransactionReportForm;
+export default TransactionForm;

@@ -1,35 +1,9 @@
-import React, { useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchReports } from "../../reportThunk";
+import { fetchReports } from "../../../reportThunk";
 
-
-/*------------------ Column Config ------------------------*/
-const columns = [
-  { key: "PLAZA_CODE", label: "PLAZA CODE" },
-  { key: "PLAZE_NAME", label: "PLAZA NAME" },
-  {
-    key: "image",
-    label: "IMAGE",
-    render: (value) => (
-      <img src={value} alt="" className="h-8 w-8 mx-auto text-center" />
-    ),
-  },
-  { key: "CCH_TRANS_ID", label: "CCH TRANS ID" },
-  { key: "LANE_TRANS_ID", label: "LANE TRANS ID" },
-  { key: "TAG", label: "TAG" },
-  { key: "VEH_PLATE", label: "VEH PLATE" },
-  { key: "IS_ANPR", label: "IS ANPR" },
-  { key: "ANPR_PLATE", label: "ANPR PLATE" },
-  { key: "LANE_ID", label: "LANE ID" },
-  { key: "LANE_TYPE", label: "LANE TYPE" },
-  { key: "DIRECTION", label: "DIRECTION" },
-  { key: "VEH_CLASS", label: "VEH CLASS" },
-  { key: "AVC_CLASS", label: "AVC CLASS" },
-];
-
-
-export default function TransactionReportFormTable({filters}) {
+export default function UPITable({filters}) {
   const dispatch = useDispatch()
 
   const {
@@ -42,13 +16,6 @@ export default function TransactionReportFormTable({filters}) {
 
   console.log(reportsData, "TABLE COMPONENT");
 
-  const filtersRef = useRef(filters)
-
-    useEffect(() => {
-    filtersRef.current = filters;
-  }, [filters]);
-
-
   /*---------------- Pagination Handlers ----------------*/
   const handleNext = () => {
     
@@ -57,7 +24,7 @@ export default function TransactionReportFormTable({filters}) {
 
     //We said to the backend give me data after this pointer or point 
     dispatch(fetchReports({
-       ...filtersRef.current,
+      ...filters,
       cursor: nextCursor,
     }))
   }
@@ -72,12 +39,22 @@ export default function TransactionReportFormTable({filters}) {
 
     //Calling to the backend give me the data before prevCursor 
     dispatch(fetchReports({
-      ...filtersRef.current,
+      ...filters,
       cursor: prevCursor,
       isBack:true
     }))
   }
 
+  /*------------------ Column Config ------------------------*/
+  const columns = [
+    { key: "REQUEST_ID", label: "REQUEST ID" },
+    { key: "VEH_PLATE", label: "VEH PLATE" },
+    { key: "VPA", label: "VPA" },
+    { key: "TERMINAL_ID", label: "TERMINAL ID" },
+    { key: "QR_TXN_ID", label: "QR TXN ID" },
+    { key: "TIMESTAMP", label: "TIMESTAMP" },
+    { key: "STATUS", label: "STATUS" },
+  ];
 
   /*------------------ loading ------------------------*/
 
@@ -100,7 +77,7 @@ export default function TransactionReportFormTable({filters}) {
           {/* LEFT */}
           <div className="p-4 ">
             <p className="font-bold">Total Transaction Count: {totalCount || 0} </p>
-            <p className="font-bold">Showing: {reportsData?.length || 0} Transaction Per Page</p>
+            <p className="font-bold">Showing: {reportsData.length || 0} Transaction Per Page</p>
           </div>
 
           {/* RIGHT */}
@@ -171,3 +148,4 @@ export default function TransactionReportFormTable({filters}) {
     </>
   );
 }
+

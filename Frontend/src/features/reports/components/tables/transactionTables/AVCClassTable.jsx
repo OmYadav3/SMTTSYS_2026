@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-export default function TCANPRPerformanceReportFormTable() {
+export default function AVCClassTable() {
 
   const {
     data: reportsData,
@@ -13,9 +13,12 @@ export default function TCANPRPerformanceReportFormTable() {
 
   /*------------------ Column Config ------------------------*/
   const columns = [
-    { key: "id", label: "ID" },
-    { key: "Type", label: "TYPE" },
-    { key: "value", label: "VALUE" },
+    { key: "AVCClass", label: "AVC CLASS" },
+    { key: "operatorClass", label: "OPERATOR CLASS" },
+    { key: "AVCClass", label: "AVC CLASS" },
+    { key: "matchPercent", label: "MATCH PERCENT" },
+    { key: "avcClassMisMatch", label: "AVC CLASS MISMATCH" },
+    { key: "misMatchPercent", label: "MISMATCH PERCENT" },
   ];
 
   /*------------------ loading ------------------------*/
@@ -79,4 +82,5 @@ export default function TCANPRPerformanceReportFormTable() {
     </>
   );
 }
+
 

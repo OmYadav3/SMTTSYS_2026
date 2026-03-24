@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-export default function AVCClassAccuracyReportformTable() {
+export default function ANPRTable() {
 
   const {
     data: reportsData,
@@ -13,12 +13,9 @@ export default function AVCClassAccuracyReportformTable() {
 
   /*------------------ Column Config ------------------------*/
   const columns = [
-    { key: "AVCClass", label: "AVC CLASS" },
-    { key: "operatorClass", label: "OPERATOR CLASS" },
-    { key: "AVCClass", label: "AVC CLASS" },
-    { key: "matchPercent", label: "MATCH PERCENT" },
-    { key: "avcClassMisMatch", label: "AVC CLASS MISMATCH" },
-    { key: "misMatchPercent", label: "MISMATCH PERCENT" },
+    { key: "id", label: "ID" },
+    { key: "Type", label: "TYPE" },
+    { key: "value", label: "VALUE" },
   ];
 
   /*------------------ loading ------------------------*/
@@ -82,5 +79,4 @@ export default function AVCClassAccuracyReportformTable() {
     </>
   );
 }
-
 

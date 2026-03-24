@@ -2,10 +2,12 @@ import Dropdown from '@/components/ui/Dropdown'
 import { DROPDOWN_FIELD } from '@/utils/constant'
 import React from 'react'
 
-const AVCLanewiseAccuracyReportForm = ({ handleInputChange }) => {
+const ANPRForm = ({ handleInputChange }) => {
   return (
      <div className="mt-4 grid grid-cols-4 gap-2 border-b pb-4 font-bold ">
-          {DROPDOWN_FIELD.slice(0,3).map((dropdown, index) => (
+
+          {/* DROPDOWN  */}
+          {DROPDOWN_FIELD.slice(0,7).map((dropdown, index) => (
             <Dropdown
               key={index}
               children={dropdown.label}
@@ -18,4 +20,5 @@ const AVCLanewiseAccuracyReportForm = ({ handleInputChange }) => {
   )
 }
 
-export default AVCLanewiseAccuracyReportForm
+
+export default ANPRForm

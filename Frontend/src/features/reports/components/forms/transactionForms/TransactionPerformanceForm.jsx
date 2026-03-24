@@ -2,11 +2,11 @@ import Dropdown from '@/components/ui/Dropdown'
 import { DROPDOWN_FIELD } from '@/utils/constant'
 import React from 'react'
 
-const TCANPRPerformanceReportForm = ({ handleInputChange }) => {
-  return (
-     <div className="mt-4 grid grid-cols-4 gap-2 border-b pb-4 font-bold ">
 
-          {/* DROPDOWN  */}
+const TransactionPerformanceForm = ({handleInputChange}) => {
+  return (
+    <div className="mt-4 grid grid-cols-4 gap-2 border-b pb-4 font-bold ">
+           {/* DROPDOWN  */}
           {DROPDOWN_FIELD.slice(0,7).map((dropdown, index) => (
             <Dropdown
               key={index}
@@ -20,5 +20,5 @@ const TCANPRPerformanceReportForm = ({ handleInputChange }) => {
   )
 }
 
+export default TransactionPerformanceForm
 
-export default TCANPRPerformanceReportForm

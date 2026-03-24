@@ -2,7 +2,7 @@ import Dropdown from '@/components/ui/Dropdown'
 import { DROPDOWN_FIELD } from '@/utils/constant'
 import React from 'react'
 
-const ExemptionDetailsReportForm = ({ handleInputChange }) => {
+const ExemptionForm = ({ handleInputChange }) => {
   return (
      <div className="mt-4 grid grid-cols-4 gap-2 border-b pb-4 font-bold ">
           {DROPDOWN_FIELD.slice(0,4).map((dropdown, index) => (
@@ -19,4 +19,4 @@ const ExemptionDetailsReportForm = ({ handleInputChange }) => {
 }
 
 
-export default ExemptionDetailsReportForm
+export default ExemptionForm
