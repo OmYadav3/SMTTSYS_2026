@@ -7,7 +7,8 @@ const initialState = {
   error: null,
 
   nextCursor: null,
-  prevStack: [], // for back navigation
+  currentCursor: null,   // ✅ track current page cursor
+  prevStack: [],  
 };
 
 const reportsSlice = createSlice({
@@ -28,13 +29,19 @@ const reportsSlice = createSlice({
         const usedCursor = action.meta.arg?.cursor;
         const isBack = action.meta.arg?.isBack;
 
-        // 👉 If coming from NEXT → push previous cursor
+        // ✅ HANDLE STACK LOGIC
         if (isBack) {
-          state.prevStack.pop(); // ✅ correct place
-        } else if (usedCursor) {
-          state.prevStack.push(usedCursor);
+          // 👉 Going back → remove last cursor
+          state.prevStack.pop();
+        } else {
+          // 👉 Going forward → store current cursor
+          if (state.currentCursor !== null) {
+            state.prevStack.push(state.currentCursor);
+          }
         }
 
+        // ✅ UPDATE STATE
+        state.currentCursor = usedCursor;
         state.data = data;
         state.nextCursor = pagination.nextCursor;
       })

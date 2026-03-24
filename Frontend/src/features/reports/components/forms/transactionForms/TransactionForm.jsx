@@ -20,9 +20,9 @@ const TransactionForm = ({ filters, handleInputChange }) => {
       ))}
 
       {/* DROPDOWN  */}
-      {DROPDOWN_FIELD.map((dropdown, index) => (
+      {DROPDOWN_FIELD.map((dropdown) => (
         <Dropdown
-          key={index}
+          key={dropdown.name}
           children={dropdown.label}
           size={dropdown.size}
           optionList={dropdown.optionList}

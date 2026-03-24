@@ -16,7 +16,6 @@ import DateTime from "@/components/ui/DateTime";
 const TransactionReport = () => {
   const dispatch = useDispatch();
   const { data, loading } = useSelector((state) => state.reports);
-  console.log(data)
 
   const initialFilters = {
     reportType: "",

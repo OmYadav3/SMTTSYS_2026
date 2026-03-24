@@ -3,7 +3,6 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchReports } from "../../../reportThunk";
 
-
 /*------------------ Column Config ------------------------*/
 const columns = [
   { key: "PLAZA_CODE", label: "PLAZA CODE" },
@@ -28,56 +27,57 @@ const columns = [
   { key: "AVC_CLASS", label: "AVC CLASS" },
 ];
 
-
-export default function TransactionTable({filters}) {
-  const dispatch = useDispatch()
+export default function TransactionTable({ filters }) {
+  const dispatch = useDispatch();
 
   const {
     data: reportsData,
     loading,
     nextCursor,
     prevStack,
-    totalCount
+    totalCount,
   } = useSelector((state) => state.reports);
 
   console.log(reportsData, "TABLE COMPONENT");
 
-  const filtersRef = useRef(filters)
+  const filtersRef = useRef(filters);
 
-    useEffect(() => {
+  useEffect(() => {
     filtersRef.current = filters;
   }, [filters]);
 
-
   /*---------------- Pagination Handlers ----------------*/
-  const handleNext = () => {
-    
-    // if last page is not exist
-    if (!nextCursor) return; 
 
-    //We said to the backend give me data after this pointer or point 
-    dispatch(fetchReports({
-       ...filtersRef.current,
-      cursor: nextCursor,
-    }))
-  }
+  const handleNext = () => {
+    // if last page is not exist
+    if (!nextCursor) return;
+
+    //We said to the backend give me data after this pointer or point
+    dispatch(
+      fetchReports({
+        ...filtersRef.current,
+        cursor: nextCursor,
+        isBack: false,
+      }),
+    );
+  };
 
   const handlePrev = () => {
-
     // If page is not exist like you are on the first page
     if (prevStack.length === 0) return;
 
-    // Take page from prevStack 
-    const prevCursor = prevStack[prevStack.length -1];
+    // Take page from prevStack
+    const prevCursor = prevStack[prevStack.length - 1];
 
-    //Calling to the backend give me the data before prevCursor 
-    dispatch(fetchReports({
-      ...filtersRef.current,
-      cursor: prevCursor,
-      isBack:true
-    }))
-  }
-
+    //Calling to the backend give me the data before prevCursor
+    dispatch(
+      fetchReports({
+        ...filtersRef.current,
+        cursor: prevCursor,
+        isBack: true,
+      }),
+    );
+  };
 
   /*------------------ loading ------------------------*/
 
@@ -92,15 +92,17 @@ export default function TransactionTable({filters}) {
   return (
     <>
       <div className="overflow-auto rounded-xl border">
-
         {/*--------------- PAGINATION SETUP------------------- */}
 
         <div className="flex items-center justify-between">
-
           {/* LEFT */}
           <div className="p-4 ">
-            <p className="font-bold">Total Transaction Count: {totalCount || 0} </p>
-            <p className="font-bold">Showing: {reportsData?.length || 0} Transaction Per Page</p>
+            <p className="font-bold">
+              Total Transaction Count: {totalCount || 0}{" "}
+            </p>
+            <p className="font-bold">
+              Showing: {reportsData?.length || 0} Transaction Per Page
+            </p>
           </div>
 
           {/* RIGHT */}
@@ -114,10 +116,11 @@ export default function TransactionTable({filters}) {
               <ChevronLeft />
               Prev
             </button>
-            <button 
+            <button
               onClick={handleNext}
               disabled={!nextCursor}
-              className="flex items-center justify-center border pl-3 pr-2 py-2 text- rounded-md cursor-pointer hover:scale-103 hover:text-blue-600 duration-200">
+              className="flex items-center justify-center border pl-3 pr-2 py-2 text- rounded-md cursor-pointer hover:scale-103 hover:text-blue-600 duration-200"
+            >
               Next
               <ChevronRight className="" />
             </button>

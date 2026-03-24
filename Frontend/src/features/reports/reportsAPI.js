@@ -5,7 +5,7 @@ export const fetchReportAPI = async (params = {}) => {
     const { data } = await axiosInstance.get("/report/get", {
       params,
     });
-    console.log(data, "FULL API RESPONSE");
+    // console.log(data, "FULL API RESPONSE");
 
     return data; // ✅ return full response
   } catch (error) {

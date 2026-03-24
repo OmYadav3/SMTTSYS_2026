@@ -9,7 +9,6 @@ export const getReports = async (filters) => {
       if (!fromDate || !toDate) {
          throw new Error("Date range required");
       }
-      console.log(restFilters.laneId, "LANE_ID");
 
       const pool = await poolPromise;
       const request = pool.request();
@@ -29,7 +28,8 @@ export const getReports = async (filters) => {
         AVC_CLASS,
         ENCODED_DATE
       FROM [AFSGantry].[dbo].[TBL_SLAVE_TRANS]
-      WHERE ENCODED_DATE BETWEEN @fromDate AND @toDate
+      WHERE ENCODED_DATE >= @fromDate 
+      AND ENCODED_DATE < DATEADD(day, 1, @toDate)
     `;
 
       // ✅ Required params
@@ -39,14 +39,19 @@ export const getReports = async (filters) => {
 
       // 🔥 Cursor Pagination
       if (cursor) {
-         const decoded = decodeCursor(cursor) 
+         const decoded = decodeCursor(cursor);
 
          query += `
-        AND (
-          CCH_TRANS_ID < @cursorDate
-          OR (CCH_TRANS_ID < @cursorId)
-        )
-      `;
+   AND (
+      ENCODED_DATE < @cursorDate
+      OR (
+         ENCODED_DATE = @cursorDate
+         AND CCH_TRANS_ID < @cursorId
+      )
+   )
+   `;
+
+         request.input("cursorDate", sql.DateTime, decoded.encodedDate);
          request.input("cursorId", sql.VarChar, decoded.cchTxnId);
       }
 
@@ -98,24 +103,13 @@ export const getReports = async (filters) => {
          const last = rows[rows.length - 1];
 
          nextCursor = encodeCursor({
+            encodedDate: last.ENCODED_DATE,
             cchTxnId: last.CCH_TRANS_ID,
          });
       }
 
       const hasMore = rows.length === limit;
 
-      console.log({
-         data: rows,
-         pagination: {
-            type: "cursor",
-            limit,
-            nextCursor,
-            prevCursor: null,
-            hasMore,
-            totalCount: null,
-         },
-      })
-      
       return {
          data: rows,
          pagination: {
