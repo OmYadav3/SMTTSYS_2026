@@ -1,4 +1,5 @@
 import * as reportRepo from "../repositories/report.repository.js";
+import { getSumarryReports } from "../repositories/report.repository.js";
 
 export const getReports = async (filters) => {
    /* 
@@ -23,4 +24,15 @@ export const getReports = async (filters) => {
       // ✅ IMPORTANT
       throw error;
    }
+};
+
+
+
+export const getSummaryReportService = async (filters) => {
+   const data = await getSumarryReports(filters);
+
+   return {
+      data: data.data,
+      pagination: data.pagination
+   };
 };

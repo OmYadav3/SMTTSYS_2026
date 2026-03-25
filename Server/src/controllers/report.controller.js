@@ -1,4 +1,5 @@
 import * as reportService from "../services/report.service.js";
+import { getSummaryReportService } from "../services/report.service.js";
 
 export const getReports = async (req, res) => {
    try {
@@ -19,6 +20,27 @@ export const getReports = async (req, res) => {
       return res.status(500).json({
          success: false,
          message: "Failed to fetch reports",
+      });
+   }
+};
+
+export const getSummaryReport = async (req, res) => {
+   try {
+      const filters = req.query;
+
+      const result = await getSummaryReportService(filters);
+
+      res.json({
+         success: true,
+         ...result
+      });
+
+   } catch (error) {
+      console.error(error.message);
+
+      res.status(500).json({
+         success: false,
+         message: error.message
       });
    }
 };

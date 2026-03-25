@@ -126,3 +126,93 @@ export const getReports = async (filters) => {
       throw new Error("Failed to fetch Reports");
    }
 };
+
+
+export const getSumarryReports = async (filters) => {
+   try {
+      const { fromDate, toDate, page = 1, limit = 10, ...restFilters } = filters;
+
+      console.log(filters, "Filters")
+
+      if (!fromDate || !toDate) {
+         throw new Error("Date range required ");
+      }
+
+      const offset = (page - 1) * limit;
+
+      const pool = await poolPromise;
+      const request = pool.request();
+
+      let query = `
+      SELECT
+         PAYMENT_TYPE,
+
+         SUM(CASE WHEN VEH_CLASS = 'CAR' THEN 1 ELSE 0 END) AS [CAR / JEEP / VAN],
+         SUM(CASE WHEN VEH_CLASS = 'LCV' THEN 1 ELSE 0 END) AS [LCV / MINIBUS],
+         SUM(CASE WHEN VEH_CLASS = 'BUS' THEN 1 ELSE 0 END) AS [BUS (2 AXLES)],
+         SUM(CASE WHEN VEH_CLASS = 'TRUCK' THEN 1 ELSE 0 END) AS [TRUCK (2 AXLES)],
+
+         COUNT(*) AS [Total Vehicles]
+
+      FROM trafficReport
+      WHERE PASSING_TIME >= @fromDate
+      AND PASSING_TIME <= @toDate
+      `;
+
+      // ✅ Required params
+      request.input("fromDate", sql.DateTime, fromDate);
+      request.input("toDate", sql.DateTime, toDate);
+
+      // ✅ Optional filters
+      if (restFilters.laneId) {
+         query += ` AND LANE_ID = @laneId`;
+         request.input("laneId", sql.VarChar, restFilters.laneId);
+      }
+
+      if (restFilters.laneType) {
+         query += ` AND LANE_TYPE = @laneType`;
+         request.input("laneType", sql.VarChar, restFilters.laneType);
+      }
+
+      if (restFilters.vehClass) {
+         query += ` AND VEH_CLASS = @vehClass`;
+         request.input("vehClass", sql.VarChar, restFilters.vehClass);
+      }
+
+      if (restFilters.plate) {
+         query += ` AND VEH_PLATE LIKE @plate`;
+         request.input("plate", sql.VarChar, `%${restFilters.plate}%`);
+      }
+
+      if (restFilters.txnId) {
+         query += ` AND CCH_TRANS_ID = @txnId`;
+         request.input("txnId", sql.VarChar, restFilters.txnId);
+      }
+
+      // ✅ GROUP + PAGINATION
+      query += `
+      GROUP BY PAYMENT_TYPE
+      ORDER BY PAYMENT_TYPE
+      OFFSET @offset ROWS
+      FETCH NEXT @limit ROWS ONLY
+      `;
+
+      request.input("offset", sql.Int, offset);
+      request.input("limit", sql.Int, limit);
+
+      const result = await request.query(query);
+
+      return {
+         data: result.recordset,
+         pagination: {
+            page,
+            limit,
+            offset
+         }
+      };
+
+   } catch (error) {
+      console.error("Summary Error:", error.message);
+      throw new Error("Failed to fetch summary report");
+   }
+};
