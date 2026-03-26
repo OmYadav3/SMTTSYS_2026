@@ -16,6 +16,8 @@
     "ag-grid-react": "^35.1.0",
     "axios": "^1.13.5",
     "file-saver": "^2.0.5",
+    "jspdf": "^4.2.1",
+    "jspdf-autotable": "^5.0.7",
     "lucide-react": "^0.563.0",
     "path": "^0.12.7",
     "react": "^19.2.0",

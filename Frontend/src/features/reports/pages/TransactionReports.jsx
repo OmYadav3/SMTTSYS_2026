@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { exportToExcel } from "../utils/exportToExcel.js";
+import { exportToPDF } from "../utils/exportToPDF.js";
 
 /*------------ REUSABLE COMPONENTS------------*/
 import { fetchReports } from "../reportThunk";
@@ -59,6 +60,14 @@ const TransactionReport = () => {
     exportToExcel(data, "Transaction_Report.xlsx");
     console.log("Download Excel File")
   };
+  
+   const handlePDFDownload = () => {
+    if (!data || data.length === 0 ) {
+      alert("No Transaction Data")
+    }
+    exportToPDF(data, "Transaction_Report.pdf");
+    console.log("Download PDF File")
+  };
 
   return (
     <div className="mt-4 p-4 rounded border w-full ">
@@ -116,7 +125,7 @@ const TransactionReport = () => {
           size={"md"}
           children={"Generate PDF Report"}
           icon={"File"}
-          // onClick={tableHandler}
+          onClick={handlePDFDownload}
         />
         <Button
           color={"success"}
