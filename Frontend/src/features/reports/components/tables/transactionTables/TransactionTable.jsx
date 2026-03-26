@@ -36,7 +36,7 @@ export default function TransactionTable({ filters }) {
     nextCursor,
     prevStack,
     totalCount,
-  } = useSelector((state) => state.reports);
+  } = useSelector((state) => state.reports.transactions);
 
   console.log(reportsData, "TABLE COMPONENT");
 
@@ -109,7 +109,7 @@ export default function TransactionTable({ filters }) {
           <div className=" p-4 flex justify-between items-center gap-4 ">
             <button
               onClick={handlePrev}
-              disabled={prevStack.length === 0}
+              // disabled={prevStack.length === 0}
               className="flex items-center justify-center border pr-3 pl-2 py-2 text- rounded-md cursor-pointer hover:scale-103 hover:text-blue-600 duration-200 
             "
             >

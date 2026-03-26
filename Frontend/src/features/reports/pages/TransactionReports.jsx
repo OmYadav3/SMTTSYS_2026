@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { exportToExcel } from "../utils/exportToExcel.js";
 
 /*------------ REUSABLE COMPONENTS------------*/
 import { fetchReports } from "../reportThunk";
@@ -15,7 +16,8 @@ import DateTime from "@/components/ui/DateTime";
 
 const TransactionReport = () => {
   const dispatch = useDispatch();
-  const { data, loading } = useSelector((state) => state.reports);
+  const { data, loading } = useSelector((state) => state.reports.transactions);
+  console.log(data, "DATA")
 
   const initialFilters = {
     reportType: "",
@@ -48,6 +50,14 @@ const TransactionReport = () => {
     }
 
     dispatch(fetchReports(filters));
+  };
+
+   const handleExcelDownload = () => {
+    if (!data || data.length === 0 ) {
+      alert("No Transaction Data")
+    }
+    exportToExcel(data, "Transaction_Report.xlsx");
+    console.log("Download Excel File")
   };
 
   return (
@@ -113,7 +123,7 @@ const TransactionReport = () => {
           size={"md"}
           children={"Generate Excel Report"}
           icon={"excel"}
-          // onClick={tableHandler}
+          onClick={handleExcelDownload}
         />
       </div>
 
