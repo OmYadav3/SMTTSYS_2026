@@ -33,6 +33,5 @@ export const getSummaryReportService = async (filters) => {
 
    return {
       data: data.data,
-      pagination: data.pagination
    };
 };

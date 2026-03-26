@@ -13,3 +13,16 @@ export const fetchReportAPI = async (params = {}) => {
     throw error;
   }
 };
+
+export const fetchSummaryReportAPI = async (params ={}) => {
+  try {
+    const { data } = await axiosInstance.get("/report/summary", {
+      params,
+    } )
+
+    return data;
+  } catch (error) {
+    console.error("API Error :", error.response?.data || error.message);
+    throw error;
+  }
+}

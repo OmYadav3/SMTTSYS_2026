@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { fetchReportAPI } from "./reportsAPI.js";
+import { fetchReportAPI, fetchSummaryReportAPI } from "./reportsAPI.js";
 
 export const fetchReports = createAsyncThunk(
     "reports/fetchReports",
@@ -11,6 +11,19 @@ export const fetchReports = createAsyncThunk(
 
         } catch (error) {
             return rejectWithValue(error.response?.message || "failed to fetch reports");
+        }
+    }
+)
+
+export const getSummaryReports = createAsyncThunk(
+    "/report/getSummary",
+    async(filters, { rejectWithValue }) => {
+        try {
+            const data = await fetchSummaryReportAPI(filters);
+            
+            return data;
+        } catch (error) {
+            return rejectWithValue(error.response?.message || "Failed to fetch summary")
         }
     }
 )

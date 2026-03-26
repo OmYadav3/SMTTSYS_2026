@@ -130,15 +130,14 @@ export const getReports = async (filters) => {
 
 export const getSumarryReports = async (filters) => {
    try {
-      const { fromDate, toDate, page = 1, limit = 10, ...restFilters } = filters;
+      const { fromDate, toDate, ...restFilters } = filters;
 
-      console.log(filters, "Filters")
+      console.log(filters, "Filters");
 
+      // ✅ Validation
       if (!fromDate || !toDate) {
-         throw new Error("Date range required ");
+         throw new Error("Date range required");
       }
-
-      const offset = (page - 1) * limit;
 
       const pool = await poolPromise;
       const request = pool.request();
@@ -154,9 +153,9 @@ export const getSumarryReports = async (filters) => {
 
          COUNT(*) AS [Total Vehicles]
 
-      FROM trafficReport
+      FROM [AFSGantry].[dbo].[TBL_SLAVE_TRANS]
       WHERE PASSING_TIME >= @fromDate
-      AND PASSING_TIME <= @toDate
+      AND PASSING_TIME < DATEADD(DAY, 1, @toDate)
       `;
 
       // ✅ Required params
@@ -164,51 +163,41 @@ export const getSumarryReports = async (filters) => {
       request.input("toDate", sql.DateTime, toDate);
 
       // ✅ Optional filters
-      if (restFilters.laneId) {
+      if (restFilters.laneId?.trim()) {
          query += ` AND LANE_ID = @laneId`;
          request.input("laneId", sql.VarChar, restFilters.laneId);
       }
 
-      if (restFilters.laneType) {
+      if (restFilters.laneType?.trim()) {
          query += ` AND LANE_TYPE = @laneType`;
          request.input("laneType", sql.VarChar, restFilters.laneType);
       }
 
-      if (restFilters.vehClass) {
+      if (restFilters.vehClass?.trim()) {
          query += ` AND VEH_CLASS = @vehClass`;
          request.input("vehClass", sql.VarChar, restFilters.vehClass);
       }
 
-      if (restFilters.plate) {
+      if (restFilters.plate?.trim()) {
          query += ` AND VEH_PLATE LIKE @plate`;
          request.input("plate", sql.VarChar, `%${restFilters.plate}%`);
       }
 
-      if (restFilters.txnId) {
+      if (restFilters.txnId?.trim()) {
          query += ` AND CCH_TRANS_ID = @txnId`;
          request.input("txnId", sql.VarChar, restFilters.txnId);
       }
 
-      // ✅ GROUP + PAGINATION
+      // ✅ GROUP BY (NO PAGINATION)
       query += `
       GROUP BY PAYMENT_TYPE
       ORDER BY PAYMENT_TYPE
-      OFFSET @offset ROWS
-      FETCH NEXT @limit ROWS ONLY
       `;
-
-      request.input("offset", sql.Int, offset);
-      request.input("limit", sql.Int, limit);
 
       const result = await request.query(query);
 
       return {
-         data: result.recordset,
-         pagination: {
-            page,
-            limit,
-            offset
-         }
+         data: result.recordset
       };
 
    } catch (error) {
