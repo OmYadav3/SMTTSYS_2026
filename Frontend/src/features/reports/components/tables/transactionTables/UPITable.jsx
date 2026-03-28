@@ -2,6 +2,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchReports } from "../../../reportThunk";
+import { UPIcolumns } from "@/features/reports/config/tableConfigs/UPIConfig";
 
 export default function UPITable({filters}) {
   const dispatch = useDispatch()
@@ -45,16 +46,7 @@ export default function UPITable({filters}) {
     }))
   }
 
-  /*------------------ Column Config ------------------------*/
-  const columns = [
-    { key: "REQUEST_ID", label: "REQUEST ID" },
-    { key: "VEH_PLATE", label: "VEH PLATE" },
-    { key: "VPA", label: "VPA" },
-    { key: "TERMINAL_ID", label: "TERMINAL ID" },
-    { key: "QR_TXN_ID", label: "QR TXN ID" },
-    { key: "TIMESTAMP", label: "TIMESTAMP" },
-    { key: "STATUS", label: "STATUS" },
-  ];
+
 
   /*------------------ loading ------------------------*/
 
@@ -103,47 +95,7 @@ export default function UPITable({filters}) {
 
         {/*--------------- TABLE SETUP------------------- */}
 
-        <table className="w-full text-sm">
-          {/* ⭐ Header */}
-          <thead className="bg-blue-400/60 text-white">
-            <tr>
-              {columns.map((col) => (
-                <th key={col.key} className="p-4 border-r whitespace-nowrap">
-                  {col.label}
-                </th>
-              ))}
-            </tr>
-          </thead>
-
-          {/* ⭐ Body */}
-          <tbody>
-            {reportsData?.length > 0 ? (
-              reportsData.map((row, rowIndex) => (
-                <tr key={row.id || rowIndex} className="hover:text-gray-100 ">
-                  {columns.map((col) => (
-                    <td
-                      key={col.key}
-                      className="p-2 text-center border-t hover:scale-x-103"
-                    >
-                      {col.render
-                        ? col.render(row[col.key], row)
-                        : (row[col.key] ?? "-")}
-                    </td>
-                  ))}
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td
-                  colSpan={columns.length}
-                  className="p-10 text-center text-xl font-semibold"
-                >
-                  Data Not Found
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+         <DynamicTable columns={UPIcolumns} data={reportsData} />
       </div>
     </>
   );

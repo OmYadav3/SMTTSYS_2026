@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchReports } from "../../../reportThunk";
@@ -21,6 +21,8 @@ export default function TransactionTable({ filters }) {
 
   console.log(reportsData, "TABLE COMPONENT");
 
+  const [page, setPage] = useState(1);
+
   const filtersRef = useRef(filters);
 
   useEffect(() => {
@@ -32,6 +34,8 @@ export default function TransactionTable({ filters }) {
   const handleNext = () => {
     // if last page is not exist
     if (!nextCursor) return;
+
+     setPage((prev) => prev + 1); // ✅ increase page
 
     //We said to the backend give me data after this pointer or point
     dispatch(
@@ -50,6 +54,8 @@ export default function TransactionTable({ filters }) {
     // Take page from prevStack
     const prevCursor = prevStack[prevStack.length - 1];
 
+      setPage((prev) => Math.max(prev - 1, 1)); // ✅ decrease page safely
+
     //Calling to the backend give me the data before prevCursor
     dispatch(
       fetchReports({
@@ -64,7 +70,7 @@ export default function TransactionTable({ filters }) {
 
   if (loading) {
     return (
-      <div className="p-10 text-center text-xl font-semibold">
+      <div className="p-10 text-center text-2xl ">
         Loading Data...
       </div>
     );
@@ -97,6 +103,10 @@ export default function TransactionTable({ filters }) {
               <ChevronLeft />
               Prev
             </button>
+
+             {/* ✅ PAGE NUMBER */}
+              <span className="font-bold text-lg">{page}</span>
+
             <button
               onClick={handleNext}
               disabled={!nextCursor}
